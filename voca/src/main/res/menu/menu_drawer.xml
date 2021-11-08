@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/menu_drawer_editAccountInformation"
+        android:icon="@drawable/ic_outline_account_circle_24"
+        android:title="회원정보 수정" />
+
+    <item
+        android:id="@+id/menu_drawer_notice"
+        android:icon="?android:attr/alertDialogIcon"
+        android:title="공지사항" />
+
+    <item
+        android:id="@+id/menu_drawer_goalSetting"
+        android:icon="@drawable/ic_baseline_flag_24"
+        android:title="목표설정"
+        android:checkable="true"/>
+
+
+    <item
+        android:id="@+id/menu_drawer_darkMode"
+        android:icon="@drawable/ic_baseline_brightness_6_24"
+        android:title="다크모드"
+        app:actionLayout="@layout/action_dark_mode"/>
+
+    <item
+        android:id="@+id/menu_drawer_pushAlert"
+        android:icon="@android:drawable/ic_popup_reminder"
+        android:title="푸쉬알림"
+        app:actionLayout="@layout/action_push_alert"/>
+
+    <item
+        android:id="@+id/menu_drawer_logout"
+        android:icon="@drawable/ic_baseline_no_accounts_24"
+        android:title="로그아웃" />
+
+</menu>

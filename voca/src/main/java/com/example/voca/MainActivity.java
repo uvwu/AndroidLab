@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
          }*/;
         // Set the drawer toggle as the DrawerListener.
         drawerLayout.addDrawerListener(toggle); // If omitted, the toggle icon is not changed.
-
+        //다크모드 이벤트처리
         darkModeSwitch=(SwitchCompat) navigationView.getMenu().findItem(R.id.menu_drawer_darkMode).getActionView().findViewById(R.id.switch_dark_mode);
         darkModeSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -53,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
                 else showToast("checked");
             }
         });
+        //푸쉬알림 이벤트처리
         pushAlertSwitch=(SwitchCompat) navigationView.getMenu().findItem(R.id.menu_drawer_pushAlert).getActionView().findViewById(R.id.switch_push_alert);
         pushAlertSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override

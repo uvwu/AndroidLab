@@ -117,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
         toggle.syncState();
     }
     private void showToast(String message) {
-        Toast toast = Toast.makeText(this, message, Toast.LENGTH_SHORT);
+        Toast toast = Toast.makeText(this, message,Toast.LENGTH_SHORT);
         toast.show();
     }
 }

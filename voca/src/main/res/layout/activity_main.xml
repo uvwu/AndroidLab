@@ -2,24 +2,105 @@
 <!-- Use DrawerLayout as root container for activity -->
 <androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_drawer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
     <!-- Layout to contain contents of main body of screen (drawer will slide over this) -->
     <RelativeLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <TextView
+            android:id="@+id/text_main"
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="USER님의 목표 달성률"
+            android:textSize="30dp"
+            android:textStyle="bold"/>
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:text="Main"
-            android:textSize="30sp"
-            android:textStyle="bold" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="60dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:scrollbarThumbVertical="@color/theme"
+            android:scrollbarSize="5dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:gravity="center">
+                <TextView
+                    android:textColor="@color/theme"
+                    android:layout_marginTop="10dp"
+                    android:text="오늘"
+                    android:textStyle="bold"
+                    android:textSize="20dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                <com.dinuscxj.progressbar.CircleProgressBar
+                    android:layout_marginTop="10dp"
+                    android:id="@+id/circle_bar"
+                    android:layout_width="300dp"
+                    android:layout_height="300dp"
+                    app:progress_end_color="#E65100"
+                    app:progress_stroke_cap="round"
+                    app:progress_stroke_width="20dp "
+                    app:progress_style="solid_line"
+                    app:progress_text_size="50sp"/>
+
+                <TextView
+                    android:textColor="@color/theme"
+                    android:gravity="center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="60dp"
+                    android:textSize="18dp"
+                    android:text="14/20" />
+
+
+                <TextView
+                    android:textColor="@color/theme"
+                    android:paddingTop="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="지난 20일"
+                    android:textStyle="bold"
+                    android:textSize="20dp"/>
+
+                <HorizontalScrollView
+                    android:id="@+id/horizon_scroll"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scrollbarThumbHorizontal="@color/theme"
+                    android:scrollbarSize="5dp">
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <com.github.mikephil.charting.charts.BarChart
+                            android:id="@+id/bar_chart"
+                            android:layout_width="800dp"
+                            android:layout_height="400dp" />
+                    </LinearLayout>
+                </HorizontalScrollView>
+
+                <View
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp" />
+
+            </LinearLayout>
+        </ScrollView>
+
 
         <Button
+            android:id="@+id/learning_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"

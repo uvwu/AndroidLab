@@ -14,8 +14,7 @@
     <item
         android:id="@+id/menu_drawer_goalSetting"
         android:icon="@drawable/ic_baseline_flag_24"
-        android:title="목표설정"
-        android:checkable="true"/>
+        android:title="목표설정" />
 
 
     <item

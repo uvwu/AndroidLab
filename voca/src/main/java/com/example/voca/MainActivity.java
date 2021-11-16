@@ -112,26 +112,6 @@ public class MainActivity extends AppCompatActivity {
         weekChart.invalidate();
 
 
-
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         //단어 학습하기 버튼 이벤트 처리하는 곳
         Button learningBtn=findViewById(R.id.learning_btn);
         learningBtn.setOnClickListener(new View.OnClickListener() {
@@ -142,8 +122,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        //여기서부터 NavigationView code//
-
+        /*---여기서부터 NavigationView code---*/
         // drawer icon 보이게 하기
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -168,7 +147,7 @@ public class MainActivity extends AppCompatActivity {
         drawerLayout.addDrawerListener(toggle); // If omitted, the toggle icon is not changed.
 
 
-        //로그아웃 클릭시 보여줄 dialog, 여기서 이벤트처리함/
+        //로그아웃 클릭시 보여줄 dialog + 이벤트처리/
         DialogInterface.OnClickListener dialogListener=new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {

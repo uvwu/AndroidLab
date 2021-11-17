@@ -6,6 +6,7 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.HorizontalScrollView;
@@ -44,12 +45,21 @@ public class MainActivity extends AppCompatActivity {
     private SwitchCompat pushAlertSwitch;//푸쉬알림 스위치 버튼
 
     AlertDialog alertDialog;//로그아웃시 띄울 다이얼로그
-    private Object ArrayList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+        Button testBtn=findViewById(R.id.btn_test);
+        testBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this,vocaListActivity.class));
+            }
+        });
 
         //일일 기록
         CircleProgressBar dailyChart=findViewById(R.id.circle_bar);
@@ -127,7 +137,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        /*---여기서부터 NavigationView code---*/
+        /*---------------------여기서부터 NavigationView code---------------------*/
         // drawer icon 보이게 하기
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 

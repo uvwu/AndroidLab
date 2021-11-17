@@ -18,6 +18,11 @@ import androidx.appcompat.widget.SwitchCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.dinuscxj.progressbar.CircleProgressBar;
+import com.example.voca.drawerActivity.darkModeActivity;
+import com.example.voca.drawerActivity.editAccountActivity;
+import com.example.voca.drawerActivity.goalSettingActivity;
+import com.example.voca.drawerActivity.noticeActivity;
+import com.example.voca.drawerActivity.pushAlertActivity;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
@@ -164,23 +169,23 @@ public class MainActivity extends AppCompatActivity {
                 id = item.getItemId();
                 switch (id) {
                     case R.id.menu_drawer_editAccountInformation:
-                        Intent intent1=new Intent(MainActivity.this,editAccountActivity.class);
+                        Intent intent1=new Intent(MainActivity.this, editAccountActivity.class);
                         startActivity(intent1);
                         break;
                     case R.id.menu_drawer_notice:
-                        Intent intent2=new Intent(MainActivity.this,noticeActivity.class);
+                        Intent intent2=new Intent(MainActivity.this, noticeActivity.class);
                         startActivity(intent2);
                         break;
                     case R.id.menu_drawer_goalSetting:
-                        Intent intent3=new Intent(MainActivity.this,goalSettingActivity.class);
+                        Intent intent3=new Intent(MainActivity.this, goalSettingActivity.class);
                         startActivity(intent3);
                         break;
                     case R.id.menu_drawer_darkMode:
-                        Intent intent4=new Intent(MainActivity.this,darkModeActivity.class);
+                        Intent intent4=new Intent(MainActivity.this, darkModeActivity.class);
                         startActivity(intent4);
                         break;
                     case R.id.menu_drawer_pushAlert:
-                        Intent intent5=new Intent(MainActivity.this,pushAlertActivity.class);
+                        Intent intent5=new Intent(MainActivity.this, pushAlertActivity.class);
                         startActivity(intent5);
                         break;
                     case R.id.menu_drawer_logout:

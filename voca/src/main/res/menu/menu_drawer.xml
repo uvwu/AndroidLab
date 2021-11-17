@@ -26,7 +26,7 @@
     <item
         android:id="@+id/menu_drawer_pushAlert"
         android:icon="@android:drawable/ic_popup_reminder"
-        android:title="푸쉬알림"
+        android:title="푸시알림"
         app:actionLayout="@layout/action_push_alert"/>
 
     <item

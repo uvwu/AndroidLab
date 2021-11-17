@@ -1,15 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_height="match_parent"
-    tools:context=".goalSettingActivity">
+    android:layout_width="match_parent"
+    android:orientation="vertical">
 
     <TextView
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center"
+        android:textSize="26dp"
+        android:text="오늘의 목표치를 입력해주세요."
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="목표설정"
-        tools:ignore="MissingConstraints" />
+        android:textStyle="bold"/>
+    <TextView
+        android:id="@+id/goal_now_text"
+        android:textColor="@color/themeDeep"
+        android:layout_marginTop="100dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="40dp"
+        android:layout_gravity="center"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <LinearLayout
+        android:layout_gravity="center_vertical"
+        android:layout_marginTop="100dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <EditText
+            android:id="@+id/goal_text"
+            android:layout_marginLeft="100dp"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:inputType="number" />
+        <Button
+            android:id="@+id/goal_btn"
+            android:text="저장"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:onClick="onButtonClick"/>
+
+
+    </LinearLayout>
+
+</LinearLayout>

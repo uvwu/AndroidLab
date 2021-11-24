@@ -4,12 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".drawerActivity.EditAccountActivity">
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="회원정보 수정"
-        tools:ignore="MissingConstraints" />
+    tools:context=".Memorize.MemorizeActivity">
 
 </androidx.constraintlayout.widget.ConstraintLayout>

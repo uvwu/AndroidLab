@@ -13,7 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.voca.R;
 
-public class goalSettingActivity extends AppCompatActivity {
+public class GoalSettingActivity extends AppCompatActivity {
 
     int goalNow;//현재 목표
     AlertDialog alertDialog;// 목표 수정시 띄울 다이얼로그
@@ -50,7 +50,7 @@ public class goalSettingActivity extends AppCompatActivity {
         goalBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder builder=new AlertDialog.Builder(goalSettingActivity.this);
+                AlertDialog.Builder builder=new AlertDialog.Builder(GoalSettingActivity.this);
                 builder.setMessage("정말 변경하시겠습니까?");
                 builder.setPositiveButton("OK",dialogListener);
                 builder.setNegativeButton("No",dialogListener);

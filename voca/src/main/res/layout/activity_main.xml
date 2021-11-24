@@ -60,6 +60,7 @@
                     app:progress_text_size="50sp"/>
 
                 <TextView
+                    android:id="@+id/day_record"
                     android:textColor="@color/theme"
                     android:gravity="center_vertical"
                     android:layout_width="wrap_content"

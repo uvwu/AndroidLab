@@ -5,6 +5,7 @@
         <item name="colorPrimary">@color/theme1</item>
         <item name="colorPrimaryVariant">#232F34</item>
         <item name="colorOnPrimary">@color/theme</item>
+        <item name="android:windowBackground">@color/theme1</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/theme</item>
         <item name="colorSecondaryVariant">@color/theme</item>

@@ -10,6 +10,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.HorizontalScrollView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -19,11 +20,11 @@ import androidx.appcompat.widget.SwitchCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.dinuscxj.progressbar.CircleProgressBar;
-import com.example.voca.drawerActivity.darkModeActivity;
-import com.example.voca.drawerActivity.editAccountActivity;
-import com.example.voca.drawerActivity.goalSettingActivity;
-import com.example.voca.drawerActivity.noticeActivity;
-import com.example.voca.drawerActivity.pushAlertActivity;
+import com.example.voca.drawerActivity.DarkModeActivity;
+import com.example.voca.drawerActivity.EditAccountActivity;
+import com.example.voca.drawerActivity.GoalSettingActivity;
+import com.example.voca.drawerActivity.NoticeActivity;
+import com.example.voca.drawerActivity.PushAlertActivity;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
@@ -46,10 +47,15 @@ public class MainActivity extends AppCompatActivity {
 
     AlertDialog alertDialog;//로그아웃시 띄울 다이얼로그
 
+    String themeColor;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        themeColor = DarkModeUtil.modLoad(getApplicationContext());
+        DarkModeUtil.applyTheme(themeColor);
 
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
@@ -57,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
         testBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this,vocaListActivity.class));
+                startActivity(new Intent(MainActivity.this, VocaListActivity.class));
             }
         });
 
@@ -66,7 +72,8 @@ public class MainActivity extends AppCompatActivity {
         int goal=20;
         int achivement=16;
         dailyChart.setProgress((int)((float)achivement/goal*100));
-
+        TextView dayRecord=findViewById(R.id.day_record);
+        dayRecord.setText(achivement+"/"+goal);
         //주간 기록 보여줄 수평 스크롤뷰
         HorizontalScrollView horizonScroll=findViewById(R.id.horizon_scroll);
         //왼쪽방향으로 스크롤 되게 하기
@@ -179,23 +186,23 @@ public class MainActivity extends AppCompatActivity {
                 id = item.getItemId();
                 switch (id) {
                     case R.id.menu_drawer_editAccountInformation:
-                        Intent intent1=new Intent(MainActivity.this, editAccountActivity.class);
+                        Intent intent1=new Intent(MainActivity.this, EditAccountActivity.class);
                         startActivity(intent1);
                         break;
                     case R.id.menu_drawer_notice:
-                        Intent intent2=new Intent(MainActivity.this, noticeActivity.class);
+                        Intent intent2=new Intent(MainActivity.this, NoticeActivity.class);
                         startActivity(intent2);
                         break;
                     case R.id.menu_drawer_goalSetting:
-                        Intent intent3=new Intent(MainActivity.this, goalSettingActivity.class);
+                        Intent intent3=new Intent(MainActivity.this, GoalSettingActivity.class);
                         startActivity(intent3);
                         break;
                     case R.id.menu_drawer_darkMode:
-                        Intent intent4=new Intent(MainActivity.this, darkModeActivity.class);
+                        Intent intent4=new Intent(MainActivity.this, DarkModeActivity.class);
                         startActivity(intent4);
                         break;
                     case R.id.menu_drawer_pushAlert:
-                        Intent intent5=new Intent(MainActivity.this, pushAlertActivity.class);
+                        Intent intent5=new Intent(MainActivity.this, PushAlertActivity.class);
                         startActivity(intent5);
                         break;
                     case R.id.menu_drawer_logout:
@@ -215,12 +222,23 @@ public class MainActivity extends AppCompatActivity {
 
         //다크모드 이벤트처리
         darkModeSwitch=(SwitchCompat) navigationView.getMenu().findItem(R.id.menu_drawer_darkMode).getActionView().findViewById(R.id.switch_dark_mode);
+        if(themeColor.equals(DarkModeUtil.DARK_MODE))
+            darkModeSwitch.setChecked(true);
         darkModeSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(!isChecked)
+                if(!isChecked){
                     showToast("다크모드 off");
-                else showToast("다크모드 on");
+                    themeColor=DarkModeUtil.LIGHT_MODE;
+                    DarkModeUtil.applyTheme(themeColor);
+                    DarkModeUtil.modSave(getApplicationContext(),themeColor);
+                }
+                else {
+                    showToast("다크모드 on");
+                    themeColor=DarkModeUtil.DARK_MODE;
+                    DarkModeUtil.applyTheme(themeColor);
+                    DarkModeUtil.modSave(getApplicationContext(),themeColor);
+                }
             }
         });
         //푸쉬알림 이벤트처리

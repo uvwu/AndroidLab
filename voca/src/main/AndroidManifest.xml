@@ -2,7 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.voca">
 
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
@@ -14,26 +13,38 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AndroidLab">
         <activity
+            android:label="Memorize"
             android:name=".Memorize.MemorizeActivity"
-            android:exported="false" />
+            android:exported="true" />
+
         <activity
             android:name=".VocaListActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
+
         <activity
+            android:label="푸시알림"
             android:name=".drawerActivity.PushAlertActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
+
         <activity
+            android:label="다크모드"
             android:name=".drawerActivity.DarkModeActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
+
         <activity
+            android:label="목표설정"
             android:name=".drawerActivity.GoalSettingActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
+
         <activity
+            android:label="회원정보 수정"
             android:name=".drawerActivity.EditAccountActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
+
         <activity
+            android:label="공지사항"
             android:name=".drawerActivity.NoticeActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity
             android:name=".MainActivity"
             android:exported="true">

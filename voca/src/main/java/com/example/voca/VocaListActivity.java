@@ -1,5 +1,6 @@
 package com.example.voca;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -10,6 +11,8 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.voca.Memorize.MemorizeActivity;
 
 public class VocaListActivity extends AppCompatActivity {
 
@@ -23,7 +26,8 @@ public class VocaListActivity extends AppCompatActivity {
         memorizeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showToast("memorize");
+                Intent intent=new Intent(VocaListActivity.this, MemorizeActivity.class);
+                startActivity(intent);
             }
         });
         //객관식 버튼

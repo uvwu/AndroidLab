@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET"/> <!-- 인터넷 권한 허용 -->
 
     <application
         android:allowBackup="true"
@@ -14,35 +15,55 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AndroidLab">
         <activity
-            android:name=".Memorize.MemorizeActivity"
-            android:exported="false" />
-        <activity
-            android:name=".VocaListActivity"
-            android:exported="true"></activity>
-        <activity
-            android:name=".drawerActivity.PushAlertActivity"
-            android:exported="true"></activity>
-        <activity
-            android:name=".drawerActivity.DarkModeActivity"
-            android:exported="true"></activity>
-        <activity
-            android:name=".drawerActivity.GoalSettingActivity"
-            android:exported="true"></activity>
-        <activity
-            android:name=".drawerActivity.EditAccountActivity"
-            android:exported="true"></activity>
-        <activity
-            android:name=".drawerActivity.NoticeActivity"
-            android:exported="true"></activity>
-        <activity
-            android:name=".MainActivity"
-            android:exported="true">
+            android:name=".authentication.FirebaseUI"
+            android:exported="true" >
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
+
+        <activity
+            android:name=".Memorize.MemorizeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".VocaListActivity"
+            android:exported="true" />
+        <activity
+            android:name=".drawerActivity.PushAlertActivity"
+            android:exported="true" />
+        <activity
+            android:name=".drawerActivity.DarkModeActivity"
+            android:exported="true" />
+        <activity
+            android:name=".drawerActivity.GoalSettingActivity"
+            android:exported="true" />
+        <activity
+            android:name=".drawerActivity.EditAccountActivity"
+            android:exported="true" />
+        <activity
+            android:name=".drawerActivity.NoticeActivity"
+            android:exported="true" />
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"/>
+<!-- mainActivity는 로그인이 완료된 후 실행되어야함
+    즉 여기서 인텐트 필터 처리를 해줄 필요가 없음
+    로그인 성공 후, 로그인 완료와 동시에 그 곳에서 인텐트 필터를 명시적으로 표시해줘야함
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+          </activity>
+            -->
+
+
+
     </application>
 
 </manifest>

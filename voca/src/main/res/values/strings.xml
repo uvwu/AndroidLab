@@ -1,5 +1,10 @@
 <resources>
     <string name="app_name">voca</string>
+
+    <!-- 로그인을 위해 페이스북에 연동된 ID와 URL 체계 (app ID 앞에 fb 붙이면 됨)-->
+    <string name="facebook_application_id" translatable="false">643108116715382</string>
+    <string name="facebook_login_protocol_scheme" translatable="false">fb643108116715382</string>
+
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
     <string name="title_activity_edit_account_information">editAccountInformationActivity</string>

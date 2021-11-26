@@ -25,6 +25,7 @@ import com.example.voca.drawerActivity.EditAccountActivity;
 import com.example.voca.drawerActivity.GoalSettingActivity;
 import com.example.voca.drawerActivity.NoticeActivity;
 import com.example.voca.drawerActivity.PushAlertActivity;
+import com.firebase.ui.auth.IdpResponse;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
@@ -35,11 +36,15 @@ import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
+    private IdpResponse mIdpResponse;
+
     private ActionBarDrawerToggle toggle;//메뉴 화면을 여는 버튼
 
     private SwitchCompat darkModeSwitch;//다크모드 스위치 버튼
@@ -53,6 +58,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        mIdpResponse = IdpResponse.fromResultIntent(getIntent());
 
         themeColor = DarkModeUtil.modLoad(getApplicationContext());
         DarkModeUtil.applyTheme(themeColor);

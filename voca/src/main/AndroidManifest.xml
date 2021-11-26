@@ -14,7 +14,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AndroidLab">
         <activity
-<<<<<<< HEAD
             android:name=".authentication.FirebaseUI"
             android:exported="true" >
 
@@ -27,51 +26,34 @@
         </activity>
 
         <activity
-=======
             android:label="Memorize"
->>>>>>> 773946657b749970b9c13a179ff3b52eba28204c
             android:name=".Memorize.MemorizeActivity"
             android:exported="true" />
 
         <activity
             android:name=".VocaListActivity"
             android:exported="true" />
-<<<<<<< HEAD
-=======
 
->>>>>>> 773946657b749970b9c13a179ff3b52eba28204c
         <activity
             android:label="푸시알림"
             android:name=".drawerActivity.PushAlertActivity"
             android:exported="true" />
-<<<<<<< HEAD
-=======
 
->>>>>>> 773946657b749970b9c13a179ff3b52eba28204c
         <activity
             android:label="다크모드"
             android:name=".drawerActivity.DarkModeActivity"
             android:exported="true" />
-<<<<<<< HEAD
-=======
 
->>>>>>> 773946657b749970b9c13a179ff3b52eba28204c
         <activity
             android:label="목표설정"
             android:name=".drawerActivity.GoalSettingActivity"
             android:exported="true" />
-<<<<<<< HEAD
-=======
 
->>>>>>> 773946657b749970b9c13a179ff3b52eba28204c
         <activity
             android:label="회원정보 수정"
             android:name=".drawerActivity.EditAccountActivity"
             android:exported="true" />
-<<<<<<< HEAD
-=======
 
->>>>>>> 773946657b749970b9c13a179ff3b52eba28204c
         <activity
             android:label="공지사항"
             android:name=".drawerActivity.NoticeActivity"
@@ -79,17 +61,17 @@
         <activity
             android:name=".MainActivity"
             android:exported="true"/>
-<!-- mainActivity는 로그인이 완료된 후 실행되어야함
-    즉 여기서 인텐트 필터 처리를 해줄 필요가 없음
-    로그인 성공 후, 로그인 완료와 동시에 그 곳에서 인텐트 필터를 명시적으로 표시해줘야함
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+        <!-- mainActivity는 로그인이 완료된 후 실행되어야함
+            즉 여기서 인텐트 필터 처리를 해줄 필요가 없음
+            로그인 성공 후, 로그인 완료와 동시에 그 곳에서 인텐트 필터를 명시적으로 표시해줘야함
+                    <intent-filter>
+                        <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+                        <category android:name="android.intent.category.LAUNCHER" />
+                    </intent-filter>
 
-          </activity>
-            -->
+                  </activity>
+                    -->
 
 
 

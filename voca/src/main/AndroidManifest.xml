@@ -14,14 +14,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AndroidLab">
         <activity
+            android:name=".Memorize.SpellCheckActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Memorize.MultiChoiceActivity"
+            android:exported="false" />
+        <activity
             android:name=".authentication.FirebaseUI"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:exported="true" />
         <activity
             android:name=".Memorize.MemorizeActivity"
             android:exported="true"
@@ -51,7 +51,13 @@
             android:label="공지사항" />
         <activity
             android:name=".MainActivity"
-            android:exported="true" />
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

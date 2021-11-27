@@ -13,6 +13,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.voca.Memorize.MemorizeActivity;
+import com.example.voca.Memorize.MultiChoiceActivity;
+import com.example.voca.Memorize.SpellCheckActivity;
 
 public class VocaListActivity extends AppCompatActivity {
 
@@ -35,7 +37,8 @@ public class VocaListActivity extends AppCompatActivity {
         choiceBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showToast("multi chocie");
+                Intent intent1=new Intent(VocaListActivity.this, MultiChoiceActivity.class);
+                startActivity(intent1);
             }
         });
         //스펠 체크 버튼
@@ -43,7 +46,8 @@ public class VocaListActivity extends AppCompatActivity {
         spellCheckBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showToast("spell check");
+                Intent intent2=new Intent(VocaListActivity.this, SpellCheckActivity.class);
+                startActivity(intent2);
             }
         });
     }

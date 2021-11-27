@@ -23,7 +23,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:text="USER님의 목표 달성률"
+            android:text="목표 달성률"
             android:textSize="30dp"
             android:textStyle="bold"/>
         <ScrollView

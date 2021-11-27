@@ -22,11 +22,14 @@
         <activity
             android:name=".authentication.FirebaseUI"
             android:exported="true" >
+<<<<<<< HEAD
         <intent-filter>
             <action android:name="android.intent.action.MAIN" />
 
             <category android:name="android.intent.category.LAUNCHER" />
         </intent-filter>
+=======
+>>>>>>> c898e6080884d7dcf0073ccc121dd163d7947b14
         </activity>
         <activity
             android:name=".Memorize.MemorizeActivity"
@@ -50,7 +53,7 @@
         <activity
             android:name=".drawerActivity.EditAccountActivity"
             android:exported="true"
-            android:label="회원정보 수정" />
+            android:label="회원정보" />
         <activity
             android:name=".drawerActivity.NoticeActivity"
             android:exported="true"

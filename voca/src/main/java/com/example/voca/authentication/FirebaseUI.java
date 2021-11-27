@@ -3,16 +3,14 @@
 
 package com.example.voca.authentication;
 
-import androidx.activity.result.ActivityResultCallback;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
-import android.widget.Toast;
+
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.voca.MainActivity;
 import com.example.voca.R;
@@ -67,7 +65,7 @@ public class FirebaseUI extends AppCompatActivity implements View.OnClickListene
         // 로그인 인텐트 작성 및 실행
         Intent signInIntent = AuthUI.getInstance()
                 .createSignInIntentBuilder()
-                .setTheme(R.style.theme_firebaseUI) // 로그인 테마 설정
+                //.setTheme(R.style.theme_firebaseUI) // 로그인 테마 설정
                 // TODO: 앱 아이콘 모양으로 로고 다시 설정
                 .setLogo(R.mipmap.ic_launcher) // 로그인 시 맨 위에 나타나는 로고 설정 (임시로 설정)
                 .setAvailableProviders(providers) // provider(인증을 제공해주는 리스트들) 설정

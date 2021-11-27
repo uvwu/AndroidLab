@@ -14,8 +14,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AndroidLab">
         <activity
-            android:name=".Memorize.SpellCheckActivity"
-            android:exported="false" />
+        android:name=".Memorize.SpellCheckActivity"
+        android:exported="false" />
         <activity
             android:name=".Memorize.MultiChoiceActivity"
             android:exported="false" />
@@ -58,6 +58,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".List.VocaDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".List.VocaSearchActivity"
+            android:exported="false" />
+        <activity
+            android:name=".List.TabActivity"
+            android:exported="false" />
+        <activity
+            android:name=".List.TestActivity"
+            android:exported="false" />
+
     </application>
 
 </manifest>

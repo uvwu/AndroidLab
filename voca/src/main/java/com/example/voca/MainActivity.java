@@ -20,6 +20,7 @@ import androidx.appcompat.widget.SwitchCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.dinuscxj.progressbar.CircleProgressBar;
+import com.example.voca.List.TabActivity;
 import com.example.voca.drawerActivity.DarkModeActivity;
 import com.example.voca.drawerActivity.EditAccountActivity;
 import com.example.voca.drawerActivity.GoalSettingActivity;
@@ -146,7 +147,7 @@ public class MainActivity extends AppCompatActivity {
         learningBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showToast("go to learning page");
+                startActivity(new Intent(MainActivity.this, TabActivity.class));
             }
         });
 

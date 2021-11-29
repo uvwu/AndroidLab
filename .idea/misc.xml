@@ -3,15 +3,6 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/82106/VocaRepo/voca/src/main/res/layout/activity_tab.xml" value="0.2546875" />
-        <entry key="..\:/Users/82106/VocaRepo/voca/src/main/res/layout/activity_test.xml" value="0.19791666666666666" />
-        <entry key="..\:/Users/82106/VocaRepo/voca/src/main/res/layout/activity_voca_detail.xml" value="0.2546875" />
-        <entry key="..\:/Users/82106/VocaRepo/voca/src/main/res/layout/activity_voca_search.xml" value="0.2546875" />
-        <entry key="..\:/Users/82106/VocaRepo/voca/src/main/res/layout/layout_dialog.xml" value="0.2546875" />
-        <entry key="..\:/Users/82106/VocaRepo/voca/src/main/res/layout/vocadetail_item.xml" value="0.2546875" />
-        <entry key="..\:/Users/82106/VocaRepo/voca/src/main/res/layout/vocasearch_item.xml" value="0.2546875" />
-        <entry key="..\:/Users/82106/VocaRepo/voca/src/main/res/menu/menu_option.xml" value="0.2546875" />
-        <entry key="..\:/Users/82106/VocaRepo/voca/src/main/res/menu/menu_voca_list.xml" value="0.2546875" />
         <entry key="..\:/Users/wjdtj/AndroidStudioProjects/AndroidLab/app/src/main/res/layout/activity_main.xml" value="0.16458333333333333" />
         <entry key="..\:/Users/wjdtj/AndroidStudioProjects/AndroidLab/app/src/main/res/layout/activity_notice.xml" value="0.17916666666666667" />
         <entry key="..\:/Users/wjdtj/AndroidStudioProjects/AndroidLab/ex/src/main/res/drawable/ic_baseline_account_box_24.xml" value="0.1953125" />
@@ -57,6 +48,7 @@
         <entry key="..\:/Users/wjdtj/AndroidStudioProjects/AndroidLab/voca/src/main/res/drawable/ic_baseline_flag_24.xml" value="0.18333333333333332" />
         <entry key="..\:/Users/wjdtj/AndroidStudioProjects/AndroidLab/voca/src/main/res/drawable/ic_baseline_menu_book_24.xml" value="0.18333333333333332" />
         <entry key="..\:/Users/wjdtj/AndroidStudioProjects/AndroidLab/voca/src/main/res/drawable/ic_baseline_no_accounts_24.xml" value="0.18333333333333332" />
+        <entry key="..\:/Users/wjdtj/AndroidStudioProjects/AndroidLab/voca/src/main/res/drawable/ic_baseline_spellcheck_24.xml" value="0.11197916666666667" />
         <entry key="..\:/Users/wjdtj/AndroidStudioProjects/AndroidLab/voca/src/main/res/drawable/ic_baseline_star_24.xml" value="0.1265625" />
         <entry key="..\:/Users/wjdtj/AndroidStudioProjects/AndroidLab/voca/src/main/res/drawable/ic_baseline_star_border_24.xml" value="0.1265625" />
         <entry key="..\:/Users/wjdtj/AndroidStudioProjects/AndroidLab/voca/src/main/res/drawable/ic_baseline_swap_vert_24.xml" value="0.1265625" />
@@ -76,14 +68,23 @@
         <entry key="..\:/Users/wjdtj/AndroidStudioProjects/AndroidLab/voca/src/main/res/layout/activity_notice.xml" value="0.17916666666666667" />
         <entry key="..\:/Users/wjdtj/AndroidStudioProjects/AndroidLab/voca/src/main/res/layout/activity_push_alert.xml" value="0.1" />
         <entry key="..\:/Users/wjdtj/AndroidStudioProjects/AndroidLab/voca/src/main/res/layout/activity_spell_check.xml" value="0.1" />
+        <entry key="..\:/Users/wjdtj/AndroidStudioProjects/AndroidLab/voca/src/main/res/layout/activity_tab.xml" value="0.1" />
+        <entry key="..\:/Users/wjdtj/AndroidStudioProjects/AndroidLab/voca/src/main/res/layout/activity_test.xml" value="0.1" />
+        <entry key="..\:/Users/wjdtj/AndroidStudioProjects/AndroidLab/voca/src/main/res/layout/activity_voca_detail.xml" value="0.1" />
         <entry key="..\:/Users/wjdtj/AndroidStudioProjects/AndroidLab/voca/src/main/res/layout/activity_voca_list.xml" value="0.17617753623188406" />
+        <entry key="..\:/Users/wjdtj/AndroidStudioProjects/AndroidLab/voca/src/main/res/layout/activity_voca_search.xml" value="0.1" />
+        <entry key="..\:/Users/wjdtj/AndroidStudioProjects/AndroidLab/voca/src/main/res/layout/layout_dialog.xml" value="0.1" />
         <entry key="..\:/Users/wjdtj/AndroidStudioProjects/AndroidLab/voca/src/main/res/layout/navigation_header.xml" value="0.17916666666666667" />
+        <entry key="..\:/Users/wjdtj/AndroidStudioProjects/AndroidLab/voca/src/main/res/layout/tablist_item.xml" value="0.1" />
+        <entry key="..\:/Users/wjdtj/AndroidStudioProjects/AndroidLab/voca/src/main/res/layout/vocadetail_item.xml" value="0.1" />
+        <entry key="..\:/Users/wjdtj/AndroidStudioProjects/AndroidLab/voca/src/main/res/layout/vocasearch_item.xml" value="0.1" />
         <entry key="..\:/Users/wjdtj/AndroidStudioProjects/AndroidLab/voca/src/main/res/menu/menu_drawer.xml" value="0.17916666666666667" />
+        <entry key="..\:/Users/wjdtj/AndroidStudioProjects/AndroidLab/voca/src/main/res/menu/menu_option.xml" value="0.1" />
         <entry key="..\:/Users/wjdtj/AndroidStudioProjects/AndroidLab/voca/src/main/res/menu/menu_voca_list.xml" value="0.1" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_15" project-jdk-name="17" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_15" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

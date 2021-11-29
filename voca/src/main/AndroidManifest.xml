@@ -22,14 +22,6 @@
         <activity
             android:name=".authentication.FirebaseUI"
             android:exported="true" >
-<<<<<<< HEAD
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
-=======
->>>>>>> c898e6080884d7dcf0073ccc121dd163d7947b14
         </activity>
         <activity
             android:name=".Memorize.MemorizeActivity"
@@ -60,8 +52,13 @@
             android:label="공지사항" />
         <activity
             android:name=".MainActivity"
-            android:exported="true"
-        />
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".List.VocaDetailActivity"
             android:exported="false" />

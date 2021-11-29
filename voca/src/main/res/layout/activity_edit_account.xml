@@ -1,15 +1,106 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".drawerActivity.EditAccountActivity">
+    android:id="@+id/user_profile"
+    android:orientation="vertical"
+    >
 
-    <TextView
+    <!-- contentDescription: voiceOver와 같은 TTS기능을 사용할 때 읽혀짐 -->
+    <ImageView
+        android:layout_marginTop="100dp"
+        android:id="@+id/user_profile_picture"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center_horizontal"
+        android:contentDescription="Profile picture"
+        android:src="@mipmap/ic_launcher"
+        />
+
+    <!-- textIsSelectable: 텍스트 드래그 가능 여부 -->
+
+    <LinearLayout
+        android:layout_marginTop="50dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:baselineAligned="true">
+
+        <TextView
+            android:layout_marginLeft="40dp"
+            android:textColor="@color/theme"
+            android:textSize="25dp"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="User Name "/>
+
+        <TextView
+            android:id="@+id/user_display_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:textIsSelectable="false"
+            android:text="N/A" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:baselineAligned="true"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_marginLeft="40dp"
+            android:textColor="@color/theme"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Email "
+            android:textSize="25dp"/>
+
+        <TextView
+            android:id="@+id/user_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:textIsSelectable="false"
+            android:text="N/A"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:baselineAligned="true"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_marginLeft="40dp"
+            android:textColor="@color/theme"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Login Provider "
+            android:textSize="25dp"/>
+
+        <TextView
+            android:id="@+id/user_enabled_providers"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:textIsSelectable="false"
+            android:text="N/A" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/account_del_btn"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="회원정보"
-        tools:ignore="MissingConstraints" />
+        android:textSize="20dp"
+        android:text="회원탈퇴"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

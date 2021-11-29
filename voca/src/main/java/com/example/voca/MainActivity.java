@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
@@ -66,6 +67,10 @@ public class MainActivity extends AppCompatActivity {
         DarkModeUtil.applyTheme(themeColor);
 
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        TextView mainText=findViewById(R.id.text_main);
+        mainText.setText((TextUtils.isEmpty(user.getDisplayName()) ? "No display name" : user.getDisplayName())+"님의 목표 달성률");
 
         Button testBtn=findViewById(R.id.btn_test);
         testBtn.setOnClickListener(new View.OnClickListener() {

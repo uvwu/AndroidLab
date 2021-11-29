@@ -52,16 +52,20 @@ public class SpellCheckActivity extends AppCompatActivity {
         voca=findViewById(R.id.voca_spell);
 
         editAnswerText=findViewById(R.id.text_answer_spell);
+        //editAnswerText.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
 
         String realAnswer="apple";
         checkBtn=findViewById(R.id.btn_check_spell);
         checkBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(realAnswer.equals(editAnswerText.getText().toString()))
+                if(realAnswer.equals(editAnswerText.getText().toString())) {
                     showToast("정답!");
-                else showToast("오답!");
-                editAnswerText.setText(null);
+                    editAnswerText.setText(null);
+                }
+                else {showToast("오답!");
+
+                }
             }
         });
 

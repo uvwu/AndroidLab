@@ -62,7 +62,7 @@
         android:textSize="30dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="340dp"
-        android:inputType="textNoSuggestions"
+        android:inputType="textFilter|textNoSuggestions|textVisiblePassword"
         />
     <Button
         android:id="@+id/btn_check_spell"

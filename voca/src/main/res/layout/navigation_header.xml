@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:paddingTop="50dp"
-        android:text="The harder you work, the more likely you can reach the goal"
+        android:text="'The harder you work, the more likely you can reach the goal'"
         android:textAlignment="center"
         android:textSize="20dp"
         android:textStyle="bold" />

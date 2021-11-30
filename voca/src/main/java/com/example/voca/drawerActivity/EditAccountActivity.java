@@ -11,6 +11,8 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.voca.R;
+import com.example.voca.authentication.DeleteUserInfo;
+import com.example.voca.authentication.SignOut;
 import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
@@ -18,8 +20,6 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
 public class EditAccountActivity extends AppCompatActivity {
-
-    AlertDialog delDialog;// 목표 수정시 띄울 다이얼로그
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,23 +30,25 @@ public class EditAccountActivity extends AppCompatActivity {
         //회원탈퇴 버튼
         Button accountDelBtn=findViewById(R.id.account_del_btn);
 
-        DialogInterface.OnClickListener dialogListener=new DialogInterface.OnClickListener() {
+        //회원탈퇴 클릭시 보여줄 dialog + 이벤트처리/
+        DeleteUserInfo deleteUserInfo = new DeleteUserInfo(this);
+        DialogInterface.OnClickListener dialogListener = new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                if(dialog==delDialog && which==DialogInterface.BUTTON_POSITIVE){
-
-                }
+                //if(dialog==alertDialog && which==DialogInterface.BUTTON_POSITIVE)
+                deleteUserInfo.delete();
             }
         };
+
         accountDelBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder builder=new AlertDialog.Builder(EditAccountActivity.this);
                 builder.setMessage("정말 탈퇴하시겠습니까?");
-                builder.setPositiveButton("OK",dialogListener);
-                builder.setNegativeButton("No",dialogListener);
-                delDialog=builder.create();
-                delDialog.show();
+                builder.setPositiveButton("OK", dialogListener);
+                builder.setNegativeButton("No", null);
+                AlertDialog alertDialog=builder.create();
+                alertDialog.show();
             }
         });
     }

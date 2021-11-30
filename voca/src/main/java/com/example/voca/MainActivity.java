@@ -22,6 +22,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.dinuscxj.progressbar.CircleProgressBar;
 import com.example.voca.List.TabActivity;
+import com.example.voca.authentication.SignOut;
 import com.example.voca.drawerActivity.DarkModeActivity;
 import com.example.voca.drawerActivity.EditAccountActivity;
 import com.example.voca.drawerActivity.GoalSettingActivity;
@@ -181,13 +182,13 @@ public class MainActivity extends AppCompatActivity {
         // Set the drawer toggle as the DrawerListener.
         drawerLayout.addDrawerListener(toggle); // If omitted, the toggle icon is not changed.
 
-
         //로그아웃 클릭시 보여줄 dialog + 이벤트처리/
-        DialogInterface.OnClickListener dialogListener=new DialogInterface.OnClickListener() {
+        SignOut signout = new SignOut(this);
+        DialogInterface.OnClickListener dialogListener = new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                if(dialog==alertDialog && which==DialogInterface.BUTTON_POSITIVE)
-                    showToast("로그아웃 하셨습니다.");
+                //if(dialog==alertDialog && which==DialogInterface.BUTTON_POSITIVE)
+                signout.signOut();
             }
         };
 
@@ -223,9 +224,9 @@ public class MainActivity extends AppCompatActivity {
                         builder.setIcon(android.R.drawable.ic_dialog_alert);
                         builder.setTitle("알림");
                         builder.setMessage("로그아웃 하시겠습니까?");
-                        builder.setPositiveButton("OK",dialogListener);
+                        builder.setPositiveButton("OK", dialogListener);
                         builder.setNegativeButton("No",null);
-                        alertDialog=builder.create();
+                        AlertDialog alertDialog=builder.create();
                         alertDialog.show();
                         break;
                 }

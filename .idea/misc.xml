@@ -73,15 +73,23 @@
         <entry key="..\:/Users/wjdtj/AndroidStudioProjects/AndroidLab/voca/src/main/res/layout/activity_notice.xml" value="0.17916666666666667" />
         <entry key="..\:/Users/wjdtj/AndroidStudioProjects/AndroidLab/voca/src/main/res/layout/activity_push_alert.xml" value="0.1" />
         <entry key="..\:/Users/wjdtj/AndroidStudioProjects/AndroidLab/voca/src/main/res/layout/activity_spell_check.xml" value="0.1" />
+        <entry key="..\:/Users/wjdtj/AndroidStudioProjects/AndroidLab/voca/src/main/res/layout/activity_spell_check2.xml" value="0.1" />
+        <entry key="..\:/Users/wjdtj/AndroidStudioProjects/AndroidLab/voca/src/main/res/layout/activity_spell_check3.xml" value="0.1" />
         <entry key="..\:/Users/wjdtj/AndroidStudioProjects/AndroidLab/voca/src/main/res/layout/activity_tab.xml" value="0.1" />
         <entry key="..\:/Users/wjdtj/AndroidStudioProjects/AndroidLab/voca/src/main/res/layout/activity_test.xml" value="0.1" />
         <entry key="..\:/Users/wjdtj/AndroidStudioProjects/AndroidLab/voca/src/main/res/layout/activity_voca_detail.xml" value="0.1" />
-        <entry key="..\:/Users/wjdtj/AndroidStudioProjects/AndroidLab/voca/src/main/res/layout/activity_voca_list.xml" value="0.17617753623188406" />
+        <entry key="..\:/Users/wjdtj/AndroidStudioProjects/AndroidLab/voca/src/main/res/layout/activity_voca_list.xml" value="0.12631578947368421" />
         <entry key="..\:/Users/wjdtj/AndroidStudioProjects/AndroidLab/voca/src/main/res/layout/activity_voca_search.xml" value="0.1" />
+        <entry key="..\:/Users/wjdtj/AndroidStudioProjects/AndroidLab/voca/src/main/res/layout/fragment_spell_check.xml" value="0.1" />
+        <entry key="..\:/Users/wjdtj/AndroidStudioProjects/AndroidLab/voca/src/main/res/layout/fragment_spell_check_sildepage.xml" value="0.1" />
+        <entry key="..\:/Users/wjdtj/AndroidStudioProjects/AndroidLab/voca/src/main/res/layout/item_memorize_viewpager.xml" value="0.11956521739130435" />
+        <entry key="..\:/Users/wjdtj/AndroidStudioProjects/AndroidLab/voca/src/main/res/layout/item_spellcheck_viewpager.xml" value="0.1671195652173913" />
+        <entry key="..\:/Users/wjdtj/AndroidStudioProjects/AndroidLab/voca/src/main/res/layout/item_viewpager.xml" value="0.1" />
         <entry key="..\:/Users/wjdtj/AndroidStudioProjects/AndroidLab/voca/src/main/res/layout/layout_dialog.xml" value="0.1" />
         <entry key="..\:/Users/wjdtj/AndroidStudioProjects/AndroidLab/voca/src/main/res/layout/navigation_header.xml" value="0.17916666666666667" />
+        <entry key="..\:/Users/wjdtj/AndroidStudioProjects/AndroidLab/voca/src/main/res/layout/spell_view_pager.xml" value="0.1" />
         <entry key="..\:/Users/wjdtj/AndroidStudioProjects/AndroidLab/voca/src/main/res/layout/tablist_item.xml" value="0.1" />
-        <entry key="..\:/Users/wjdtj/AndroidStudioProjects/AndroidLab/voca/src/main/res/layout/voca_list_item.xml" value="0.17916666666666667" />
+        <entry key="..\:/Users/wjdtj/AndroidStudioProjects/AndroidLab/voca/src/main/res/layout/voca_list_item.xml" value="0.1" />
         <entry key="..\:/Users/wjdtj/AndroidStudioProjects/AndroidLab/voca/src/main/res/layout/vocadetail_item.xml" value="0.1" />
         <entry key="..\:/Users/wjdtj/AndroidStudioProjects/AndroidLab/voca/src/main/res/layout/vocasearch_item.xml" value="0.1" />
         <entry key="..\:/Users/wjdtj/AndroidStudioProjects/AndroidLab/voca/src/main/res/menu/menu_drawer.xml" value="0.17916666666666667" />

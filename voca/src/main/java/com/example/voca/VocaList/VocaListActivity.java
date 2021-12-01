@@ -14,9 +14,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.voca.R;
-import com.example.voca.VocaList.Memorize.MemorizeActivity;
-import com.example.voca.VocaList.Memorize.MultiChoiceActivity;
-import com.example.voca.VocaList.Memorize.SpellCheckActivity;
+import com.example.voca.VocaList.Memorize.Basic.MemorizeActivity;
+import com.example.voca.VocaList.Memorize.MultiChoice.MultiChoiceActivity;
+import com.example.voca.VocaList.Memorize.SpellCheck.SpellCheckActivity;
 import com.example.voca.VocaVO;
 
 import java.util.ArrayList;

@@ -6,7 +6,12 @@ public class VocaVO implements Comparable<VocaVO> {
     public Boolean memoCheck;
     public Boolean starCheck;
 
-    public VocaVO(){}
+    public VocaVO(){
+        vocaEng=null;
+        vocaKor=null;
+        memoCheck=false;
+        starCheck=false;
+    }
 
     public VocaVO(String eng,String kor,Boolean memo,Boolean star){
         this.vocaEng=eng;

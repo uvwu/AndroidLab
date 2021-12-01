@@ -17,32 +17,25 @@ import com.example.voca.R;
 import com.example.voca.VocaVO;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class VocaListActivity extends AppCompatActivity {
 
+    ArrayList<VocaVO> vocaData=new ArrayList<>();
+    ListView vocaListView;
+    ArrayList<VocaVO> showData=new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_voca_list);
 
-        ListView vocaListView=findViewById(R.id.voca_listview);
+        //-----------------리스트 뷰-----------
+        vocaListView=findViewById(R.id.voca_listview);
 
+        getListViewItem();//리스트뷰 아이템 가져오기
 
-        ArrayList<VocaVO> vocaData=new ArrayList<>();//받아올 단어 데이터
-
-        ArrayList<VocaVO> showData=new ArrayList<>();//화면에 보여줄 단어 데이터
-
-        for(int i=0;i<vocaData.size();i++){
-            VocaVO vo=new VocaVO();
-            vo.memoCheck=vocaData.get(i).memoCheck;
-            vo.vocaEng= vocaData.get(i).vocaEng;
-            vo.vocaKor= vocaData.get(i).vocaKor;
-            vo.starCheck= vocaData.get(i).starCheck;
-            showData.add(vo);
-        }
-        VocaAdapter adapter=new VocaAdapter(this,R.layout.voca_list_item,showData);
-        vocaListView.setAdapter(adapter);
-
+        showListView();//리스트뷰 보여주기
+        //----------------------------------------------
 
         //암기버튼
         Button memorizeBtn=findViewById(R.id.btn_memorize);
@@ -72,7 +65,13 @@ public class VocaListActivity extends AppCompatActivity {
             }
         });
     }
+    private void getListViewItem(){
+        vocaData.add(new VocaVO("d","디",true,true));
+        vocaData.add(new VocaVO("c","씨",true,true));
+        vocaData.add(new VocaVO("b","비",true,true));
+        vocaData.add(new VocaVO("a","에이",true,true));
 
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater=getMenuInflater();
@@ -84,9 +83,18 @@ public class VocaListActivity extends AppCompatActivity {
         switch (item.getItemId()){
             case R.id.time_sort:
                 item.setChecked(true);
+                vocaData.clear();
+                showData.clear();
+                getListViewItem();
+                showListView();
                 break;
             case R.id.alpha_sort:
                 item.setChecked(true);
+                vocaData.clear();
+                showData.clear();
+                getListViewItem();
+                Collections.sort(vocaData);
+                showListView();
                 break;
             case R.id.voca_add:
                 showToast("단어 추가");
@@ -102,5 +110,25 @@ public class VocaListActivity extends AppCompatActivity {
     private void showToast(String message) {
         Toast toast = Toast.makeText(this, message,Toast.LENGTH_SHORT);
         toast.show();
+    }
+    private void showListView(){
+        for(int i=0;i<vocaData.size();i++){
+            VocaVO vo=new VocaVO();
+            vo.memoCheck=vocaData.get(i).memoCheck;
+            vo.vocaEng= vocaData.get(i).vocaEng;
+            vo.vocaKor= vocaData.get(i).vocaKor;
+            vo.starCheck= vocaData.get(i).starCheck;
+            showData.add(vo);
+        }
+        VocaAdapter adapter=new VocaAdapter(this,R.layout.voca_list_item,showData);
+        vocaListView.setAdapter(adapter);
+    }
+
+    @Override
+    protected void onDestroy() {
+        vocaData=null;
+        vocaListView=null;
+        showData=null;
+        super.onDestroy();
     }
 }

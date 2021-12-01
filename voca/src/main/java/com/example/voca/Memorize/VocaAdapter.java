@@ -60,12 +60,12 @@ public class VocaAdapter extends ArrayAdapter<VocaVO> {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked){
                     vo.memoCheck=true;
-                    Toast toast = Toast.makeText(context, "암기 확인", Toast.LENGTH_SHORT);
+                    Toast toast = Toast.makeText(context,vo.vocaEng+ " 암기 확인", Toast.LENGTH_SHORT);
                     toast.show();
                 }
                 else{
                     vo.memoCheck=false;
-                    Toast toast = Toast.makeText(context, "암기 취소", Toast.LENGTH_SHORT);
+                    Toast toast = Toast.makeText(context,vo.vocaEng+ " 암기 취소", Toast.LENGTH_SHORT);
                     toast.show();
                 }
             }
@@ -81,12 +81,12 @@ public class VocaAdapter extends ArrayAdapter<VocaVO> {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked){
                     vo.starCheck=true;
-                    Toast toast = Toast.makeText(context, "즐겨찾기 추가", Toast.LENGTH_SHORT);
+                    Toast toast = Toast.makeText(context,vo.vocaEng+ " 즐겨찾기 추가", Toast.LENGTH_SHORT);
                     toast.show();
                 }
                 else{
                     vo.starCheck=false;
-                    Toast toast = Toast.makeText(context, "즐겨찾기 삭제", Toast.LENGTH_SHORT);
+                    Toast toast = Toast.makeText(context, vo.vocaEng+" 즐겨찾기 삭제", Toast.LENGTH_SHORT);
                     toast.show();
                 }
             }

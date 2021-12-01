@@ -37,7 +37,10 @@
         <entry key="..\:/Users/wjdtj/AndroidStudioProjects/AndroidLab/lab05/src/main/res/layout/activity_main.xml" value="0.17916666666666667" />
         <entry key="..\:/Users/wjdtj/AndroidStudioProjects/AndroidLab/lab07/src/main/res/layout/activity_main.xml" value="0.17916666666666667" />
         <entry key="..\:/Users/wjdtj/AndroidStudioProjects/AndroidLab/lab07/src/main/res/layout/activity_read_file.xml" value="0.17916666666666667" />
+        <entry key="..\:/Users/wjdtj/AndroidStudioProjects/AndroidLab/lab08/src/main/res/layout/activity_lab082.xml" value="0.175" />
+        <entry key="..\:/Users/wjdtj/AndroidStudioProjects/AndroidLab/lab08/src/main/res/layout/activity_lab08_2.xml" value="0.175" />
         <entry key="..\:/Users/wjdtj/AndroidStudioProjects/AndroidLab/lab08/src/main/res/layout/activity_main.xml" value="0.17916666666666667" />
+        <entry key="..\:/Users/wjdtj/AndroidStudioProjects/AndroidLab/lab08/src/main/res/layout/custom_item.xml" value="0.175" />
         <entry key="..\:/Users/wjdtj/AndroidStudioProjects/AndroidLab/lab16/src/main/res/drawable/ic_launcher_background.xml" value="0.1953125" />
         <entry key="..\:/Users/wjdtj/AndroidStudioProjects/AndroidLab/lab16/src/main/res/layout/action_dark_mode.xml" value="0.1265625" />
         <entry key="..\:/Users/wjdtj/AndroidStudioProjects/AndroidLab/lab16/src/main/res/layout/action_push_alert.xml" value="0.1265625" />
@@ -78,6 +81,7 @@
         <entry key="..\:/Users/wjdtj/AndroidStudioProjects/AndroidLab/voca/src/main/res/layout/layout_dialog.xml" value="0.1" />
         <entry key="..\:/Users/wjdtj/AndroidStudioProjects/AndroidLab/voca/src/main/res/layout/navigation_header.xml" value="0.17916666666666667" />
         <entry key="..\:/Users/wjdtj/AndroidStudioProjects/AndroidLab/voca/src/main/res/layout/tablist_item.xml" value="0.1" />
+        <entry key="..\:/Users/wjdtj/AndroidStudioProjects/AndroidLab/voca/src/main/res/layout/voca_list_item.xml" value="0.17916666666666667" />
         <entry key="..\:/Users/wjdtj/AndroidStudioProjects/AndroidLab/voca/src/main/res/layout/vocadetail_item.xml" value="0.1" />
         <entry key="..\:/Users/wjdtj/AndroidStudioProjects/AndroidLab/voca/src/main/res/layout/vocasearch_item.xml" value="0.1" />
         <entry key="..\:/Users/wjdtj/AndroidStudioProjects/AndroidLab/voca/src/main/res/menu/menu_drawer.xml" value="0.17916666666666667" />

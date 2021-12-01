@@ -39,7 +39,7 @@
             android:exported="true"
             android:label="Memorize" />
         <activity
-            android:name=".VocaListActivity"
+            android:name=".Memorize.VocaListActivity"
             android:exported="true" />
         <activity
             android:name=".drawerActivity.PushAlertActivity"

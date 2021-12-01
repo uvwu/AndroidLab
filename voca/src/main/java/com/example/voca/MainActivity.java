@@ -22,6 +22,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.dinuscxj.progressbar.CircleProgressBar;
 import com.example.voca.List.TabActivity;
+import com.example.voca.Memorize.VocaListActivity;
 import com.example.voca.authentication.SignOut;
 import com.example.voca.drawerActivity.DarkModeActivity;
 import com.example.voca.drawerActivity.EditAccountActivity;

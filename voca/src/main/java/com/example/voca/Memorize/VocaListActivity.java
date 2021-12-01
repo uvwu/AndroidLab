@@ -1,4 +1,4 @@
-package com.example.voca;
+package com.example.voca.Memorize;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,14 +7,16 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.voca.Memorize.MemorizeActivity;
-import com.example.voca.Memorize.MultiChoiceActivity;
-import com.example.voca.Memorize.SpellCheckActivity;
+import com.example.voca.R;
+import com.example.voca.VocaVO;
+
+import java.util.ArrayList;
 
 public class VocaListActivity extends AppCompatActivity {
 
@@ -22,6 +24,25 @@ public class VocaListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_voca_list);
+
+        ListView vocaListView=findViewById(R.id.voca_listview);
+
+
+        ArrayList<VocaVO> vocaData=new ArrayList<>();//받아올 단어 데이터
+
+        ArrayList<VocaVO> showData=new ArrayList<>();//화면에 보여줄 단어 데이터
+
+        for(int i=0;i<vocaData.size();i++){
+            VocaVO vo=new VocaVO();
+            vo.memoCheck=vocaData.get(i).memoCheck;
+            vo.vocaEng= vocaData.get(i).vocaEng;
+            vo.vocaKor= vocaData.get(i).vocaKor;
+            vo.starCheck= vocaData.get(i).starCheck;
+            showData.add(vo);
+        }
+        VocaAdapter adapter=new VocaAdapter(this,R.layout.voca_list_item,showData);
+        vocaListView.setAdapter(adapter);
+
 
         //암기버튼
         Button memorizeBtn=findViewById(R.id.btn_memorize);

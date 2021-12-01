@@ -1,4 +1,4 @@
-package com.example.voca.Memorize;
+package com.example.voca.VocaList;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,6 +14,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.voca.R;
+import com.example.voca.VocaList.Memorize.MemorizeActivity;
+import com.example.voca.VocaList.Memorize.MultiChoiceActivity;
+import com.example.voca.VocaList.Memorize.SpellCheckActivity;
 import com.example.voca.VocaVO;
 
 import java.util.ArrayList;
@@ -37,7 +40,7 @@ public class VocaListActivity extends AppCompatActivity {
         showListView();//리스트뷰 보여주기
         //----------------------------------------------
 
-        //암기버튼
+        //암기화면 이동 버튼
         Button memorizeBtn=findViewById(R.id.btn_memorize);
         memorizeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,7 +49,7 @@ public class VocaListActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        //객관식 버튼
+        //객관식 화면 이동 버튼
         Button choiceBtn=findViewById(R.id.btn_choice);
         choiceBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,7 +58,7 @@ public class VocaListActivity extends AppCompatActivity {
                 startActivity(intent1);
             }
         });
-        //스펠 체크 버튼
+        //스펠 체크 화면 이동 버튼
         Button spellCheckBtn=findViewById(R.id.btn_spellcheck);
         spellCheckBtn.setOnClickListener(new View.OnClickListener() {
             @Override

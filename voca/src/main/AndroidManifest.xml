@@ -14,10 +14,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AndroidLab">
         <activity
-        android:name=".Memorize.SpellCheckActivity"
+        android:name=".VocaList.Memorize.SpellCheckActivity"
         android:exported="false" />
         <activity
-            android:name=".Memorize.MultiChoiceActivity"
+            android:name=".VocaList.Memorize.MultiChoiceActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
@@ -35,11 +35,11 @@
 
         </activity>
         <activity
-            android:name=".Memorize.MemorizeActivity"
+            android:name=".VocaList.Memorize.MemorizeActivity"
             android:exported="true"
             android:label="Memorize" />
         <activity
-            android:name=".Memorize.VocaListActivity"
+            android:name=".VocaList.VocaListActivity"
             android:exported="true" />
         <activity
             android:name=".drawerActivity.PushAlertActivity"

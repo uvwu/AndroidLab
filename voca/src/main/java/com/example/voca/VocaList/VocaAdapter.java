@@ -1,4 +1,4 @@
-package com.example.voca.Memorize;
+package com.example.voca.VocaList;
 
 import android.content.Context;
 import android.view.LayoutInflater;

@@ -1,4 +1,4 @@
-package com.example.voca.Memorize;
+package com.example.voca.VocaList.Memorize;
 
 import android.os.Bundle;
 import android.view.View;

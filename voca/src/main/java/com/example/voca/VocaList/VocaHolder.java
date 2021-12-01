@@ -1,4 +1,4 @@
-package com.example.voca.Memorize;
+package com.example.voca.VocaList;
 
 import android.view.View;
 import android.widget.CheckBox;

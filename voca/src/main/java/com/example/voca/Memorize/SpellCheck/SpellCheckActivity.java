@@ -1,5 +1,6 @@
-package com.example.voca.VocaList.Memorize.SpellCheck;
+package com.example.voca.Memorize.SpellCheck;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,10 +19,11 @@ public class SpellCheckActivity extends AppCompatActivity {
         setContentView(R.layout.activity_spell_check);
 
         viewPager2=findViewById(R.id.spellcheck_viewPager2);
+
+        Intent intent=getIntent();
+        Bundle bundleData=intent.getBundleExtra("vocaData");
         ArrayList<VocaVO> list=new ArrayList<>();
-        list.add(new VocaVO("apple","사과",true,true));
-        list.add(new VocaVO("banana","바나나",true,true));
-        list.add(new VocaVO("water","물",true,true));
+        list.addAll(bundleData.getParcelableArrayList("vocaData"));
 
 
         viewPager2.setAdapter(new SpellCheckAdapter(list));

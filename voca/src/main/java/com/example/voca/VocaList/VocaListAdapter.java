@@ -17,11 +17,11 @@ import com.example.voca.VocaVO;
 
 import java.util.ArrayList;
 
-public class VocaAdapter extends ArrayAdapter<VocaVO> {
+public class VocaListAdapter extends ArrayAdapter<VocaVO> {
     Context context;
     int resId;
     ArrayList<VocaVO> data;
-    public VocaAdapter(Context context,int resId,ArrayList<VocaVO> data){
+    public VocaListAdapter(Context context, int resId, ArrayList<VocaVO> data){
         super(context, resId);
         this.context=context;
         this.resId=resId;
@@ -40,11 +40,11 @@ public class VocaAdapter extends ArrayAdapter<VocaVO> {
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(resId, null);
-            VocaHolder holder = new VocaHolder(convertView);
+            VocaListHolder holder = new VocaListHolder(convertView);
             convertView.setTag(holder);
         }
 
-        VocaHolder holder=(VocaHolder)convertView.getTag();
+        VocaListHolder holder=(VocaListHolder)convertView.getTag();
 
         CheckBox memoCheck=holder.memoCheck;
         TextView vocaEng= holder.vocaEng;

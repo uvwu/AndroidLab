@@ -1,10 +1,9 @@
-package com.example.voca.VocaList.Memorize.Basic;
+package com.example.voca.Memorize.Basic;
 
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,10 +13,9 @@ import com.example.voca.VocaVO;
 
 public class MemorizeViewHolderPage extends RecyclerView.ViewHolder{
     TextView vocaEng;
-    private final TextView vocaKor;
+    private TextView vocaKor;
     private CheckBox memoCheck;
     private CheckBox starCheck;
-    private EditText editAnswerText;
     private TextView count;
     Button ttsBtn;
     VocaVO vo;
@@ -31,7 +29,7 @@ public class MemorizeViewHolderPage extends RecyclerView.ViewHolder{
         count=v.findViewById(R.id.count);
         ttsBtn=v.findViewById(R.id.tts_btn);
     }
-    public void onBind(VocaVO vo,int toalNum) {
+    public void onBind(VocaVO vo,int totalNum) {
         this.vo = vo;
 
         //암기버튼 이벤트 처리리
@@ -60,8 +58,10 @@ public class MemorizeViewHolderPage extends RecyclerView.ViewHolder{
         });
 
         // 현재단어/전체단어 ex) 3/20
-        count.setText(getAdapterPosition() + 1 + "/" + toalNum);
+        count.setText(getAdapterPosition() + 1 + "/" + totalNum);
+        //영어단어
         vocaEng.setText(vo.vocaEng);
+        //한글 뜻
         vocaKor.setText(vo.vocaKor);
 
     }

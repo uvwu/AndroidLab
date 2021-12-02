@@ -1,4 +1,4 @@
-package com.example.voca.VocaList.Memorize.Basic;
+package com.example.voca.Memorize.Basic;
 
 import android.content.Context;
 import android.speech.tts.TextToSpeech;

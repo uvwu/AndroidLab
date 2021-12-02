@@ -1,5 +1,6 @@
-package com.example.voca.VocaList.Memorize.Basic;
+package com.example.voca.Memorize.Basic;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.util.Log;
@@ -21,6 +22,7 @@ public class MemorizeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_memorize);
+
         tts=new TextToSpeech(this, new TextToSpeech.OnInitListener() {
             @Override
             public void onInit(int status) {
@@ -40,13 +42,12 @@ public class MemorizeActivity extends AppCompatActivity {
                 }
             }
         });
-
         viewPager2=findViewById(R.id.memorize_viewPager2);
-        ArrayList<VocaVO> list=new ArrayList<>();
-        list.add(new VocaVO("apple","사과",true,true));
-        list.add(new VocaVO("banana","바나나",true,true));
-        list.add(new VocaVO("water","물",true,true));
 
+        Intent intent=getIntent();
+        Bundle bundleData=intent.getBundleExtra("vocaData");
+        ArrayList<VocaVO> list=new ArrayList<>();
+        list.addAll(bundleData.getParcelableArrayList("vocaData"));
 
         viewPager2.setAdapter(new MemorizeAdapter(list,tts));
 

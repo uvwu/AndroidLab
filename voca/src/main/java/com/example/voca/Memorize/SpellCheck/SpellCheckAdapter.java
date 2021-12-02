@@ -1,4 +1,4 @@
-package com.example.voca.VocaList.Memorize.SpellCheck;
+package com.example.voca.Memorize.SpellCheck;
 
 import android.content.Context;
 import android.view.LayoutInflater;

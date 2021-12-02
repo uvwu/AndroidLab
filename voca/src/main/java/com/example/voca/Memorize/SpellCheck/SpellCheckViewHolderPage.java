@@ -1,4 +1,4 @@
-package com.example.voca.VocaList.Memorize.SpellCheck;
+package com.example.voca.Memorize.SpellCheck;
 
 import android.view.View;
 import android.widget.Button;
@@ -34,7 +34,7 @@ public class SpellCheckViewHolderPage extends RecyclerView.ViewHolder {
         checkBtn=v.findViewById(R.id.btn_check_spell2);
         count=v.findViewById(R.id.count_spell2);
     }
-    public void onBind(VocaVO vo,int toalNum){
+    public void onBind(VocaVO vo,int totalNum){
         this.vo=vo;
 
         //암기버튼 이벤트 처리리
@@ -65,7 +65,7 @@ public class SpellCheckViewHolderPage extends RecyclerView.ViewHolder {
         });
 
         // 현재단어/전체단어 ex) 3/20
-        count.setText(getAdapterPosition()+1+"/"+toalNum);
+        count.setText(getAdapterPosition()+1+"/"+totalNum);
 
         String realAnswer=vo.vocaEng;
         vocaKor.setText(vo.vocaKor);
@@ -77,6 +77,7 @@ public class SpellCheckViewHolderPage extends RecyclerView.ViewHolder {
                     editAnswerText.setText(null);
                 }
                 else {
+                    Toast.makeText(v.getContext(),"오답",Toast.LENGTH_SHORT).show();
                 }
             }
         });

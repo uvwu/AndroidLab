@@ -13,10 +13,10 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.voca.Memorize.Basic.MemorizeActivity;
+import com.example.voca.Memorize.MultiChoice.MultiChoiceActivity;
+import com.example.voca.Memorize.SpellCheck.SpellCheckActivity;
 import com.example.voca.R;
-import com.example.voca.VocaList.Memorize.Basic.MemorizeActivity;
-import com.example.voca.VocaList.Memorize.MultiChoice.MultiChoiceActivity;
-import com.example.voca.VocaList.Memorize.SpellCheck.SpellCheckActivity;
 import com.example.voca.VocaVO;
 
 import java.util.ArrayList;
@@ -46,6 +46,10 @@ public class VocaListActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(VocaListActivity.this, MemorizeActivity.class);
+                Bundle bundleData=new Bundle();
+                bundleData.putParcelableArrayList("vocaData",(ArrayList<VocaVO>) vocaData);
+                intent.putExtra("vocaData",bundleData);
+                //intent.putParcelableArrayListExtra("vocaData",(ArrayList<VocaVO>) vocaData);
                 startActivity(intent);
             }
         });
@@ -55,6 +59,10 @@ public class VocaListActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent1=new Intent(VocaListActivity.this, MultiChoiceActivity.class);
+                Bundle bundleData=new Bundle();
+                bundleData.putParcelableArrayList("vocaData",(ArrayList<VocaVO>) vocaData);
+                intent1.putExtra("vocaData",bundleData);
+                //intent1.putParcelableArrayListExtra("vocaData",(ArrayList<VocaVO>) vocaData);
                 startActivity(intent1);
             }
         });
@@ -64,15 +72,19 @@ public class VocaListActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent2=new Intent(VocaListActivity.this, SpellCheckActivity.class);
+                Bundle bundleData=new Bundle();
+                bundleData.putParcelableArrayList("vocaData",(ArrayList<VocaVO>) vocaData);
+                intent2.putExtra("vocaData",bundleData);
+                // intent2.putParcelableArrayListExtra("vocaData",(ArrayList<VocaVO>) vocaData);
                 startActivity(intent2);
             }
         });
     }
     private void getListViewItem(){
-        vocaData.add(new VocaVO("d","디",true,true));
-        vocaData.add(new VocaVO("c","씨",true,true));
-        vocaData.add(new VocaVO("b","비",true,true));
-        vocaData.add(new VocaVO("a","에이",true,true));
+        vocaData.add(new VocaVO("door","문",true,true));
+        vocaData.add(new VocaVO("cap","모자",true,true));
+        vocaData.add(new VocaVO("banana","바나나",true,true));
+        vocaData.add(new VocaVO("apple","사과",true,true));
 
     }
     @Override
@@ -123,7 +135,7 @@ public class VocaListActivity extends AppCompatActivity {
             vo.starCheck= vocaData.get(i).starCheck;
             showData.add(vo);
         }
-        VocaAdapter adapter=new VocaAdapter(this,R.layout.voca_list_item,showData);
+        VocaListAdapter adapter=new VocaListAdapter(this,R.layout.voca_list_item,showData);
         vocaListView.setAdapter(adapter);
     }
 

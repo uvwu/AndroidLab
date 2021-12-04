@@ -1,5 +1,6 @@
 package com.example.voca.VocaList;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -23,6 +24,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class VocaListActivity extends AppCompatActivity {
+    public static Context vocaListActivityContext;
 
     ArrayList<VocaVO> vocaData=new ArrayList<>();
     ListView vocaListView;
@@ -32,12 +34,15 @@ public class VocaListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_voca_list);
 
+        vocaListActivityContext=this;
+
         //-----------------리스트 뷰-----------
         vocaListView=findViewById(R.id.voca_listview);
 
         getListViewItem();//리스트뷰 아이템 가져오기
 
         showListView();//리스트뷰 보여주기
+
         //----------------------------------------------
 
         //암기화면 이동 버튼
@@ -47,7 +52,7 @@ public class VocaListActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent=new Intent(VocaListActivity.this, MemorizeActivity.class);
                 Bundle bundleData=new Bundle();
-                bundleData.putParcelableArrayList("vocaData",(ArrayList<VocaVO>) vocaData);
+                bundleData.putParcelableArrayList("vocaData",(ArrayList<VocaVO>) showData);
                 intent.putExtra("vocaData",bundleData);
                 //intent.putParcelableArrayListExtra("vocaData",(ArrayList<VocaVO>) vocaData);
                 startActivity(intent);
@@ -60,7 +65,7 @@ public class VocaListActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent1=new Intent(VocaListActivity.this, MultiChoiceActivity.class);
                 Bundle bundleData=new Bundle();
-                bundleData.putParcelableArrayList("vocaData",(ArrayList<VocaVO>) vocaData);
+                bundleData.putParcelableArrayList("vocaData",(ArrayList<VocaVO>) showData);
                 intent1.putExtra("vocaData",bundleData);
                 //intent1.putParcelableArrayListExtra("vocaData",(ArrayList<VocaVO>) vocaData);
                 startActivity(intent1);
@@ -73,7 +78,7 @@ public class VocaListActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent2=new Intent(VocaListActivity.this, SpellCheckActivity.class);
                 Bundle bundleData=new Bundle();
-                bundleData.putParcelableArrayList("vocaData",(ArrayList<VocaVO>) vocaData);
+                bundleData.putParcelableArrayList("vocaData",(ArrayList<VocaVO>) showData);
                 intent2.putExtra("vocaData",bundleData);
                 // intent2.putParcelableArrayListExtra("vocaData",(ArrayList<VocaVO>) vocaData);
                 startActivity(intent2);
@@ -81,10 +86,10 @@ public class VocaListActivity extends AppCompatActivity {
         });
     }
     private void getListViewItem(){
-        vocaData.add(new VocaVO("door","문",true,true));
-        vocaData.add(new VocaVO("cap","모자",true,true));
-        vocaData.add(new VocaVO("banana","바나나",true,true));
-        vocaData.add(new VocaVO("apple","사과",true,true));
+        vocaData.add(new VocaVO("door","문",false,false));
+        vocaData.add(new VocaVO("cap","모자",false,false));
+        vocaData.add(new VocaVO("banana","바나나",false,false));
+        vocaData.add(new VocaVO("apple","사과",false,false));
 
     }
     @Override

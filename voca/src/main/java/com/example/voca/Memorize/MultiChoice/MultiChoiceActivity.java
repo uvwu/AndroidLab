@@ -45,10 +45,12 @@ public class MultiChoiceActivity extends AppCompatActivity{
 
         viewPager2=findViewById(R.id.multichoice_viewPager2);
 
+        //단어 데이터 받아오기
         Intent intent=getIntent();
         Bundle bundleData=intent.getBundleExtra("vocaData");
         ArrayList<VocaVO> list=new ArrayList<>();
-        list.addAll(bundleData.getParcelableArrayList("vocaData"));
+        list=bundleData.getParcelableArrayList("vocaData");
+        //list.addAll(bundleData.getParcelableArrayList("vocaData"));
 
 
         viewPager2.setAdapter(new MultiChioceAdapter(list,tts));

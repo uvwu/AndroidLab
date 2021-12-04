@@ -51,7 +51,7 @@ public class VocaListAdapter extends ArrayAdapter<VocaVO> {
         TextView vocaKor= holder.vocaKor;
         CheckBox starCheck=holder.starCheck;
 
-        final VocaVO vo= data.get(position);
+        VocaVO vo= data.get(position);
 
         //암기여부 버튼 이벤트 처리
         memoCheck.setChecked(vo.memoCheck);// memoCheck 값의 여부에 따라 화면에 체크 유무 보여줌

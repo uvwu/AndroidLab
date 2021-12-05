@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.voca.MainActivity;
 import com.example.voca.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -85,7 +86,7 @@ public class TabActivity extends AppCompatActivity implements VocaDialog.VocaDia
 
         tAdapter.setItems(items);
         fabMain.setOnClickListener(view -> toggleFab());
-
+        //즐겨찾기 단어장, recyclerview에 포함하지 않음
         rv_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -124,7 +125,7 @@ public class TabActivity extends AppCompatActivity implements VocaDialog.VocaDia
             ObjectAnimator fe_animation = ObjectAnimator.ofFloat(fabEdit, "translationY", 0f);
             fe_animation.start();
             // 메인 플로팅 이미지 변경
-            fabMain.setImageResource(R.drawable.ic_add);
+            fabMain.setImageResource(R.drawable.ic_baseline_add_24);
 
         } else {
             // 플로팅 액션 버튼 열기
@@ -133,7 +134,7 @@ public class TabActivity extends AppCompatActivity implements VocaDialog.VocaDia
             ObjectAnimator fe_animation = ObjectAnimator.ofFloat(fabEdit, "translationY", -400f);
             fe_animation.start();
             // 메인 플로팅 이미지 변경
-            fabMain.setImageResource(R.drawable.ic_close);
+            fabMain.setImageResource(R.drawable.ic_baseline_close_24);
         }
         // 플로팅 버튼 상태 변경
         fabMain_status = !fabMain_status;
@@ -142,8 +143,9 @@ public class TabActivity extends AppCompatActivity implements VocaDialog.VocaDia
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
-            Toast toast = Toast.makeText(this, "HOME AS UP CLICK", Toast.LENGTH_SHORT);
-            toast.show();
+             Intent intent = new Intent(this, MainActivity.class);
+
+            startActivity(intent);
             return true;
         }
         return super.onOptionsItemSelected(item);

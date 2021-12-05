@@ -74,7 +74,9 @@
             android:exported="false" />
         <activity
             android:name=".List.TabActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:label="나만의 단어장"
+            />
         <activity
             android:name=".List.TestActivity"
             android:exported="false" />

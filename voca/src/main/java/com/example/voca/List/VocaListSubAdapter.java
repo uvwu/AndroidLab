@@ -13,14 +13,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.voca.R;
 
 import java.util.ArrayList;
-//ArrayAdapter<VocaListItem>
-public class VocaListAdapter extends RecyclerView.Adapter<VocaListAdapter.MyViewHolder>  implements ItemTouchHelperListener {
+
+// vocaSearchActivity에서 아이템 누른 후 변경되는 화면 관리위한 어뎁터
+public class VocaListSubAdapter extends RecyclerView.Adapter<VocaListSubAdapter.MyViewHolder>  implements ItemTouchHelperListener {
 
     Context context;
     int resId;
     ArrayList<VocaListItem> items;
 
-    public VocaListAdapter(Context context,int resId, ArrayList<VocaListItem> items) {
+    public VocaListSubAdapter(Context context,int resId, ArrayList<VocaListItem> items) {
         this.context = context;
         this.items = items;
         this.resId = resId;
@@ -33,8 +34,8 @@ public class VocaListAdapter extends RecyclerView.Adapter<VocaListAdapter.MyView
 
         Context context = parent.getContext();
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view = inflater.inflate(R.layout.vocasearch_item, parent, false);
-        VocaListAdapter.MyViewHolder vh = new VocaListAdapter.MyViewHolder(view);
+        View view = inflater.inflate(R.layout.vocasearch_sub_item, parent, false);
+        VocaListSubAdapter.MyViewHolder vh = new VocaListSubAdapter.MyViewHolder(view);
 
         return vh;
     }
@@ -82,7 +83,7 @@ public class VocaListAdapter extends RecyclerView.Adapter<VocaListAdapter.MyView
 
             // 뷰 객체에 대한 참조
             context = itemView.getContext();
-            nameView = itemView.findViewById(R.id.voca_search_item);
+            nameView = itemView.findViewById(R.id.voca_search_sub_item);
 
             // 각 아이템 뷰들이 클릭되었을 때 이벤트 처리
             itemView.setOnClickListener (new View.OnClickListener () {
@@ -102,5 +103,3 @@ public class VocaListAdapter extends RecyclerView.Adapter<VocaListAdapter.MyView
 
 
 }
-
-

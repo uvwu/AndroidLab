@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- 제공해주는 단어장에서 단어목록을 추가하고 싶을 때 클릭하는 아이템 -->
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/menu1"
-        android:title="새 단어장으로 추가"
-        />
-    <item
-        android:id="@+id/menu2"
-        android:title="기존 단어장에 추가"
+        android:id="@+id/provided_voca_menu"
+        android:title="내 단어장으로 추가"
         />
 </menu>

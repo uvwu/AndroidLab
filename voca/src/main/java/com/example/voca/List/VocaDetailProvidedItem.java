@@ -1,12 +1,13 @@
 package com.example.voca.List;
 
-// 사용자 설장 단어장
-// TODO: 클래스 수정 필요
-public class VocaDetailItem {
+// 제공해주는 단어장 목록(수능->week1->단어장 목록) 내에서 쓰일 아이템들
+public class VocaDetailProvidedItem {
     private String eng;
     private String kor;
 
-    public VocaDetailItem(String eng, String kor){
+    public VocaDetailProvidedItem(){}
+
+    public VocaDetailProvidedItem(String eng, String kor){
         this.eng = eng;
         this.kor = kor;
     }
@@ -25,5 +26,4 @@ public class VocaDetailItem {
         this.kor = kor;
 
     }
-
 }

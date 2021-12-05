@@ -13,7 +13,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.example.voca.VocaVO;
+import com.example.voca.realtimeDB.VocaVO;
 
 import java.util.ArrayList;
 

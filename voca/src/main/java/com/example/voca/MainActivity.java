@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
@@ -14,6 +15,7 @@ import android.widget.HorizontalScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -29,6 +31,7 @@ import com.example.voca.drawerActivity.EditAccountActivity;
 import com.example.voca.drawerActivity.GoalSettingActivity;
 import com.example.voca.drawerActivity.NoticeActivity;
 import com.example.voca.drawerActivity.PushAlertActivity;
+import com.example.voca.realtimeDB.Today;
 import com.firebase.ui.auth.IdpResponse;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.Legend;
@@ -42,12 +45,31 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
+    private static final String TAG = "MainActivity";
+
     private IdpResponse mIdpResponse;
+
+    private FirebaseDatabase firebaseDatabase;
+    private DatabaseReference mDatabaseReference; // 데이터베이스의 주소 저장
+    private DatabaseReference mDatabase;
+
+    Map<String, Object> mapKey;
 
     private ActionBarDrawerToggle toggle;//메뉴 화면을 여는 버튼
 
@@ -65,12 +87,21 @@ public class MainActivity extends AppCompatActivity {
 
         mIdpResponse = IdpResponse.fromResultIntent(getIntent());
 
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        String uid = user.getUid();
+        firebaseDatabase = FirebaseDatabase.getInstance(); // 실시간 DB 관리 객체 얻어오기
+        mDatabaseReference = firebaseDatabase.getReference("users"); // 현재 로그인하는 사용자의 정보가 저장될 공간
+        mDatabase = mDatabaseReference.child(uid).child("goals"); // DB/users/uid/goals
+        Log.d(TAG, "users" + mDatabase);
+
+
+
         themeColor = DarkModeUtil.modLoad(getApplicationContext());
         DarkModeUtil.applyTheme(themeColor);
 
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         TextView mainText=findViewById(R.id.text_main);
         mainText.setText((TextUtils.isEmpty(user.getDisplayName()) ? "No display name" : user.getDisplayName())+"님의 목표 달성률");
 
@@ -81,6 +112,57 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(MainActivity.this, VocaListActivity.class));
             }
         });
+
+
+        // 리스너 설정 및 연결 -> DB/users/uid/goals
+        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+            // 이벤트 발생 시점에 특정 경로에 있던 콘텐츠의 정적 스냅샷을 읽음
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                // 오늘 날짜
+                Date date = new Date();
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd", Locale.KOREA);
+                String today = sdf.format(date);
+
+                boolean isExist = false;
+
+                Log.d(TAG, "addValueEventListener: getChildren() " + dataSnapshot.getChildrenCount());
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    if (today == snapshot.getKey()) {
+                        isExist = true;
+                        break;
+                    }
+                }
+
+                if(!isExist){
+                    int goal = -1;
+                    String yesterday = String.valueOf(Integer.parseInt(dataSnapshot.getKey()) - 1);
+
+                    for(DataSnapshot snapshot : dataSnapshot.getChildren()){
+                        if(snapshot.hasChild()) {
+                            goal = dataSnapshot.child(yesterday).getValue(Integer.class); // 따로 설정하지 않으면 오늘의 목표는 어제와 같음
+                        }
+                    }
+
+                    Log.d(TAG, "yesterday: " + yesterday);
+                    // today 라는 key 생성
+                    mapKey = new HashMap<>();
+                    mapKey.put("Goal", today);
+                    mDatabase.updateChildren(mapKey);
+
+                    // today의 하위 항목
+                    Today todayGoal = new Today(goal, 0); // goal이 -1인 상태:목표 설정 안한 상태 (디폴트값)
+                    mDatabase.child(today).updateChildren(todayGoal.toMap());
+                }
+            }
+
+            // 실패시 호출
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
 
         //일일 기록
         CircleProgressBar dailyChart=findViewById(R.id.circle_bar);

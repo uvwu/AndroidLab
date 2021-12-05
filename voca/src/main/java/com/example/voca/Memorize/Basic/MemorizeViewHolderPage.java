@@ -9,7 +9,7 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.voca.R;
-import com.example.voca.VocaVO;
+import com.example.voca.realtimeDB.VocaVO;
 
 public class MemorizeViewHolderPage extends RecyclerView.ViewHolder{
     TextView vocaEng;

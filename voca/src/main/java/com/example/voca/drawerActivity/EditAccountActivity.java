@@ -3,6 +3,7 @@ package com.example.voca.drawerActivity;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -20,6 +21,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
 public class EditAccountActivity extends AppCompatActivity {
+    private static final String TAG = "EditAccountActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +58,8 @@ public class EditAccountActivity extends AppCompatActivity {
     {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser(); // 현재 사용자 정보
 
+        Log.d(TAG, "user: " + user);
+        Log.d(TAG, "userName: " + user.getDisplayName());
         // 사용자 e-mail 정보 얻어와서 화면에 보여줌
         TextView email_txt = (TextView)findViewById(R.id.user_email);
         email_txt.setText(

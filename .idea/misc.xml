@@ -115,6 +115,8 @@
         <entry key="..\:/Users/wjdtj/AndroidStudioProjects/AndroidLab/voca/src/main/res/menu/menu_drawer.xml" value="0.17916666666666667" />
         <entry key="..\:/Users/wjdtj/AndroidStudioProjects/AndroidLab/voca/src/main/res/menu/menu_option.xml" value="0.1" />
         <entry key="..\:/Users/wjdtj/AndroidStudioProjects/AndroidLab/voca/src/main/res/menu/menu_voca_list.xml" value="0.1" />
+        <entry key="voca/src/main/res/layout/activity_edit_account.xml" value="0.33125" />
+        <entry key="voca/src/main/res/layout/activity_firebase_ui.xml" value="0.33125" />
       </map>
     </option>
   </component>

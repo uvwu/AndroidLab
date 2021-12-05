@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.voca.R;
-import com.example.voca.VocaVO;
+import com.example.voca.realtimeDB.VocaVO;
 
 import java.util.ArrayList;
 

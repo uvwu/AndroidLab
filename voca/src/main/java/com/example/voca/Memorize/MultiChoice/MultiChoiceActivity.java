@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.voca.R;
-import com.example.voca.VocaVO;
+import com.example.voca.realtimeDB.VocaVO;
 
 import java.util.ArrayList;
 import java.util.Locale;

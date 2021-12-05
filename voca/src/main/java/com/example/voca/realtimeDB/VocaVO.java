@@ -1,4 +1,4 @@
-package com.example.voca;
+package com.example.voca.realtimeDB;
 
 import android.os.Parcel;
 import android.os.Parcelable;

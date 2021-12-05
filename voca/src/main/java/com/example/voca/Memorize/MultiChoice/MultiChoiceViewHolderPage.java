@@ -10,7 +10,7 @@ import android.widget.Toast;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.voca.R;
-import com.example.voca.VocaVO;
+import com.example.voca.realtimeDB.VocaVO;
 
 public class MultiChoiceViewHolderPage extends RecyclerView.ViewHolder implements View.OnClickListener {
     TextView vocaEng;

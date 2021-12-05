@@ -18,7 +18,7 @@ import com.example.voca.Memorize.Basic.MemorizeActivity;
 import com.example.voca.Memorize.MultiChoice.MultiChoiceActivity;
 import com.example.voca.Memorize.SpellCheck.SpellCheckActivity;
 import com.example.voca.R;
-import com.example.voca.VocaVO;
+import com.example.voca.realtimeDB.VocaVO;
 
 import java.util.ArrayList;
 import java.util.Collections;

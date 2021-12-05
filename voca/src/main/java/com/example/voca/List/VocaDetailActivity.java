@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -22,26 +23,21 @@ public class VocaDetailActivity extends AppCompatActivity {
     private VocaDetailAdapter dAdapter;
     private ItemTouchHelper dItemTouchHelper;
 
-
-    final Context context = this;
-
+    // final Context context = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_voca_detail);
 
-        //findViewById,버튼 매핑
         dRecyclerView = (RecyclerView) findViewById(R.id.rv_detail_list);
+        dRecyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
+        dRecyclerView.setHasFixedSize(true);
 
         //액션바
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setDisplayShowHomeEnabled(true);
-
-        LinearLayoutManager manager = new LinearLayoutManager(getApplicationContext());
-        manager.setOrientation(LinearLayoutManager.VERTICAL);
-        dRecyclerView.setLayoutManager(manager);
 
         dAdapter = new VocaDetailAdapter();
         dRecyclerView.setAdapter(dAdapter);
@@ -49,7 +45,6 @@ public class VocaDetailActivity extends AppCompatActivity {
         dItemTouchHelper = new ItemTouchHelper(new ItemTouchHelperCallback(dAdapter));
 
         dItemTouchHelper.attachToRecyclerView(dRecyclerView);
-
 
         ArrayList<VocaDetailItem> items = new ArrayList<>();
         VocaDetailItem item1 = new VocaDetailItem("apple","사과");
@@ -69,33 +64,5 @@ public class VocaDetailActivity extends AppCompatActivity {
         dAdapter.setItems(items);
 
     }
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu)
-    {
-        MenuInflater inflater = getMenuInflater();
 
-        inflater.inflate(R.menu.menu_option, menu);
-
-        return true;
-    }
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        Toast toast = Toast.makeText(getApplicationContext(),"", Toast.LENGTH_LONG);
-        switch (item.getItemId()){
-            case android.R.id.home:{ //toolbar의 back키 눌렀을 때 동작
-                finish();
-                return true;
-            }
-            case R.id.menu1:{ //toolbar의 back키 눌렀을 때 동작
-                toast.setText("Select Menu1");
-                return true;
-            }
-            case R.id.menu2:{ //toolbar의 back키 눌렀을 때 동작
-                toast.setText("Select Menu1");
-                return true;
-            }
-        }
-        toast.show();
-        return super.onOptionsItemSelected(item);
-    }
 }

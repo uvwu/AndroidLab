@@ -20,13 +20,18 @@
             android:name=".List.VocaDetailProvidedActivity"
             android:exported="false" />
         <activity
-            android:name=".VocaList.Memorize.SpellCheckActivity"
+            android:name=".Memorize.SpellCheck.SpellCheckActivity"
             android:exported="false" />
         <activity
-            android:name=".VocaList.Memorize.MultiChoiceActivity"
+            android:name=".Memorize.MultiChoice.MultiChoiceActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
+            android:exported="true" >
+
+        </activity>
+        <activity
+            android:name=".authentication.FirebaseUI"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -35,36 +40,31 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".authentication.FirebaseUI"
-            android:exported="true" >
-
-        </activity>
-        <activity
-            android:name=".VocaList.Memorize.MemorizeActivity"
-            android:exported="true"
+            android:name=".Memorize.Basic.MemorizeActivity"
+            android:exported="false"
             android:label="Memorize" />
         <activity
             android:name=".VocaList.VocaListActivity"
-            android:exported="true" />
+            android:exported="false" />
         <activity
             android:name=".drawerActivity.PushAlertActivity"
-            android:exported="true"
+            android:exported="false"
             android:label="푸시알림" />
         <activity
             android:name=".drawerActivity.DarkModeActivity"
-            android:exported="true"
+            android:exported="false"
             android:label="다크모드" />
         <activity
             android:name=".drawerActivity.GoalSettingActivity"
-            android:exported="true"
+            android:exported="false"
             android:label="목표설정" />
         <activity
             android:name=".drawerActivity.EditAccountActivity"
-            android:exported="true"
+            android:exported="false"
             android:label="회원정보" />
         <activity
             android:name=".drawerActivity.NoticeActivity"
-            android:exported="true"
+            android:exported="false"
             android:label="공지사항" />
         <activity
             android:name=".List.VocaDetailActivity"
@@ -81,6 +81,7 @@
         <activity
             android:name=".List.VocaSearchSubActivity"
             android:exported="false" />
+
     </application>
 
 </manifest>

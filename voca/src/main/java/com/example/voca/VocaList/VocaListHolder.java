@@ -6,12 +6,12 @@ import android.widget.TextView;
 
 import com.example.voca.R;
 
-public class VocaHolder {
+public class VocaListHolder {
     public CheckBox memoCheck;
     public TextView vocaEng;
     public TextView vocaKor;
     public CheckBox starCheck;
-    public VocaHolder(View root){
+    public VocaListHolder(View root){
         memoCheck=root.findViewById(R.id.voca_list_item_memo_check);
         vocaEng=root.findViewById(R.id.voca_list_item_voca_eng);
         vocaKor=root.findViewById(R.id.voca_list_item_voca_kor);

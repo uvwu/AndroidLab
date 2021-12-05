@@ -1,5 +1,7 @@
 package com.example.voca.List;
 
+import static com.google.firebase.database.core.RepoManager.clear;
+
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;

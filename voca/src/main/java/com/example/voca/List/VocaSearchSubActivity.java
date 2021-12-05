@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -16,6 +17,8 @@ import java.util.ArrayList;
 
 // vocaSearchActivity에서 아이템 누른 후 변경되는 화면 관리
 public class VocaSearchSubActivity extends AppCompatActivity {
+    private static final String TAG = "VocaSearchSubActivity";
+
     RecyclerView recyclerview;
     ArrayList<VocaListItem> items;
     VocaListSubAdapter vocaListSubAdapter;
@@ -28,6 +31,8 @@ public class VocaSearchSubActivity extends AppCompatActivity {
         recyclerview = findViewById(R.id.rv_voca_search_sub);
         recyclerview.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
         recyclerview.setHasFixedSize(true);
+
+
 
         Intent intent = getIntent();
         String title = intent.getExtras().getString("title"); // 액션바 부분에 쓰일 단어장 제목 받아옴
@@ -44,7 +49,7 @@ public class VocaSearchSubActivity extends AppCompatActivity {
         ArrayList<VocaListItem> items = new ArrayList<>();
 
         for(int i = 1; i <= 10; ++i){
-            VocaListItem item = new VocaListItem("week" + i);
+            VocaListItem item = new VocaListItem(title + "(" + i + ")");
             items.add(item);
         }
 
@@ -57,6 +62,7 @@ public class VocaSearchSubActivity extends AppCompatActivity {
             //아이템 클릭시  VocaDetailProvidedActivity 로 이동
             @Override
             public void onItemClick(View v, int position) {
+                Log.d(TAG, "position: " + position);
                 Intent intent = new Intent(VocaSearchSubActivity.this,  VocaDetailProvidedActivity .class);
                 // 선택된 단어장 이름 액션바에 나타내기
                 for(int i = 0; i < 10; ++i)
@@ -65,8 +71,10 @@ public class VocaSearchSubActivity extends AppCompatActivity {
                     {
                         // subTitle: 액션바 부분에 나타날 이름(제목) -> week 1 이런거
                         // subName: 데이터 가져올 때 쓸 이름
-                        intent.putExtra("subTitle", items.get(i));
+                        intent.putExtra("subTitle", items.get(i).getName());
                         intent.putExtra("subName", (i+1) + "일차");
+                        Log.d(TAG, "item.get(i): " + items.get(i).getName());
+
                         break;
                     }
                 }

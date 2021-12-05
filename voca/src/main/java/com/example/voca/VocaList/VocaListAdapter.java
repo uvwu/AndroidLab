@@ -17,11 +17,11 @@ import com.example.voca.VocaVO;
 
 import java.util.ArrayList;
 
-public class VocaAdapter extends ArrayAdapter<VocaVO> {
+public class VocaListAdapter extends ArrayAdapter<VocaVO> {
     Context context;
     int resId;
     ArrayList<VocaVO> data;
-    public VocaAdapter(Context context,int resId,ArrayList<VocaVO> data){
+    public VocaListAdapter(Context context, int resId, ArrayList<VocaVO> data){
         super(context, resId);
         this.context=context;
         this.resId=resId;
@@ -40,18 +40,18 @@ public class VocaAdapter extends ArrayAdapter<VocaVO> {
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(resId, null);
-            VocaHolder holder = new VocaHolder(convertView);
+            VocaListHolder holder = new VocaListHolder(convertView);
             convertView.setTag(holder);
         }
 
-        VocaHolder holder=(VocaHolder)convertView.getTag();
+        VocaListHolder holder=(VocaListHolder)convertView.getTag();
 
         CheckBox memoCheck=holder.memoCheck;
         TextView vocaEng= holder.vocaEng;
         TextView vocaKor= holder.vocaKor;
         CheckBox starCheck=holder.starCheck;
 
-        final VocaVO vo= data.get(position);
+        VocaVO vo= data.get(position);
 
         //암기여부 버튼 이벤트 처리
         memoCheck.setChecked(vo.memoCheck);// memoCheck 값의 여부에 따라 화면에 체크 유무 보여줌

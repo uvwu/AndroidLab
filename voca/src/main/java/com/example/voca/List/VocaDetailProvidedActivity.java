@@ -50,7 +50,7 @@ public class VocaDetailProvidedActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_voca_detail_provided);
 
-        // name과 subName은 DB에서 데이터를 가져올 때 상위 목록이 되는 애들임
+        // name, subName 은 DB 내의 단어장 이름
         Intent intent = getIntent();
         String title = intent.getExtras().getString("title");
         String subTitle = intent.getExtras().getString("subTitle"); // 액션바 부분에 쓰일 단어장 제목 받아옴
@@ -64,11 +64,12 @@ public class VocaDetailProvidedActivity extends AppCompatActivity {
 
         // 실시간 데이터베이스 연결
         firebaseDatabase = FirebaseDatabase.getInstance(); // 실시간 DB 관리 객체 얻어오기
-        mDatabaseReference = firebaseDatabase.getReference("vocavulary"); // 저장시킬 노드 참조객체 가져오기 -> vocavulary
-        mDatabase = mDatabaseReference.child(name).child(subTitle); // 불러올 데이터베이스의 주소
+        mDatabaseReference = firebaseDatabase.getReference("vocabulary"); // 저장시킬 노드 참조객체 가져오기 -> vocavulary
+        Log.d(TAG_DB, "ReadData_ProvidedVoca: " + mDatabaseReference );
+        mDatabase = mDatabaseReference.child(name).child(subName); // 불러올 데이터베이스의 주소
         Log.d(TAG_DB, "ReadData_ProvidedVoca: " + mDatabase );
 
-        // 데이터 수신 위한 리스너
+        /*// 데이터 수신 위한 리스너
         ChildEventListener mChildEventListener = new ChildEventListener() {
             // 데이터가 추가되었을 때
             @Override
@@ -110,33 +111,44 @@ public class VocaDetailProvidedActivity extends AppCompatActivity {
 
             }
         };
-        mDatabase.addChildEventListener(mChildEventListener); // 리스너 등록
+        mDatabase.addChildEventListener(mChildEventListener); // 리스너 등록*/
 
         // 리스너: 별도의 읽어오기 버튼 없음 -> DB 변경이 발생하면 이에 반응하는 리스너를 통해 DB 읽어옴
         // 리스너 연결
-        /*mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Log.d(TAG_DB, "addValueEventListener: for");
-                for (DataSnapshot snapshot: dataSnapshot.getKey()) { // Eng 값이 각각의 직계 자손으로 인식
-                    String Eng = (String)snapshot.getKey();
-                    String Kor = snapshot.getValue(String.class);
+                Log.d(TAG_DB, "addValueEventListener: getChildren() " + dataSnapshot.getChildrenCount());
+                for (DataSnapshot snapshot: dataSnapshot.getChildren()) { // Eng 값이 각각의 직계 자손으로 인식
+                    String Eng = snapshot.getKey().toString();
+                    String Kor = snapshot.getValue().toString();
+
+                    Log.d(TAG_DB, "addValueEventListener: Key " + Eng);
+                    Log.d(TAG_DB, "addValueEventListener: value " + Kor);
+
 
                     VocaDetailProvidedItem item = new VocaDetailProvidedItem(Eng, Kor);
                     items.add(item);
-                    Log.d(TAG_DB, "add item -> size:" + items.size() ); //
+                    Log.d(TAG_DB, "add item1 -> size:" + items.size()); //
                 }
+
+                // 어댑터 연결
+                vocaDetailAdapter = new VocaDetailProvidedAdapter(VocaDetailProvidedActivity.this, R.layout.vocasearch_sub_item, items);
+                //vocaDetailAdapter.notifyDataSetChanged();
+                recyclerView.setAdapter(vocaDetailAdapter);
+
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
-        }); */
+        });
 
-        // 어댑터 연결
-        vocaDetailAdapter = new VocaDetailProvidedAdapter(this, R.layout.vocasearch_sub_item, items);
-        recyclerView.setAdapter(vocaDetailAdapter);
+        Log.d(TAG_DB, "add item2 -> size:" + items.size());
+
+
+
 
         //액션바
         ActionBar actionBar = getSupportActionBar();

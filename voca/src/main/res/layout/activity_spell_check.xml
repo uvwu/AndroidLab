@@ -1,76 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_height="match_parent"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:orientation="vertical">
-
-    <LinearLayout
+    android:layout_height="match_parent"
+    tools:context=".Memorize.SpellCheck.SpellCheckActivity">
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/spellcheck_viewPager2"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:orientation="vertical">
+        android:layout_height="match_parent"
+        android:orientation="horizontal"/>
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="80dp">
-            <CheckBox
-                android:buttonTint="#FF6E6E"
-                android:id="@+id/memo_check_spell"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentLeft="true"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-            <TextView
-                android:id="@+id/count_spell"
-                android:layout_centerHorizontal="true"
-                android:layout_alignParentTop="true"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="1/20"
-                android:textSize="20dp"/>
-            <CheckBox
-                android:buttonTint="#FFE650"
-                android:id="@+id/star_btn_spell"
-                android:button="@drawable/imgbtn_states"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentBottom="true"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-        </RelativeLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="120dp"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_marginTop="20dp"
-                android:id="@+id/voca_spell"
-                android:layout_gravity="center"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="사과"
-                android:textSize="40dp"/>
-
-        </LinearLayout>
-    </LinearLayout>
-
-    <EditText
-        android:id="@+id/text_answer_spell"
-        android:background="#c0c0c0"
-        android:layout_width="200dp"
-        android:layout_height="50dp"
-        android:textSize="30dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="340dp"
-        android:inputType="textFilter|textNoSuggestions|textVisiblePassword"
-        />
-    <Button
-        android:id="@+id/btn_check_spell"
-        android:textSize="25dp"
-        android:text="check"
-        android:textStyle="bold"
-        android:layout_width="150dp"
-        android:layout_height="50dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="410dp"/>
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

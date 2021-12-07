@@ -7,6 +7,8 @@ import android.content.SharedPreferences;
 * SharedPreference로 저장함.
 * */
 public class RecordUtil {
+    //public static int goal=20;
+    //public static int achievement=0;
     //목표치 저장하기
     public static void saveGoal(Context context,int goal){
         SharedPreferences sp;

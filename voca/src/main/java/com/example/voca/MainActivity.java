@@ -32,7 +32,6 @@ import com.example.voca.drawerActivity.GoalSettingActivity;
 import com.example.voca.drawerActivity.NoticeActivity;
 import com.example.voca.drawerActivity.PushAlertActivity;
 import com.example.voca.realtimeDB.GoalData;
-import com.example.voca.realtimeDB.Today;
 import com.firebase.ui.auth.IdpResponse;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.Legend;
@@ -59,7 +58,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
@@ -236,18 +234,18 @@ public class MainActivity extends AppCompatActivity {
 
         //성취 데이터
         List<BarEntry> achivements=new ArrayList<BarEntry>();
-        for(int i=0;i<10;i++)
-            achivements.add(new BarEntry(i,(i+1)*10));//x,y
-
+        for(int i=0;i<goalData.size();i++){
+            achivements.add(new BarEntry(i,Float.parseFloat(goalData.get(i).getCount())));
+        }
         BarDataSet dataSet1=new BarDataSet(achivements,"외운 단어수");
         dataSet1.setAxisDependency(YAxis.AxisDependency.RIGHT);
         dataSet1.setColor(ColorTemplate.JOYFUL_COLORS[1]);
 
         //목표 데이터
         List<BarEntry> goals=new ArrayList<>();
-        for (int i=0;i<10;i++)
-            goals.add(new BarEntry(i,100));
-
+        for(int i=0;i<goalData.size();i++){
+            goals.add(new BarEntry(i,Float.parseFloat(goalData.get(i).getGoal())));
+        }
         BarDataSet dataSet=new BarDataSet(goals,"목표");
         dataSet.setAxisDependency(YAxis.AxisDependency.RIGHT);
         dataSet.setColor(R.color.theme1);
@@ -270,7 +268,10 @@ public class MainActivity extends AppCompatActivity {
         weekChart.setDrawGridBackground(false);
         weekChart.setData(bardata);
         XAxis xAxis=weekChart.getXAxis();
-        String[] date={"11/1","11/2","11/3","11/4","11/5","11/6","11/7","11/8","11/9","11/10"};
+        List<String> date=new ArrayList<>();
+        for(int i=0;i<goalData.size();i++){
+            date.add(goalData.get(i).getDate());
+        }
         xAxis.setValueFormatter(new IndexAxisValueFormatter(date));
         xAxis.setAxisLineWidth(10);
         xAxis.setTextSize(15);

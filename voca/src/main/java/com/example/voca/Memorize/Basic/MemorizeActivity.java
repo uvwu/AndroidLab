@@ -1,5 +1,6 @@
 package com.example.voca.Memorize.Basic;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
@@ -17,6 +18,8 @@ import java.util.Locale;
 public class MemorizeActivity extends AppCompatActivity {
     ViewPager2 viewPager2;
     TextToSpeech tts;
+
+    public Context memorizeActivityContext=getApplicationContext();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

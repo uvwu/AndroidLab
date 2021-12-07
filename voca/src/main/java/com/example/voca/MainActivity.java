@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
         //일일 기록
         CircleProgressBar dailyChart=findViewById(R.id.circle_bar);
         goal=RecordUtil.loadGoal(getApplicationContext());
-        achievement=16;
+        achievement=0;
         dailyChart.setProgress((int)((float)achievement/goal*100));
         TextView dayRecord=findViewById(R.id.day_record);
         dayRecord.setText(achievement+"/"+goal);

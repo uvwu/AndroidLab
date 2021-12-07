@@ -30,4 +30,10 @@ public class RecordUtil {
         int goal=sp.getInt("goal",30);
         return goal;
     }
+    public static int loadMemorizedVocaNum(Context context){
+        SharedPreferences sp;
+        sp= context.getSharedPreferences("record",context.MODE_PRIVATE);
+        int memorizedVocaNum=sp.getInt("achievement",0);
+        return memorizedVocaNum;
+    }
 }

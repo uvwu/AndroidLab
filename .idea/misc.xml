@@ -122,6 +122,14 @@
         <entry key="..\:/Users/wjdtj/AndroidStudioProjects/AndroidLab/voca/src/main/res/menu/menu_voca_list.xml" value="0.1" />
         <entry key="voca/src/main/res/layout/activity_edit_account.xml" value="0.33125" />
         <entry key="voca/src/main/res/layout/activity_firebase_ui.xml" value="0.33125" />
+        <entry key="voca/src/main/res/layout/activity_main.xml" value="0.346875" />
+        <entry key="voca/src/main/res/layout/activity_memorize.xml" value="0.346875" />
+        <entry key="voca/src/main/res/layout/activity_multi_choice.xml" value="0.346875" />
+        <entry key="voca/src/main/res/layout/activity_tab.xml" value="0.346875" />
+        <entry key="voca/src/main/res/layout/activity_test.xml" value="0.346875" />
+        <entry key="voca/src/main/res/layout/item_memorize_viewpager.xml" value="0.346875" />
+        <entry key="voca/src/main/res/layout/item_multichoice_viewpager.xml" value="0.346875" />
+        <entry key="voca/src/main/res/layout/tablist_item.xml" value="0.346875" />
       </map>
     </option>
   </component>

@@ -74,11 +74,20 @@ public class MainActivity extends AppCompatActivity {
     String todayGoal;
     String todayCount;
 
+    BarDataSet dataSet1;
+    BarDataSet dataSet;
+
+    CircleProgressBar dailyChart;
+    TextView dayRecord;
 
     Map<String, Object> mapKey;
     Map<String, Object> innerMap;
 
     String today;
+
+    BarChart weekChart;
+    BarData bardata;
+    XAxis xAxis;
 
     private ActionBarDrawerToggle toggle;//메뉴 화면을 여는 버튼
 
@@ -88,7 +97,6 @@ public class MainActivity extends AppCompatActivity {
     AlertDialog alertDialog;//로그아웃시 띄울 다이얼로그
 
     String themeColor;
-
 
     int goal;
     int achievement;
@@ -200,59 +208,8 @@ public class MainActivity extends AppCompatActivity {
                     Log.d(TAG, "onDataChange: goalData " + goalData.get(0).getDate());
                 }
 
-                // TODO: 이곳에서 화면에 나타날 통계 관련 코드 한 번 더 써줘야 함 (GoalSettingActivity 101번째 줄 참고)
-                // 283-333라인 복붙한거에요
-                //주간 기록 차트
-                BarChart weekChart=findViewById(R.id.bar_chart);
-                //성취 데이터
-                List<BarEntry> achivements=new ArrayList<BarEntry>();
-                for(int i=0;i<goalData.size();i++){
-                    achivements.add(new BarEntry(i,Float.parseFloat(goalData.get(i).getCount())));
-                }
-                BarDataSet dataSet1=new BarDataSet(achivements,"외운 단어수");
-                dataSet1.setAxisDependency(YAxis.AxisDependency.RIGHT);
-                dataSet1.setColor(ColorTemplate.JOYFUL_COLORS[1]);
-
-                //목표 데이터
-                List<BarEntry> goals=new ArrayList<>();
-                for(int i=0;i<goalData.size();i++){
-                    goals.add(new BarEntry(i,Float.parseFloat(goalData.get(i).getGoal())));
-                }
-                BarDataSet dataSet=new BarDataSet(goals,"목표");
-                dataSet.setAxisDependency(YAxis.AxisDependency.RIGHT);
-                dataSet.setColor(R.color.theme1);
-                dataSet.setFormLineWidth(10f);
-
-
-                //차트에 데이터 넣기
-                BarData bardata=new BarData(dataSet,dataSet1);
-                bardata.setBarWidth(0.7f);//차트 폭폭
-                bardata.setValueTextSize(15);
-
-                //차트 그래프 가공(격자선 없애기 등등)
-                weekChart.getDescription().setEnabled(false);
-                weekChart.getXAxis().setDrawGridLines(false);
-                weekChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
-                weekChart.getAxisLeft().setDrawGridLines(false);
-                weekChart.getAxisRight().setDrawGridLines(false);
-                weekChart.getAxisRight().setEnabled(false);
-                weekChart.getAxisLeft().setEnabled(false);
-                weekChart.setDrawGridBackground(false);
-                weekChart.setData(bardata);
-                XAxis xAxis=weekChart.getXAxis();
-                List<String> date=new ArrayList<>();
-                for(int i=0;i<goalData.size();i++){
-                    date.add(goalData.get(i).getDate());
-                }
-                xAxis.setValueFormatter(new IndexAxisValueFormatter(date));
-                xAxis.setAxisLineWidth(10);
-                xAxis.setTextSize(15);
-                weekChart.setTouchEnabled(false);
-                weekChart.setDrawValueAboveBar(false);
-                weekChart.setFitBars(true);
-                weekChart.getLegend().setHorizontalAlignment(Legend.LegendHorizontalAlignment.RIGHT);
-                weekChart.invalidate();
-
+                initData();
+                edit_goal();
             }
 
             // 실패시 호출
@@ -264,12 +221,9 @@ public class MainActivity extends AppCompatActivity {
 
 
         //일일 기록
-        CircleProgressBar dailyChart=findViewById(R.id.circle_bar);
-        goal=RecordUtil.loadGoal(getApplicationContext());
-        achievement=0;
-        dailyChart.setProgress((int)((float)achievement/goal*100));
-        TextView dayRecord=findViewById(R.id.day_record);
-        dayRecord.setText(achievement+"/"+goal);
+        dailyChart=findViewById(R.id.circle_bar);
+        dayRecord=findViewById(R.id.day_record);
+        edit_goal();
         //주간 기록 보여줄 수평 스크롤뷰
         HorizontalScrollView horizonScroll=findViewById(R.id.horizon_scroll);
         //왼쪽방향으로 스크롤 되게 하기
@@ -281,56 +235,18 @@ public class MainActivity extends AppCompatActivity {
         });
 
         //주간 기록 차트
-        BarChart weekChart=findViewById(R.id.bar_chart);
-
-        //성취 데이터
-        List<BarEntry> achivements=new ArrayList<BarEntry>();
-        for(int i=0;i<goalData.size();i++){
-            achivements.add(new BarEntry(i,Float.parseFloat(goalData.get(i).getCount())));
-        }
-        BarDataSet dataSet1=new BarDataSet(achivements,"외운 단어수");
-        dataSet1.setAxisDependency(YAxis.AxisDependency.RIGHT);
-        dataSet1.setColor(ColorTemplate.JOYFUL_COLORS[1]);
-
-        //목표 데이터
-        List<BarEntry> goals=new ArrayList<>();
-        for(int i=0;i<goalData.size();i++){
-            goals.add(new BarEntry(i,Float.parseFloat(goalData.get(i).getGoal())));
-        }
-        BarDataSet dataSet=new BarDataSet(goals,"목표");
-        dataSet.setAxisDependency(YAxis.AxisDependency.RIGHT);
-        dataSet.setColor(R.color.theme1);
-        dataSet.setFormLineWidth(10f);
+       // weekChart=findViewById(R.id.bar_chart);
+        weekChart = (BarChart) findViewById(R.id.bar_chart);
 
 
-        //차트에 데이터 넣기
-        BarData bardata=new BarData(dataSet,dataSet1);
-        bardata.setBarWidth(0.7f);//차트 폭폭
-        bardata.setValueTextSize(15);
+        //achivements=new ArrayList<BarEntry>();    //성취 데이터
+        //goals=new ArrayList<>();     //목표 데이터
+        //date=new ArrayList<>(); // 날짜
 
-        //차트 그래프 가공(격자선 없애기 등등)
-        weekChart.getDescription().setEnabled(false);
-        weekChart.getXAxis().setDrawGridLines(false);
-        weekChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
-        weekChart.getAxisLeft().setDrawGridLines(false);
-        weekChart.getAxisRight().setDrawGridLines(false);
-        weekChart.getAxisRight().setEnabled(false);
-        weekChart.getAxisLeft().setEnabled(false);
-        weekChart.setDrawGridBackground(false);
-        weekChart.setData(bardata);
-        XAxis xAxis=weekChart.getXAxis();
-        List<String> date=new ArrayList<>();
-        for(int i=0;i<goalData.size();i++){
-            date.add(goalData.get(i).getDate());
-        }
-        xAxis.setValueFormatter(new IndexAxisValueFormatter(date));
-        xAxis.setAxisLineWidth(10);
-        xAxis.setTextSize(15);
-        weekChart.setTouchEnabled(false);
-        weekChart.setDrawValueAboveBar(false);
-        weekChart.setFitBars(true);
-        weekChart.getLegend().setHorizontalAlignment(Legend.LegendHorizontalAlignment.RIGHT);
-        weekChart.invalidate();
+        initData(); // 차트 가공
+
+
+
 
 
         //단어 학습하기 버튼 이벤트 처리하는 곳
@@ -491,6 +407,7 @@ public class MainActivity extends AppCompatActivity {
         return today;
     }
 
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -501,5 +418,86 @@ public class MainActivity extends AppCompatActivity {
         TextView dayRecord=findViewById(R.id.day_record);
         dayRecord.setText(achievement+"/"+goal);
 
+    }
+
+    // 차트 가공에 쓰일 코드들을 함수로 모은 것
+    private void initData()
+    {
+        Log.d(TAG, "goalData.size(): " + goalData.size());
+
+        List<BarEntry> achivements;
+        List<BarEntry> goals;
+        List<String> date;
+
+        achivements=new ArrayList<>();    //성취 데이터
+        goals=new ArrayList<>();     //목표 데이터
+        date=new ArrayList<>(); // 날짜
+
+        //성취 데이터
+        for(int i=0;i<goalData.size();i++){
+            achivements.add(new BarEntry(i,Integer.parseInt(goalData.get(i).getCount())));
+            Log.d(TAG, "achivement: " + achivements);
+        }
+        dataSet1=new BarDataSet(achivements,"외운 단어수");
+
+        //목표 데이터
+        for(int i=0;i<goalData.size();i++){
+            goals.add(new BarEntry(i,Integer.parseInt(goalData.get(i).getGoal())));
+            Log.d(TAG, "goals: " + goals);
+        }
+        dataSet=new BarDataSet(goals,"목표");
+
+        //차트에 데이터 넣기
+
+        bardata=new BarData(dataSet,dataSet1);
+
+        for(int i=0;i<goalData.size();i++){
+            date.add(goalData.get(i).getDate());
+            Log.d(TAG, "date: " + date);
+        }
+
+
+        xAxis=weekChart.getXAxis();
+        dataSet1.setAxisDependency(YAxis.AxisDependency.RIGHT);
+        dataSet1.setColor(ColorTemplate.JOYFUL_COLORS[1]);
+
+        dataSet.setAxisDependency(YAxis.AxisDependency.RIGHT);
+        dataSet.setColor(R.color.theme1);
+        dataSet.setFormLineWidth(10f);
+
+        bardata.setBarWidth(0.7f);//차트 폭폭
+        bardata.setValueTextSize(15);
+
+        //차트 그래프 가공(격자선 없애기 등등)
+        xAxis.setValueFormatter(new IndexAxisValueFormatter(date));
+        weekChart.getLegend().setHorizontalAlignment(Legend.LegendHorizontalAlignment.RIGHT);
+        weekChart.getDescription().setEnabled(false);
+        weekChart.getXAxis().setDrawGridLines(false);
+        weekChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
+        weekChart.getAxisLeft().setDrawGridLines(false);
+        weekChart.getAxisRight().setDrawGridLines(false);
+        weekChart.getAxisRight().setEnabled(false);
+        weekChart.getAxisLeft().setEnabled(false);
+        weekChart.setDrawGridBackground(false);
+
+        xAxis.setAxisLineWidth(10);
+        xAxis.setTextSize(15);
+        weekChart.setTouchEnabled(false);
+        weekChart.setDrawValueAboveBar(false);
+        weekChart.setFitBars(true);
+
+        weekChart.setData(bardata);
+
+        weekChart.invalidate();
+
+
+    }
+
+    // 화면에 보일 현재 목표 및 목표 수정 화면
+    private void edit_goal()
+    {
+        goal=RecordUtil.loadGoal(getApplicationContext());
+        dailyChart.setProgress((int)((float)achievement/goal*100));
+        dayRecord.setText(achievement+"/"+goal);
     }
 }

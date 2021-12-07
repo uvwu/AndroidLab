@@ -49,7 +49,7 @@ public class TabActivity extends AppCompatActivity implements VocaDialog.VocaDia
         fabEdit = findViewById(R.id.fabEdit);
         fabSearch = findViewById(R.id.fabSearch);
         tRecyclerView = (RecyclerView) findViewById(R.id.rv_tab_list);
-        rv_btn = findViewById(R.id.rv_btn);
+        rv_btn = findViewById(R.id.rv_btn); // TODO: 즐겨찾는 단어장에 단어가 하나도 없을 때에는 화면에 보이지 않도록 설정
 
         //액션바
         ActionBar actionBar = getSupportActionBar();

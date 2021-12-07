@@ -34,8 +34,10 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Objects;
 
 public class FirebaseUI extends AppCompatActivity implements View.OnClickListener{
@@ -47,6 +49,8 @@ public class FirebaseUI extends AppCompatActivity implements View.OnClickListene
 
     ArrayList<String> userUID; // 유저의 로그인 토큰
     String uid;
+
+    Map<String, Object> mapKey;
 
     ValueEventListener mValueEventListener; // 리스너 선언 -> 경로의 전체 내용을 읽고 변경사항을 수신 대기
 
@@ -196,8 +200,11 @@ public class FirebaseUI extends AppCompatActivity implements View.OnClickListene
         // 신규회원이면 DB에 사용자 토큰 저장
         if(!isExist)
         {
+            mapKey = new HashMap<>();
+            mapKey.put(user, 0);
+
             // 현재 루트: DB/users
-            mDatabaseReference.setValue(user);
+            mDatabaseReference.updateChildren(mapKey);
             Log.d(TAG, "mDatabase: " + mDatabaseReference);
 
             mDatabase = mDatabaseReference.child(user); // 현재 루트를 DB/users/user 로 변경

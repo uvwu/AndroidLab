@@ -98,6 +98,7 @@ public class GoalSettingActivity extends AppCompatActivity {
                     Log.d(TAG, "onDataChange: goalData " + goalData.get(0).getDate());
                 }
 
+                // 실시간데이터베이스 특성상 실시간데이터베이스가 바뀌면 화면도 바뀔 부분은 이곳에서도 한 번 더 써줘야함
                 edit_goal();  // 화면에 보일 현재 목표 및 목표 수정 화면 (오늘의 날짜,목표,달성률 구함)
             }
 

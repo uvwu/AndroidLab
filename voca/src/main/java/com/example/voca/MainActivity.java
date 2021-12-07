@@ -31,6 +31,7 @@ import com.example.voca.drawerActivity.EditAccountActivity;
 import com.example.voca.drawerActivity.GoalSettingActivity;
 import com.example.voca.drawerActivity.NoticeActivity;
 import com.example.voca.drawerActivity.PushAlertActivity;
+import com.example.voca.realtimeDB.GoalData;
 import com.example.voca.realtimeDB.Today;
 import com.firebase.ui.auth.IdpResponse;
 import com.github.mikephil.charting.charts.BarChart;
@@ -68,6 +69,13 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference mDatabaseReference; // 데이터베이스의 주소 저장
     private DatabaseReference mDatabase;
+
+    ArrayList<GoalData> goalData; // 날짜,목표,목표달성률 넣을 데이터
+
+    String todayDate;
+    String todayGoal;
+    String todayCount;
+
 
     Map<String, Object> mapKey;
     Map<String, Object> innerMap;
@@ -121,8 +129,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        goalData = new ArrayList<>();
+        GoalData data = new GoalData();
+
         // 리스너 설정 및 연결 -> DB/users/uid/goals
-        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+        mDatabase.addValueEventListener(new ValueEventListener() {
             // 이벤트 발생 시점에 특정 경로에 있던 콘텐츠의 정적 스냅샷을 읽음
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -166,6 +177,33 @@ public class MainActivity extends AppCompatActivity {
 
                     mDatabase.child(today).updateChildren(innerMap);
                 }
+
+                for (DataSnapshot snapshot_data : dataSnapshot.getChildren()) { // date
+                    int i = 0;
+                    data.setDate(snapshot_data.getKey());
+                    // Log.d(TAG, "onDataChange: data " + );
+
+                    for (DataSnapshot snapshot : snapshot_data.getChildren()) {
+                        switch (i) {
+                            case 0:
+                                data.setCount(snapshot.getValue().toString());
+                                break;
+
+                            case 1:
+                                data.setGoal(snapshot.getValue().toString());
+                                break;
+                        }
+                        i++;
+                    }
+
+                    goalData.add(data);
+                    Log.d(TAG, "onDataChange: goalData " + goalData.get(0).getGoal());
+                    Log.d(TAG, "onDataChange: goalData " + goalData.get(0).getCount());
+                    Log.d(TAG, "onDataChange: goalData " + goalData.get(0).getDate());
+                }
+
+                // TODO: 이곳에서 화면에 나타날 통계 관련 코드 한 번 더 써줘야 함 (GoalSettingActivity 101번째 줄 참고)
+
             }
 
             // 실패시 호출

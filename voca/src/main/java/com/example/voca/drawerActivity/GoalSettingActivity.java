@@ -12,6 +12,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.voca.R;
+import com.example.voca.RecordUtil;
 
 public class GoalSettingActivity extends AppCompatActivity {
 
@@ -23,7 +24,7 @@ public class GoalSettingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_goal_setting);
 
-        goalNow=20;
+        goalNow= RecordUtil.loadGoal(this);
 
         //현재 목표 보여주는 textView
         TextView goalNowText=findViewById(R.id.goal_now_text);
@@ -41,6 +42,7 @@ public class GoalSettingActivity extends AppCompatActivity {
                 if(dialog==alertDialog && which==DialogInterface.BUTTON_POSITIVE){
                     goalNow=Integer.parseInt(String.valueOf(editGoalText.getText()));
                     goalNowText.setText("현재 목표: "+goalNow);
+                    RecordUtil.saveGoal(getApplicationContext(),goalNow);
                     showToast("변경되었습니다.");
                 }
                 editGoalText.setText(null);

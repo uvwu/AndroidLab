@@ -58,6 +58,10 @@ public class MainActivity extends AppCompatActivity {
 
     String themeColor;
 
+
+    int goal;
+    int achievement;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,11 +69,13 @@ public class MainActivity extends AppCompatActivity {
 
         mIdpResponse = IdpResponse.fromResultIntent(getIntent());
 
+        //다크모드 테마
         themeColor = DarkModeUtil.modLoad(getApplicationContext());
         DarkModeUtil.applyTheme(themeColor);
 
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
+        //메인화면 텍스트
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         TextView mainText=findViewById(R.id.text_main);
         mainText.setText((TextUtils.isEmpty(user.getDisplayName()) ? "No display name" : user.getDisplayName())+"님의 목표 달성률");
@@ -84,11 +90,11 @@ public class MainActivity extends AppCompatActivity {
 
         //일일 기록
         CircleProgressBar dailyChart=findViewById(R.id.circle_bar);
-        int goal=20;
-        int achivement=16;
-        dailyChart.setProgress((int)((float)achivement/goal*100));
+        goal=RecordUtil.loadGoal(getApplicationContext());
+        achievement=16;
+        dailyChart.setProgress((int)((float)achievement/goal*100));
         TextView dayRecord=findViewById(R.id.day_record);
-        dayRecord.setText(achivement+"/"+goal);
+        dayRecord.setText(achievement+"/"+goal);
         //주간 기록 보여줄 수평 스크롤뷰
         HorizontalScrollView horizonScroll=findViewById(R.id.horizon_scroll);
         //왼쪽방향으로 스크롤 되게 하기
@@ -294,5 +300,16 @@ public class MainActivity extends AppCompatActivity {
     private void showToast(String message) {
         Toast toast = Toast.makeText(this, message,Toast.LENGTH_SHORT);
         toast.show();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        CircleProgressBar dailyChart=findViewById(R.id.circle_bar);
+        goal=RecordUtil.loadGoal(getApplicationContext());
+        achievement=16;
+        dailyChart.setProgress((int)((float)achievement/goal*100));
+        TextView dayRecord=findViewById(R.id.day_record);
+        dayRecord.setText(achievement+"/"+goal);
     }
 }

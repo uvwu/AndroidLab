@@ -150,13 +150,13 @@ public class MainActivity extends AppCompatActivity {
 
                 Log.d(TAG, "TF: " + isExist);
 
-                if(!isExist){
+                if (!isExist) {
                     int goal = -1;
                     String yesterday = String.valueOf(Integer.parseInt(dataSnapshot.getKey()) - 1);
                     Log.d(TAG, "yesterday: " + yesterday);
 
-                    for(DataSnapshot snapshot : dataSnapshot.getChildren()){
-                        if(yesterday.equals(snapshot.getKey())) {
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        if (yesterday.equals(snapshot.getKey())) {
                             goal = dataSnapshot.child(yesterday).getValue(Integer.class); // 따로 설정하지 않으면 오늘의 목표는 어제와 같음
                             Log.d(TAG, "goal: " + goal);
                         }
@@ -201,6 +201,57 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 // TODO: 이곳에서 화면에 나타날 통계 관련 코드 한 번 더 써줘야 함 (GoalSettingActivity 101번째 줄 참고)
+                // 283-333라인 복붙한거에요
+                //주간 기록 차트
+                BarChart weekChart=findViewById(R.id.bar_chart);
+                //성취 데이터
+                List<BarEntry> achivements=new ArrayList<BarEntry>();
+                for(int i=0;i<goalData.size();i++){
+                    achivements.add(new BarEntry(i,Float.parseFloat(goalData.get(i).getCount())));
+                }
+                BarDataSet dataSet1=new BarDataSet(achivements,"외운 단어수");
+                dataSet1.setAxisDependency(YAxis.AxisDependency.RIGHT);
+                dataSet1.setColor(ColorTemplate.JOYFUL_COLORS[1]);
+
+                //목표 데이터
+                List<BarEntry> goals=new ArrayList<>();
+                for(int i=0;i<goalData.size();i++){
+                    goals.add(new BarEntry(i,Float.parseFloat(goalData.get(i).getGoal())));
+                }
+                BarDataSet dataSet=new BarDataSet(goals,"목표");
+                dataSet.setAxisDependency(YAxis.AxisDependency.RIGHT);
+                dataSet.setColor(R.color.theme1);
+                dataSet.setFormLineWidth(10f);
+
+
+                //차트에 데이터 넣기
+                BarData bardata=new BarData(dataSet,dataSet1);
+                bardata.setBarWidth(0.7f);//차트 폭폭
+                bardata.setValueTextSize(15);
+
+                //차트 그래프 가공(격자선 없애기 등등)
+                weekChart.getDescription().setEnabled(false);
+                weekChart.getXAxis().setDrawGridLines(false);
+                weekChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
+                weekChart.getAxisLeft().setDrawGridLines(false);
+                weekChart.getAxisRight().setDrawGridLines(false);
+                weekChart.getAxisRight().setEnabled(false);
+                weekChart.getAxisLeft().setEnabled(false);
+                weekChart.setDrawGridBackground(false);
+                weekChart.setData(bardata);
+                XAxis xAxis=weekChart.getXAxis();
+                List<String> date=new ArrayList<>();
+                for(int i=0;i<goalData.size();i++){
+                    date.add(goalData.get(i).getDate());
+                }
+                xAxis.setValueFormatter(new IndexAxisValueFormatter(date));
+                xAxis.setAxisLineWidth(10);
+                xAxis.setTextSize(15);
+                weekChart.setTouchEnabled(false);
+                weekChart.setDrawValueAboveBar(false);
+                weekChart.setFitBars(true);
+                weekChart.getLegend().setHorizontalAlignment(Legend.LegendHorizontalAlignment.RIGHT);
+                weekChart.invalidate();
 
             }
 

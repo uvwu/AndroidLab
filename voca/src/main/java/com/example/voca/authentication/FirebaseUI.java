@@ -78,7 +78,7 @@ public class FirebaseUI extends AppCompatActivity implements View.OnClickListene
         userUID = new ArrayList<>();
 
         // 리스너 설정 및 연결 -> DB/users
-        mDatabaseReference.addValueEventListener(new ValueEventListener() {
+        mDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             // 이벤트 발생 시점에 특정 경로에 있던 콘텐츠의 정적 스냅샷을 읽음
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -185,12 +185,13 @@ public class FirebaseUI extends AppCompatActivity implements View.OnClickListene
         Log.d(TAG, "userID: " + userUID);
         if(userUID != null) {
             for (String userUID : userUID) {   // 기존 회원이면 DB에 값 저장 안함 -> 기존 정보에 계속해서 저장
-                if (userUID == user) {
+                if (userUID.equals(user)) {
                     isExist = true;
                     break;
                 }
             }
         }
+        Log.d(TAG, "TF: " + isExist);
 
         // 신규회원이면 DB에 사용자 토큰 저장
         if(!isExist)

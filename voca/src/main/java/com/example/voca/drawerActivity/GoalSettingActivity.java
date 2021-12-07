@@ -39,13 +39,14 @@ public class GoalSettingActivity extends AppCompatActivity {
     private DatabaseReference mDatabase;
 
     ArrayList<GoalData> goalData; // 날짜,목표,목표달성률 넣을 데이터
-    ArrayList<String> value;
 
     String todayDate;
     String todayGoal;
     String todayCount;
 
     AlertDialog alertDialog;// 목표 수정시 띄울 다이얼로그
+
+    TextView goalNowText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,32 +60,41 @@ public class GoalSettingActivity extends AppCompatActivity {
         Log.d(TAG, "users" + mDatabaseReference);
 
         goalData = new ArrayList<>();
+        GoalData data = new GoalData();
 
         // 리스너 설정 및 연결
         // TODO: 그 동안의 목표와 목표달성률을 goalData ArrayList에 다 저장함
         mDatabaseReference.addValueEventListener(new ValueEventListener() {
+
+
             // 이벤트 발생 시점에 특정 경로에 있던 콘텐츠의 정적 스냅샷을 읽음
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot snapshot_data : dataSnapshot.getChildren()) { // date
-                    value = new ArrayList<>();
-                    String date = snapshot_data.getKey();
-                    value.add(date);
-                    Log.d(TAG, "onDataChange: data " + date);
+                    int i = 0;
+                    data.setDate(snapshot_data.getKey());
+                    // Log.d(TAG, "onDataChange: data " + );
 
-                    for (DataSnapshot snapshot : snapshot_data.getChildren()){ // goal, count
-                        String v = snapshot.getValue().toString();
-                        value.add(v);
-                        Log.d(TAG, "onDataChange: v " + v);
+                    for (DataSnapshot snapshot : snapshot_data.getChildren()) {
+                        switch (i) {
+                            case 0:
+                                data.setCount(snapshot.getValue().toString());
+                                break;
+
+                            case 1:
+                                data.setGoal(snapshot.getValue().toString());
+                                break;
+                        }
+                        i++;
                     }
 
-                    Log.d(TAG, "onDataChange: value.get() " + value.get(0));
-                    Log.d(TAG, "onDataChange: value.get() " + value.get(1));
-                    Log.d(TAG, "onDataChange: value.get() " + value.get(2));
-                    GoalData data = new GoalData(value.get(0), value.get(1), value.get(2));
                     goalData.add(data);
                     Log.d(TAG, "onDataChange: goalData " + goalData.get(0).getGoal());
+                    Log.d(TAG, "onDataChange: goalData " + goalData.get(0).getCount());
+                    Log.d(TAG, "onDataChange: goalData " + goalData.get(0).getDate());
                 }
+
+                edit_goal();  // 화면에 보일 현재 목표 및 목표 수정 화면
             }
 
             // 실패시 호출
@@ -94,55 +104,44 @@ public class GoalSettingActivity extends AppCompatActivity {
             }
         });
 
-        todayDate = getToday(); // 오늘의 날짜
+            //현재 목표 보여주는 textView
+            goalNowText = findViewById(R.id.goal_now_text);
 
-        for(GoalData goalData : goalData)
-        {
-            if(goalData.getDate() == todayDate)
-            {
-                todayCount = goalData.getCount(); // 오늘의 목표달성률
-                todayGoal = goalData.getGoal(); // 오늘의 목표
-            }
-        }
+            EditText editGoalText = findViewById(R.id.goal_text);
 
-        //현재 목표 보여주는 textView
-        TextView goalNowText=findViewById(R.id.goal_now_text);
-        goalNowText.setText("현재 목표 "+ todayGoal);
+            Button goalBtn = findViewById(R.id.goal_btn);//목표 수정 버튼
 
+            //목표 수정시 보일 다이얼로그
+            DialogInterface.OnClickListener dialogListener = new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    if (dialog == alertDialog && which == DialogInterface.BUTTON_POSITIVE) {
+                        todayGoal = editGoalText.getText().toString();
+                        goalNowText.setText("현재 목표: " + todayGoal);
 
-        EditText editGoalText=findViewById(R.id.goal_text);
+                        mDatabaseReference.child(todayDate).child("goal").setValue(todayGoal);
 
-        Button goalBtn=findViewById(R.id.goal_btn);//목표 수정 버튼
-
-        //목표 수정시 보일 다이얼로그
-        DialogInterface.OnClickListener dialogListener=new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                if(dialog==alertDialog && which==DialogInterface.BUTTON_POSITIVE){
-                    todayGoal=String.valueOf(editGoalText.getText());
-                    goalNowText.setText("현재 목표: " + todayGoal);
-
-                    mDatabaseReference.child(todayDate).child("goal").setValue(todayGoal);
-
-                    showToast("변경되었습니다.");
+                        showToast("변경되었습니다.");
+                    }
+                    editGoalText.setText(null);
                 }
-                editGoalText.setText(null);
-            }
-        };
+            };
 
-        goalBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AlertDialog.Builder builder=new AlertDialog.Builder(GoalSettingActivity.this);
-                builder.setMessage("정말 변경하시겠습니까?");
-                builder.setPositiveButton("OK",dialogListener);
-                builder.setNegativeButton("No",dialogListener);
-                alertDialog=builder.create();
-                alertDialog.show();
-            }
-        });
+            goalBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(GoalSettingActivity.this);
+                    builder.setMessage("정말 변경하시겠습니까?");
+                    builder.setPositiveButton("OK", dialogListener);
+                    builder.setNegativeButton("No", dialogListener);
+                    alertDialog = builder.create();
+                    alertDialog.show();
+                }
+            });
+
 
     }
+
     private void showToast(String message) {
         Toast toast = Toast.makeText(this, message,Toast.LENGTH_SHORT);
         toast.show();
@@ -159,5 +158,23 @@ public class GoalSettingActivity extends AppCompatActivity {
 
         return today;
     }
+
+    // 화면에 보일 현재 목표 및 목표 수정 화면
+    private void edit_goal()
+    {
+        todayDate = getToday(); // 오늘의 날짜
+        Log.d(TAG, "today2: " + todayDate);
+
+
+        for (GoalData goal : goalData) {
+            Log.d(TAG, "date: " + goal);
+            if (todayDate.equals(goal.getDate())) {
+                todayCount = goal.getCount(); // 오늘의 목표달성률
+                todayGoal = goal.getGoal(); // 오늘의 목표
+            }
+        }
+        goalNowText.setText("현재 목표 " + todayGoal); // 실시간데이터베이스 특성상 text변경은 이곳에서도 있어야함
+    }
+
 }
 

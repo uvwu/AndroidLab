@@ -6,6 +6,9 @@ public class GoalData {
     private String goal; // 해당하는 날짜의 목표치
     private String count; // 해당하는 날짜에 외운 단어 개수
 
+    public GoalData() {
+    }
+
     public GoalData(String date, String goal, String count) {
         this.date = date;
         this.goal = goal;

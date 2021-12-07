@@ -70,6 +70,9 @@ public class MainActivity extends AppCompatActivity {
     private DatabaseReference mDatabase;
 
     Map<String, Object> mapKey;
+    Map<String, Object> innerMap;
+
+    String today;
 
     private ActionBarDrawerToggle toggle;//메뉴 화면을 여는 버튼
 
@@ -113,46 +116,50 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
         // 리스너 설정 및 연결 -> DB/users/uid/goals
         mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             // 이벤트 발생 시점에 특정 경로에 있던 콘텐츠의 정적 스냅샷을 읽음
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 // 오늘 날짜
-                Date date = new Date();
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd", Locale.KOREA);
-                String today = sdf.format(date);
+                today = getToday();
 
                 boolean isExist = false;
 
                 Log.d(TAG, "addValueEventListener: getChildren() " + dataSnapshot.getChildrenCount());
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    if (today == snapshot.getKey()) {
+                    if (today.equals(snapshot.getKey())) {
                         isExist = true;
                         break;
                     }
                 }
 
+                Log.d(TAG, "TF: " + isExist);
+
                 if(!isExist){
                     int goal = -1;
                     String yesterday = String.valueOf(Integer.parseInt(dataSnapshot.getKey()) - 1);
+                    Log.d(TAG, "yesterday: " + yesterday);
 
                     for(DataSnapshot snapshot : dataSnapshot.getChildren()){
-                        if(snapshot.hasChild()) {
+                        if(yesterday.equals(snapshot.getKey())) {
                             goal = dataSnapshot.child(yesterday).getValue(Integer.class); // 따로 설정하지 않으면 오늘의 목표는 어제와 같음
+                            Log.d(TAG, "goal: " + goal);
                         }
+
                     }
 
-                    Log.d(TAG, "yesterday: " + yesterday);
-                    // today 라는 key 생성
                     mapKey = new HashMap<>();
-                    mapKey.put("Goal", today);
-                    mDatabase.updateChildren(mapKey);
+                    innerMap = new HashMap<>();
 
-                    // today의 하위 항목
-                    Today todayGoal = new Today(goal, 0); // goal이 -1인 상태:목표 설정 안한 상태 (디폴트값)
-                    mDatabase.child(today).updateChildren(todayGoal.toMap());
+                    mapKey.put(today, innerMap);
+
+                    innerMap.put("count", 0);
+                    innerMap.put("goal", goal);
+
+                    Log.d(TAG, "innerMap: " + innerMap);
+
+                    mDatabase.child(today).updateChildren(innerMap);
                 }
             }
 
@@ -376,5 +383,17 @@ public class MainActivity extends AppCompatActivity {
     private void showToast(String message) {
         Toast toast = Toast.makeText(this, message,Toast.LENGTH_SHORT);
         toast.show();
+    }
+
+    // 오늘 날짜 계산
+    private String getToday()
+    {
+        Date date = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd", Locale.KOREA);
+
+        String today = sdf.format(date);
+        Log.d(TAG, "today: " + today);
+
+        return today;
     }
 }

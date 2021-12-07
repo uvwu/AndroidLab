@@ -24,6 +24,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.example.voca.RecordUtil;
+
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -59,13 +61,15 @@ public class GoalSettingActivity extends AppCompatActivity {
         mDatabaseReference = firebaseDatabase.getReference("users").child(uid).child("goals"); // DB/users/userUID/goals
         Log.d(TAG, "users" + mDatabaseReference);
 
+
+
+
         goalData = new ArrayList<>();
         GoalData data = new GoalData();
 
         // 리스너 설정 및 연결
-        // TODO: 그 동안의 목표와 목표달성률을 goalData ArrayList에 다 저장함
+        // 그 동안의 목표와 목표달성률을 goalData ArrayList에 다 저장함
         mDatabaseReference.addValueEventListener(new ValueEventListener() {
-
 
             // 이벤트 발생 시점에 특정 경로에 있던 콘텐츠의 정적 스냅샷을 읽음
             @Override
@@ -94,7 +98,7 @@ public class GoalSettingActivity extends AppCompatActivity {
                     Log.d(TAG, "onDataChange: goalData " + goalData.get(0).getDate());
                 }
 
-                edit_goal();  // 화면에 보일 현재 목표 및 목표 수정 화면
+                edit_goal();  // 화면에 보일 현재 목표 및 목표 수정 화면 (오늘의 날짜,목표,달성률 구함)
             }
 
             // 실패시 호출
@@ -104,6 +108,7 @@ public class GoalSettingActivity extends AppCompatActivity {
             }
         });
 
+            todayGoal= String.valueOf(RecordUtil.loadGoal(this));
             //현재 목표 보여주는 textView
             goalNowText = findViewById(R.id.goal_now_text);
 
@@ -115,12 +120,11 @@ public class GoalSettingActivity extends AppCompatActivity {
             DialogInterface.OnClickListener dialogListener = new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    if (dialog == alertDialog && which == DialogInterface.BUTTON_POSITIVE) {
-                        todayGoal = editGoalText.getText().toString();
-                        goalNowText.setText("현재 목표: " + todayGoal);
-
-                        mDatabaseReference.child(todayDate).child("goal").setValue(todayGoal);
-
+                    if(dialog==alertDialog && which==DialogInterface.BUTTON_POSITIVE){
+                        todayGoal=String.valueOf(editGoalText.getText());
+                        goalNowText.setText("현재 목표: "+todayGoal);
+                        RecordUtil.saveGoal(getApplicationContext(),Integer.parseInt(todayGoal));
+                        mDatabaseReference.child(todayDate).child("goal").setValue(todayGoal); // DB에 저장
                         showToast("변경되었습니다.");
                     }
                     editGoalText.setText(null);

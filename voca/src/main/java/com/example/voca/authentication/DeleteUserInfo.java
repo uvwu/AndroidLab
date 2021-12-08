@@ -11,6 +11,7 @@ import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
+// TODO: 탈퇴시 데이터베이스 내 데이터 모두 삭제 -> 정현
 public class DeleteUserInfo extends AppCompatActivity {
     private Context mContext;
 
@@ -30,7 +31,6 @@ public class DeleteUserInfo extends AppCompatActivity {
                         {
                             Toast.makeText(mContext,"회원 탈퇴", Toast.LENGTH_LONG).show();
 
-                            // TODO: 종료되는지 로그인 화면으로 가는지 다시 확인
                             Intent intent = new Intent(mContext, FirebaseUI.class);
                             mContext.startActivity(intent);
                         }

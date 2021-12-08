@@ -3,11 +3,48 @@ package com.example.voca.realtimeDB;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.example.voca.List.VocaDetailProvidedItem;
+
+import java.util.HashMap;
+import java.util.Map;
+
 public class VocaVO implements Comparable<VocaVO> , Parcelable {
     public String vocaEng;
     public String vocaKor;
     public Boolean memoCheck;
     public Boolean starCheck;
+
+    public String getVocaEng() {
+        return vocaEng;
+    }
+
+    public String getVocaKor() {
+        return vocaKor;
+    }
+
+    public Boolean getMemoCheck() {
+        return memoCheck;
+    }
+
+    public Boolean getStarCheck() {
+        return starCheck;
+    }
+
+    public void setVocaEng(String vocaEng) {
+        this.vocaEng = vocaEng;
+    }
+
+    public void setVocaKor(String vocaKor) {
+        this.vocaKor = vocaKor;
+    }
+
+    public void setMemoCheck(Boolean memoCheck) {
+        this.memoCheck = memoCheck;
+    }
+
+    public void setStarCheck(Boolean starCheck) {
+        this.starCheck = starCheck;
+    }
 
     public VocaVO(){
         vocaEng=null;
@@ -60,5 +97,19 @@ public class VocaVO implements Comparable<VocaVO> , Parcelable {
     @Override
     public int compareTo(VocaVO o) {
         return this.vocaEng.compareTo(o.vocaEng);
+    }
+
+    public Map<String, Object> toMap()
+    {
+        Map<String, Object> map = new HashMap<>();
+        Map<String, Object> innerMap = new HashMap<>();
+
+        innerMap.put("vocaKor", vocaKor);
+        innerMap.put("memoCheck", memoCheck);
+        innerMap.put("starCheck", starCheck);
+
+        map.put(vocaEng, innerMap);
+
+        return map;
     }
 }

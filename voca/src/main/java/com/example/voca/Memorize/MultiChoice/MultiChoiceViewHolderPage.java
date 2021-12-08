@@ -11,6 +11,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.voca.R;
 import com.example.voca.realtimeDB.VocaVO;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 public class MultiChoiceViewHolderPage extends RecyclerView.ViewHolder implements View.OnClickListener {
     TextView vocaEng;
@@ -23,12 +31,25 @@ public class MultiChoiceViewHolderPage extends RecyclerView.ViewHolder implement
     private Button chioceBtn4;
     Button ttsBtn;
 
+    int mCount;
+    String title;
+
+    String today = getToday();
+
+    // 실시간 사용자의 정보 받아옴
+    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    String uid = user.getUid();
+
+    private DatabaseReference mDatabase_count;
+    private DatabaseReference mDatabase_star;
+
+
     private String realAnswer;//정답인 한글 뜻
 
     VocaVO vo;
 
 
-    public MultiChoiceViewHolderPage(View v) {
+    public MultiChoiceViewHolderPage(View v, int mCount, String title) {
         super(v);
         vocaEng=v.findViewById(R.id.voca_multi);
         memoCheck=v.findViewById(R.id.memo_check_multi);
@@ -39,6 +60,9 @@ public class MultiChoiceViewHolderPage extends RecyclerView.ViewHolder implement
         chioceBtn2=v.findViewById(R.id.btn2_multi);
         chioceBtn3=v.findViewById(R.id.btn3_multi);
         chioceBtn4=v.findViewById(R.id.btn4_multi);
+
+        this.mCount = mCount;
+        this.title = title;
     }
     public void onBind(VocaVO vo,int totalNum) {
         this.vo = vo;
@@ -50,8 +74,48 @@ public class MultiChoiceViewHolderPage extends RecyclerView.ViewHolder implement
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     vo.memoCheck = true;
-                } else {
+                    // DB 내 memoCheck
+                    mDatabase_count = FirebaseDatabase.getInstance()
+                            .getReference("users")
+                            .child(uid)
+                            .child("userVoca")
+                            .child(title)
+                            .child(vo.getVocaEng())
+                            .child("memoCheck");
+                    mDatabase_count.setValue("true");
+
+                    mCount++;
+                    // DB 내 count(목표달성률)
+                    mDatabase_count = FirebaseDatabase.getInstance()
+                            .getReference("users")
+                            .child(uid)
+                            .child("goals")
+                            .child(today)
+                            .child("count");
+                    mDatabase_count.setValue(mCount);
+
+                }
+                else {
                     vo.memoCheck = false;
+                    // DB 내 memoCheck
+                    mDatabase_count = FirebaseDatabase.getInstance()
+                            .getReference("users")
+                            .child(uid)
+                            .child("userVoca")
+                            .child(title)
+                            .child(vo.getVocaEng())
+                            .child("memoCheck");
+                    mDatabase_count.setValue("false");
+
+                    if(mCount > 0) {mCount--;}
+                    // DB 내 count(목표달성률)
+                    mDatabase_count = FirebaseDatabase.getInstance()
+                            .getReference("users")
+                            .child(uid)
+                            .child("goals")
+                            .child(today)
+                            .child("count");
+                    mDatabase_count.setValue(mCount);
                 }
             }
         });
@@ -62,8 +126,43 @@ public class MultiChoiceViewHolderPage extends RecyclerView.ViewHolder implement
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     vo.starCheck = true;
+                    // DB 내 starCheck
+                    mDatabase_star = FirebaseDatabase.getInstance()
+                            .getReference("users")
+                            .child(uid)
+                            .child("userVoca")
+                            .child(title)
+                            .child(vo.getVocaEng())
+                            .child("starCheck");
+                    mDatabase_star.setValue("true");
+
+                    // 해당 단어 즐겨찾기 목록에 추가
+                    mDatabase_star = FirebaseDatabase.getInstance()
+                            .getReference("users")
+                            .child(uid)
+                            .child("userVoca")
+                            .child("star");
+                    mDatabase_star.updateChildren(vo.toMap());
                 } else {
                     vo.starCheck = false;
+                    // DB 내 starCheck
+                    mDatabase_star = FirebaseDatabase.getInstance()
+                            .getReference("users")
+                            .child(uid)
+                            .child("userVoca")
+                            .child(title)
+                            .child(vo.getVocaEng())
+                            .child("starCheck");
+                    mDatabase_star.setValue("false");
+
+                    // 해당 단어 즐겨찾기 목록에서 제거
+                    mDatabase_star = FirebaseDatabase.getInstance()
+                            .getReference("users")
+                            .child(uid)
+                            .child("userVoca")
+                            .child("star")
+                            .child(vo.getVocaEng());
+                    mDatabase_star.setValue(null);
                 }
             }
         });
@@ -73,7 +172,7 @@ public class MultiChoiceViewHolderPage extends RecyclerView.ViewHolder implement
         vocaEng.setText(vo.vocaEng);
 
         //객관식 버튼(1~4) 값 넣는곳
-
+        // TODO: MutiChoiceAdapter 내에 있는 multiChoiceRandom 의 값 중 랜덤하게 뽑아 넣으면 될듯
         realAnswer=vo.vocaKor;//정답인 한글 뜻
 
         chioceBtn1.setText("1");
@@ -99,5 +198,14 @@ public class MultiChoiceViewHolderPage extends RecyclerView.ViewHolder implement
         else Toast.makeText(v.getContext(),"오답",Toast.LENGTH_SHORT).show();
     }
 
+    // 오늘 날짜 계산
+    private String getToday()
+    {
+        Date date = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd", Locale.KOREA);
 
+        String today = sdf.format(date);
+
+        return today;
+    }
 }

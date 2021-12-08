@@ -120,16 +120,32 @@
         <entry key="..\:/Users/wjdtj/AndroidStudioProjects/AndroidLab/voca/src/main/res/menu/menu_drawer.xml" value="0.17916666666666667" />
         <entry key="..\:/Users/wjdtj/AndroidStudioProjects/AndroidLab/voca/src/main/res/menu/menu_option.xml" value="0.1" />
         <entry key="..\:/Users/wjdtj/AndroidStudioProjects/AndroidLab/voca/src/main/res/menu/menu_voca_list.xml" value="0.1" />
+        <entry key="voca/src/main/res/layout/action_dark_mode.xml" value="0.21510416666666668" />
+        <entry key="voca/src/main/res/layout/activity_dark_mode.xml" value="0.21510416666666668" />
         <entry key="voca/src/main/res/layout/activity_edit_account.xml" value="0.33125" />
         <entry key="voca/src/main/res/layout/activity_firebase_ui.xml" value="0.33125" />
-        <entry key="voca/src/main/res/layout/activity_main.xml" value="0.346875" />
+        <entry key="voca/src/main/res/layout/activity_main.xml" value="0.22" />
         <entry key="voca/src/main/res/layout/activity_memorize.xml" value="0.346875" />
         <entry key="voca/src/main/res/layout/activity_multi_choice.xml" value="0.346875" />
-        <entry key="voca/src/main/res/layout/activity_tab.xml" value="0.346875" />
+        <entry key="voca/src/main/res/layout/activity_notice.xml" value="0.21510416666666668" />
+        <entry key="voca/src/main/res/layout/activity_spell_check.xml" value="0.21510416666666668" />
+        <entry key="voca/src/main/res/layout/activity_tab.xml" value="0.25" />
         <entry key="voca/src/main/res/layout/activity_test.xml" value="0.346875" />
+        <entry key="voca/src/main/res/layout/activity_voca_detail.xml" value="0.234375" />
+        <entry key="voca/src/main/res/layout/activity_voca_list.xml" value="0.234375" />
+        <entry key="voca/src/main/res/layout/activity_voca_search.xml" value="0.234375" />
         <entry key="voca/src/main/res/layout/item_memorize_viewpager.xml" value="0.346875" />
         <entry key="voca/src/main/res/layout/item_multichoice_viewpager.xml" value="0.346875" />
+        <entry key="voca/src/main/res/layout/layout_dialog.xml" value="0.346875" />
+        <entry key="voca/src/main/res/layout/layout_dialog_voca_list.xml" value="0.346875" />
         <entry key="voca/src/main/res/layout/tablist_item.xml" value="0.346875" />
+        <entry key="voca/src/main/res/layout/voca_list_item.xml" value="0.234375" />
+        <entry key="voca/src/main/res/layout/vocadetail_item.xml" value="0.234375" />
+        <entry key="voca/src/main/res/layout/vocasearch_item.xml" value="0.234375" />
+        <entry key="voca/src/main/res/layout/vocasearch_sub_item.xml" value="0.234375" />
+        <entry key="voca/src/main/res/menu/menu_drawer.xml" value="0.21510416666666668" />
+        <entry key="voca/src/main/res/menu/menu_option.xml" value="0.21510416666666668" />
+        <entry key="voca/src/main/res/menu/menu_voca_list.xml" value="0.21510416666666668" />
       </map>
     </option>
   </component>

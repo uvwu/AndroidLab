@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -17,16 +18,33 @@ import android.widget.Toast;
 
 import com.example.voca.MainActivity;
 import com.example.voca.R;
+import com.example.voca.VocaList.VocaListActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class TabActivity extends AppCompatActivity implements VocaDialog.VocaDialogListener {
+    private static final String TAG = "TabActivity";
+
+    Map<String, Object> mapKey;
 
 
-    private ArrayList<TabListItem> items = new ArrayList<>();
-    private RecyclerView tRecyclerView;
-    private TabListAdapter tAdapter;
+    // 파이어베이스에서 데이터 저장 및 읽어올 부분 연결할 객체들 생성
+    private FirebaseDatabase firebaseDatabase;
+    private DatabaseReference mDatabaseReference;
+
+    private ArrayList<TabListItem> vocaName;
+    private RecyclerView recyclerView;
+    private TabListAdapter adapter;
     private ItemTouchHelper tItemTouchHelper;
 
     //floatingactionbtn
@@ -34,7 +52,6 @@ public class TabActivity extends AppCompatActivity implements VocaDialog.VocaDia
     private FloatingActionButton fabMain;
     private FloatingActionButton fabEdit;
     private FloatingActionButton fabSearch;
-    private Button rv_btn;
 
     // 플로팅버튼 상태
     private boolean fabMain_status = false;
@@ -44,55 +61,93 @@ public class TabActivity extends AppCompatActivity implements VocaDialog.VocaDia
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tab);
 
+
+        // 실시간 사용자의 정보 받아옴
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String uid = user.getUid();
+
+        // 실시간 데이터베이스 연결
+        firebaseDatabase = FirebaseDatabase.getInstance(); // 실시간 DB 관리 객체 얻어오기
+        mDatabaseReference = firebaseDatabase.getReference("users").child(uid).child("userVoca"); // 저장시킬 노드 참조객체 가져오기 -> DB/users/uid/userVoca
+        Log.d(TAG, "mDatabaseReference: " + mDatabaseReference );
+
         //findViewById,버튼 매핑
         fabMain = findViewById(R.id.fabMain);
         fabEdit = findViewById(R.id.fabEdit);
         fabSearch = findViewById(R.id.fabSearch);
-        tRecyclerView = (RecyclerView) findViewById(R.id.rv_tab_list);
-        rv_btn = findViewById(R.id.rv_btn); // TODO: 즐겨찾는 단어장에 단어가 하나도 없을 때에는 화면에 보이지 않도록 설정
+        recyclerView = (RecyclerView) findViewById(R.id.rv_tab_list);
+
+
+        // 리사이클러뷰 설정
+        recyclerView = findViewById(R.id.rv_tab_list);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
+        recyclerView.setHasFixedSize(true);
 
         //액션바
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setDisplayShowHomeEnabled(true);
 
-        LinearLayoutManager manager = new LinearLayoutManager(getApplicationContext());
-        manager.setOrientation(LinearLayoutManager.VERTICAL);
-        tRecyclerView.setLayoutManager(manager);
+        vocaName = new ArrayList<>();
 
-        tAdapter = new TabListAdapter();
-        tRecyclerView.setAdapter(tAdapter);
+        // 리스너: 별도의 읽어오기 버튼 없음 -> DB 변경이 발생하면 이에 반응하는 리스너를 통해 DB 읽어옴
+        // 리스너 연결 -> DB/users/uid/userVoca
+        mDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
 
-        tItemTouchHelper = new ItemTouchHelper(new ItemTouchHelperCallback(tAdapter));
-
-        tItemTouchHelper.attachToRecyclerView(tRecyclerView);
-
-
-        TabListItem item1 = new TabListItem("단어장1");
-        TabListItem item2 = new TabListItem("단어장2");
-        TabListItem item3 = new TabListItem("단어장3");
-        TabListItem item4 = new TabListItem("단어장4");
-        TabListItem item5 = new TabListItem("단어장5");
-        TabListItem item6 = new TabListItem("단어장6");
-
-
-        items.add(item1);
-        items.add(item2);
-        items.add(item3);
-        items.add(item4);
-        items.add(item5);
-        items.add(item6);
-
-
-        tAdapter.setItems(items);
-        fabMain.setOnClickListener(view -> toggleFab());
-        //즐겨찾기 단어장, recyclerview에 포함하지 않음
-        rv_btn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Log.d(TAG, "addValueEventListener: getChildren() " + dataSnapshot.getChildrenCount());
+                for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
+                    String title = snapshot.getKey().toString();
+                    TabListItem item = new TabListItem(title);
+
+                    // 즐겨찾기 단어장
+                    if(title.equals("star"))
+                    {
+                        item.setName("즐겨찾는 단어장");
+
+                        // 즐겨찾기 단어장 내에 단어가 하나도 없으면 화면에 나타나지 않음
+                        if(0 != snapshot.getChildrenCount())
+                        {
+                            vocaName.add(0, item); // 즐겨찾기는 항상 화면 맨 위에 존재
+                        }
+                        continue;
+                    }
+
+                    vocaName.add(item); // DB내에 저장되어 있는 사용자 지정 단어장은 모두 vocaName에 ArrayList 로저장됨
+
+                    Log.d(TAG, "title: " + title);
+                    Log.d(TAG, "add item -> size: " + vocaName.size());
+                }
+
+
+
+                // 어댑터 연결
+                adapter = new TabListAdapter(TabActivity.this, R.layout.tablist_item, vocaName);
+                //vocaDetailAdapter.notifyDataSetChanged();
+                recyclerView.setAdapter(adapter);
+
+                tItemTouchHelper = new ItemTouchHelper(new ItemTouchHelperCallback(adapter));
+                tItemTouchHelper.attachToRecyclerView(recyclerView);
+
+            }
+
+
+
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
         });
+
+
+
+        // adapter.setItems(vocaName);
+
+        fabMain.setOnClickListener(view -> toggleFab());
+
+
         fabSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -109,6 +164,7 @@ public class TabActivity extends AppCompatActivity implements VocaDialog.VocaDia
         });
 
     }
+
 
     public void openDialog() {
         VocaDialog vocaDialog = new VocaDialog();
@@ -143,7 +199,7 @@ public class TabActivity extends AppCompatActivity implements VocaDialog.VocaDia
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
-             Intent intent = new Intent(this, MainActivity.class);
+            Intent intent = new Intent(this, MainActivity.class);
 
             startActivity(intent);
             return true;
@@ -151,9 +207,31 @@ public class TabActivity extends AppCompatActivity implements VocaDialog.VocaDia
         return super.onOptionsItemSelected(item);
     }
     @Override
+
+    // 사용자가 vocaname이라는 새 단어장 추가
     public void applyTexts(String vocaname) {
-        TabListItem itemadd= new TabListItem(vocaname);
-        items.add(itemadd);
-        tAdapter.notifyDataSetChanged();
+        boolean isSame = false;
+
+//        for(TabListItem voca: vocaName)
+//        {
+//            // 이미 동일한 단어장이 존재하면 생성되지 않음
+//            if(voca.equals(vocaname)){
+//                isSame = true;
+//                Toast.makeText(getApplicationContext(), "동일한 이름의 단어장이 존재합니다", Toast.LENGTH_SHORT).show();
+//                break;
+//            }
+//        }
+
+        if(!isSame) {
+            TabListItem item = new TabListItem(vocaname);
+
+            mapKey = new HashMap<>();
+            mapKey.put(vocaname, 0);
+
+            // 현재 루트: DB/users/uid/userVoca
+            mDatabaseReference.updateChildren(mapKey);
+            vocaName.add(item);
+            //adapter.notifyDataSetChanged();
+        }
     }
 }

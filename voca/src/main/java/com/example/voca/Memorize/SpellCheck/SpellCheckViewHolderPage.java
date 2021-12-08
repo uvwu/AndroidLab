@@ -12,6 +12,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.voca.R;
 import com.example.voca.realtimeDB.VocaVO;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 public class SpellCheckViewHolderPage extends RecyclerView.ViewHolder {
 
@@ -23,8 +31,19 @@ public class SpellCheckViewHolderPage extends RecyclerView.ViewHolder {
     private TextView count;
     VocaVO vo;
 
+    int mCount;
+    String title;
 
-    SpellCheckViewHolderPage(View v){
+    String today = getToday();
+
+    // 실시간 사용자의 정보 받아옴
+    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    String uid = user.getUid();
+
+    private DatabaseReference mDatabase_count;
+    private DatabaseReference mDatabase_star;
+
+    SpellCheckViewHolderPage(View v, int mCount, String title){
         super(v);
 
         vocaKor=v.findViewById(R.id.voca_korean2);
@@ -33,6 +52,9 @@ public class SpellCheckViewHolderPage extends RecyclerView.ViewHolder {
         editAnswerText=v.findViewById(R.id.text_answer_spell2);
         checkBtn=v.findViewById(R.id.btn_check_spell2);
         count=v.findViewById(R.id.count_spell2);
+
+        this.mCount = mCount;
+        this.title = title;
     }
     public void onBind(VocaVO vo,int totalNum){
         this.vo=vo;
@@ -42,11 +64,50 @@ public class SpellCheckViewHolderPage extends RecyclerView.ViewHolder {
         memoCheck.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked){
-                    vo.memoCheck=true;
+                if (isChecked) {
+                    vo.memoCheck = true;
+                    // DB 내 memoCheck
+                    mDatabase_count = FirebaseDatabase.getInstance()
+                            .getReference("users")
+                            .child(uid)
+                            .child("userVoca")
+                            .child(title)
+                            .child(vo.getVocaEng())
+                            .child("memoCheck");
+                    mDatabase_count.setValue("true");
+
+                    mCount++;
+                    // DB 내 count(목표달성률)
+                    mDatabase_count = FirebaseDatabase.getInstance()
+                            .getReference("users")
+                            .child(uid)
+                            .child("goals")
+                            .child(today)
+                            .child("count");
+                    mDatabase_count.setValue(mCount);
+
                 }
-                else{
-                    vo.memoCheck=false;
+                else {
+                    vo.memoCheck = false;
+                    // DB 내 memoCheck
+                    mDatabase_count = FirebaseDatabase.getInstance()
+                            .getReference("users")
+                            .child(uid)
+                            .child("userVoca")
+                            .child(title)
+                            .child(vo.getVocaEng())
+                            .child("memoCheck");
+                    mDatabase_count.setValue("false");
+
+                    if(mCount > 0) {mCount--;}
+                    // DB 내 count(목표달성률)
+                    mDatabase_count = FirebaseDatabase.getInstance()
+                            .getReference("users")
+                            .child(uid)
+                            .child("goals")
+                            .child(today)
+                            .child("count");
+                    mDatabase_count.setValue(mCount);
                 }
             }
         });
@@ -55,11 +116,45 @@ public class SpellCheckViewHolderPage extends RecyclerView.ViewHolder {
         starCheck.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked){
-                    vo.starCheck=true;
-                }
-                else{
-                    vo.starCheck=false;
+                if (isChecked) {
+                    vo.starCheck = true;
+                    // DB 내 starCheck
+                    mDatabase_star = FirebaseDatabase.getInstance()
+                            .getReference("users")
+                            .child(uid)
+                            .child("userVoca")
+                            .child(title)
+                            .child(vo.getVocaEng())
+                            .child("starCheck");
+                    mDatabase_star.setValue("true");
+
+                    // 해당 단어 즐겨찾기 목록에 추가
+                    mDatabase_star = FirebaseDatabase.getInstance()
+                            .getReference("users")
+                            .child(uid)
+                            .child("userVoca")
+                            .child("star");
+                    mDatabase_star.updateChildren(vo.toMap());
+                } else {
+                    vo.starCheck = false;
+                    // DB 내 starCheck
+                    mDatabase_star = FirebaseDatabase.getInstance()
+                            .getReference("users")
+                            .child(uid)
+                            .child("userVoca")
+                            .child(title)
+                            .child(vo.getVocaEng())
+                            .child("starCheck");
+                    mDatabase_star.setValue("false");
+
+                    // 해당 단어 즐겨찾기 목록에서 제거
+                    mDatabase_star = FirebaseDatabase.getInstance()
+                            .getReference("users")
+                            .child(uid)
+                            .child("userVoca")
+                            .child("star")
+                            .child(vo.getVocaEng());
+                    mDatabase_star.setValue(null);
                 }
             }
         });
@@ -82,5 +177,16 @@ public class SpellCheckViewHolderPage extends RecyclerView.ViewHolder {
             }
         });
 
+    }
+
+    // 오늘 날짜 계산
+    private String getToday()
+    {
+        Date date = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd", Locale.KOREA);
+
+        String today = sdf.format(date);
+
+        return today;
     }
 }

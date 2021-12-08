@@ -30,7 +30,6 @@ public class SignOut extends AppCompatActivity {
                         {
                             Toast.makeText(mContext,"로그아웃", Toast.LENGTH_LONG).show();
 
-                            // TODO: 종료되는지 로그인 화면으로 가는지 다시 확인
                             Intent intent = new Intent(mContext, FirebaseUI.class);
                             mContext.startActivity(intent);
                         }

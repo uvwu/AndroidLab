@@ -32,7 +32,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
-// TODO: 목표가 -1일 때는 목표값이 설정 안된 것 -> MainActivity에서 통계화면 대신 '목표를 설정해주세요'와 같은 문구 나타내기+목표설정화면에서 목표설정하라는 문구 나타내주기
 public class GoalSettingActivity extends AppCompatActivity {
     private static final String TAG = "GoalSettingActivity";
 
@@ -125,7 +124,7 @@ public class GoalSettingActivity extends AppCompatActivity {
                         todayGoal=String.valueOf(editGoalText.getText());
                         goalNowText.setText("현재 목표: "+todayGoal);
                         RecordUtil.saveGoal(getApplicationContext(),Integer.parseInt(todayGoal));
-                        mDatabaseReference.child(todayDate).child("goal").setValue(todayGoal); // DB에 저장
+                        mDatabaseReference.child(todayDate).child("goal").setValue(Integer.parseInt(todayGoal)); // DB에 저장
                         showToast("변경되었습니다.");
                     }
                     editGoalText.setText(null);

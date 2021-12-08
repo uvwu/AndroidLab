@@ -16,6 +16,9 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.example.voca.R;
+import com.example.voca.realtimeDB.VocaVO;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -24,6 +27,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 // 제공해주는 단어장 목록 화면(수능->week1 클릭시 나오는 단어 목록 화면)
 // VocaDetailActivity를 사용하지 않은 이유:
@@ -35,10 +40,14 @@ public class VocaDetailProvidedActivity extends AppCompatActivity {
     private static final String TAG_DB = "ReadData_providedVoca";
 
     private FirebaseDatabase firebaseDatabase;
+    private DatabaseReference userDB;
     private DatabaseReference mDatabaseReference; // 데이터베이스의 주소 저장
     private DatabaseReference mDatabase;
 
     ValueEventListener mValueEventListener; // 리스너 선언
+
+    String subTitle;
+    String subName;
 
     RecyclerView recyclerView;
     VocaDetailProvidedAdapter vocaDetailAdapter;
@@ -53,9 +62,9 @@ public class VocaDetailProvidedActivity extends AppCompatActivity {
         // name, subName 은 DB 내의 단어장 이름
         Intent intent = getIntent();
         String title = intent.getExtras().getString("title");
-        String subTitle = intent.getExtras().getString("subTitle"); // 액션바 부분에 쓰일 단어장 제목 받아옴
+        subTitle = intent.getExtras().getString("subTitle"); // 액션바 부분에 쓰일 단어장 제목 받아옴
         String name = intent.getExtras().getString("name");
-        String subName = intent.getExtras().getString("subName");
+        subName = intent.getExtras().getString("subName");
 
         // 리사이클러뷰 설정
         recyclerView = findViewById(R.id.rv_detail_provided_list);
@@ -175,15 +184,42 @@ public class VocaDetailProvidedActivity extends AppCompatActivity {
                 finish();
                 return true;
             }
-            // TODO: 사용자 DB에 단어 저장
+
             case R.id.provided_voca_menu:{ // 상단 우측 키 눌렀을 때 동작
-                // TODO: 토스트 추가
+                readData();
                 Toast.makeText(getApplicationContext(),"내 단어장에 추가되었습니다", Toast.LENGTH_LONG).show();
+
+                Intent intent = new Intent(VocaDetailProvidedActivity.this, TabActivity.class);
+                startActivity(intent);
+
                 return true;
             }
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    // 선택된 단어장 사용자 단어장에 저장
+    private void readData()
+    {
+        VocaVO vocaVO;
+
+        Map<String, Object> map = new HashMap<>();
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String uid = user.getUid();
+
+        userDB = firebaseDatabase.getReference("users").child(uid).child("userVoca");
+        map.put(subTitle, 0);
+        userDB.updateChildren(map);
+        userDB = userDB.child(subTitle);
+
+        for(VocaDetailProvidedItem item : items)
+        {
+            vocaVO = new VocaVO(item.getEng(), item.getKor(), false, false);
+            userDB.updateChildren(vocaVO.toMap());
+        }
+
     }
 }
 

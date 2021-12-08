@@ -8,7 +8,7 @@
         android:id="@+id/edit_vocaname"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="새 단어장 제목"
+        android:hint="단어장 이름"
         android:layout_alignParentStart="true"
         />
 

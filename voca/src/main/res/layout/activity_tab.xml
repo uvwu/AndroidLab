@@ -6,33 +6,14 @@
     android:layout_height="match_parent"
     tools:context=".List.TabActivity">
 
-    <LinearLayout
-        android:id="@+id/rv_main_linear"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:ignore="MissingConstraints">
-
-    <Button
-        android:id="@+id/rv_btn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="20sp"
-        android:textColor="#000000"
-        android:text="즐겨찾는 단어장"
-        android:gravity="left"
-        android:background="#00ff0000"
-        />
-    </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_tab_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="46dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rv_main_linear"
         tools:listitem="@layout/tablist_item" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -74,5 +55,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:backgroundTint = "@color/white"
         />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

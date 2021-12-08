@@ -1,7 +1,7 @@
 package com.example.voca.List;
 
 // 사용자 설장 단어장
-// TODO: 클래스 수정 필요
+
 public class VocaDetailItem {
     private String eng;
     private String kor;

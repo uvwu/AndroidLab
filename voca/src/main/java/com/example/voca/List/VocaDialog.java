@@ -23,7 +23,7 @@ public class VocaDialog extends AppCompatDialogFragment  {
         View view = inflater.inflate(R.layout.layout_dialog,null);
 
         builder.setView(view)
-                .setTitle("Voca Name")
+                .setTitle("단어장 추가")
                 .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int i) {

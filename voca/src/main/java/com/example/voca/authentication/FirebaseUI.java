@@ -1,5 +1,4 @@
 // 릴리즈 버전의 인증서 필요하다면 해야함 - 정현
-// TODO: 한글 번역판 구현
 
 package com.example.voca.authentication;
 
@@ -14,9 +13,11 @@ import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.voca.MainActivity;
 import com.example.voca.R;
+import com.example.voca.realtimeDB.GoalData;
 import com.example.voca.realtimeDB.Today;
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.FirebaseAuthUIActivityResultContract;
@@ -48,9 +49,11 @@ public class FirebaseUI extends AppCompatActivity implements View.OnClickListene
     private DatabaseReference mDatabase;
 
     ArrayList<String> userUID; // 유저의 로그인 토큰
+    ArrayList<GoalData> goalData; // 유저의 그동안 목표 관련 데이터
     String uid;
 
     Map<String, Object> mapKey;
+    Map<String, Object> mapKey1;
 
     ValueEventListener mValueEventListener; // 리스너 선언 -> 경로의 전체 내용을 읽고 변경사항을 수신 대기
 
@@ -127,7 +130,7 @@ public class FirebaseUI extends AppCompatActivity implements View.OnClickListene
                 // TODO: 앱 아이콘 모양으로 로고 다시 설정
                 .setLogo(R.mipmap.ic_launcher) // 로그인 시 맨 위에 나타나는 로고 설정 (임시로 설정)
                 .setAvailableProviders(providers) // provider(인증을 제공해주는 리스트들) 설정
-                // TODO: 서비스 약관(tosUrl) 및 개인정보처리방침(privacyPolicyUrl) 사이트 설정
+                // TODO: 서비스 약관(tosUrl) 및 개인정보처리방침(privacyPolicyUrl) 사이트 설정 -> 정현
                 .setTosAndPrivacyPolicyUrls("https://naver.com", "https://google.com") // 개인정보처리방침 및 서비스 약관 설정
                 .setIsSmartLockEnabled(true) // smartLock 설정
                 .build();
@@ -191,6 +194,8 @@ public class FirebaseUI extends AppCompatActivity implements View.OnClickListene
             for (String userUID : userUID) {   // 기존 회원이면 DB에 값 저장 안함 -> 기존 정보에 계속해서 저장
                 if (userUID.equals(user)) {
                     isExist = true;
+                    Log.d(TAG, "start" );
+                    makeTodayGoal(user); // 오늘의 목표 관련 정보가 없으면 데이터 새로 생성
                     break;
                 }
             }
@@ -218,14 +223,106 @@ public class FirebaseUI extends AppCompatActivity implements View.OnClickListene
             Log.d(TAG, "mDatabase: " + mDatabase);
 
             mDatabase = mDatabase.child(today); // 현재 루트를 DB/users/user/goals/today 로 변경
-            Today todayGoal = new Today(-1, 0); // goal이 -1인 상태:목표 설정 안한 상태 (디폴트값)
+            Today todayGoal = new Today(20, 0); // 기본목표값: 20
             mDatabase.updateChildren(todayGoal.toMap());
             Log.d(TAG, "mDatabase: " + mDatabase);
 
+
+            mapKey1 = new HashMap<>();
+            mapKey1.put("star", 0);
+
             mDatabase = mDatabaseReference.child(user).child("userVoca"); // 현재 루트를 DB/users/user/userVoca 로 변경
-            mDatabase.setValue("stars");
+            mDatabase.updateChildren(mapKey1);
             Log.d(TAG, "mDatabase: " + mDatabase);
         }
+
+    }
+
+    private void makeTodayGoal(String user)
+    {
+        Log.d(TAG, "makeTodayGoal ");
+        //자신 key == yesterday 일때
+        mDatabaseReference.child(user).child("goals").addValueEventListener(new ValueEventListener() {
+            // 이벤트 발생 시점에 특정 경로에 있던 콘텐츠의 정적 스냅샷을 읽음
+
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String today = getToday();
+
+                goalData = new ArrayList<>();
+                GoalData data = new GoalData();
+                //boolean isExist = false;
+
+                int k = 0;
+
+                Log.d(TAG, "addValueEventListener2: getChildren() " + dataSnapshot.getChildrenCount());
+                for (DataSnapshot snapshot_data : dataSnapshot.getChildren()) {
+
+                    data.setDate(snapshot_data.getKey());
+                    for (DataSnapshot snapshot : snapshot_data.getChildren()) {
+                        switch (k) {
+                            case 0:
+                                data.setCount(snapshot.getValue().toString());
+                                break;
+
+                            case 1:
+                                data.setGoal(snapshot.getValue().toString());
+                                break;
+                        }
+                        k++;
+                    }
+
+                    goalData.add(data);
+
+                    Log.d(TAG, "addValueEventListener: date " + data.getDate());
+                    Log.d(TAG, "addValueEventListener: goal " + data.getGoal());
+                    Log.d(TAG, "addValueEventListener: count " + data.getCount());
+                    Log.d(TAG, "add item -> size:" + goalData.size());
+                }
+
+                Log.d(TAG, "start for " );
+                // 오늘 날짜의 데이터가 존재하면 더 이상 데이터 생성하지 않음
+                for(int i = goalData.size() - 1; i >= 0; --i) {
+                    Log.d(TAG, "for " );
+                    if (today.equals(goalData.get(i).getDate())) {
+                          //isExist = true;
+                        Log.d(TAG, "T?F? " );
+                          return;
+                    }
+                }
+
+                // 오늘 날짜의 데이터가 존재하지 않으면 새로 생성
+                //  if (!isExist) {
+                int index = goalData.size() - 1; // 가장 최근 데이터(파이어베이스는 오름차순으로 저장됨)
+
+                int goal = Integer.parseInt(goalData.get(index).getGoal());
+                Log.d(TAG, "goal: " + goal);
+
+                Map<String, Object> mapKey;
+                Map<String, Object> innerMap;
+
+                mapKey = new HashMap<>();
+                innerMap = new HashMap<>();
+
+                innerMap.put("goal", goal);
+                innerMap.put("count", 0);
+
+                mapKey.put(today, innerMap);
+
+                Log.d(TAG, "innerMap: " + innerMap);
+
+                mDatabaseReference.child(user).child("goals").updateChildren(mapKey);
+
+            }
+
+
+
+            // 실패시 호출
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
     }
 }

@@ -17,7 +17,11 @@
         android:layout_weight="2"
         android:textColor="@android:color/primary_text_light"
         android:textSize="20sp"
-        android:text="Eng" />
+        android:text="Eng"
+        android:singleLine="true"
+        android:ellipsize="marquee"
+        android:marqueeRepeatLimit="marquee_forever"
+        />
     <TextView
         android:id="@+id/kor"
         android:layout_width="0dp"
@@ -25,6 +29,10 @@
         android:layout_weight="2"
         android:textColor="@android:color/primary_text_light"
         android:textSize="20sp"
-        android:text="단어 뜻" />
+        android:text="단어 뜻"
+        android:singleLine="true"
+        android:ellipsize="marquee"
+        android:marqueeRepeatLimit="marquee_forever"
+        />
 
 </LinearLayout>

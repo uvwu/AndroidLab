@@ -153,7 +153,9 @@ public class FirebaseUI extends AppCompatActivity implements View.OnClickListene
                 } else {
                     //String fixUser = user.toString().substring(34);
                     //Log.d(TAG, "fixUser: " + fixUser);
-                    settingDB(uid); // DB에 현재 사용자 정보 저장
+                    if(settingDB(uid)){
+                        makeTodayGoal(uid);
+                    }; // DB에 현재 사용자 정보 저장
 
                     Toast.makeText(getApplicationContext(), "로그인 성공", Toast.LENGTH_LONG).show();
 
@@ -184,7 +186,7 @@ public class FirebaseUI extends AppCompatActivity implements View.OnClickListene
     }
 
     // DB setting
-    private void settingDB(String user)
+    private boolean settingDB(String user)
     {
         boolean isExist = false; // DB내 user 정보 존재 유무
 
@@ -195,7 +197,7 @@ public class FirebaseUI extends AppCompatActivity implements View.OnClickListene
                 if (userUID.equals(user)) {
                     isExist = true;
                     Log.d(TAG, "start" );
-                    makeTodayGoal(user); // 오늘의 목표 관련 정보가 없으면 데이터 새로 생성
+                   // makeTodayGoal(user); // 오늘의 목표 관련 정보가 없으면 데이터 새로 생성
                     break;
                 }
             }
@@ -236,6 +238,7 @@ public class FirebaseUI extends AppCompatActivity implements View.OnClickListene
             Log.d(TAG, "mDatabase: " + mDatabase);
         }
 
+        return isExist;
     }
 
     private void makeTodayGoal(String user)
@@ -253,12 +256,13 @@ public class FirebaseUI extends AppCompatActivity implements View.OnClickListene
                 GoalData data = new GoalData();
                 //boolean isExist = false;
 
-                int k = 0;
+
 
                 Log.d(TAG, "addValueEventListener2: getChildren() " + dataSnapshot.getChildrenCount());
                 for (DataSnapshot snapshot_data : dataSnapshot.getChildren()) {
 
                     data.setDate(snapshot_data.getKey());
+                    int k = 0;
                     for (DataSnapshot snapshot : snapshot_data.getChildren()) {
                         switch (k) {
                             case 0:

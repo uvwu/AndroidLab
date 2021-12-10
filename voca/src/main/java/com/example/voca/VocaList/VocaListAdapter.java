@@ -27,7 +27,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
-// TODO: TabListAdapter 참고하여 리사이클러뷰로 변경 -> 스와이프시 메뉴 삭제 기능 구현하기 위해
+// TODO: 스와이프시 각 단어 삭제
 // TODO: 지금 체크 데이터가 DB에는 저장이 되지만 해당 단어장을 다시 클릭하면 초기화됨
 public class VocaListAdapter extends ArrayAdapter<VocaVO> implements ItemTouchHelperListener {
     // 파이어베이스에서 데이터 저장 및 읽어올 부분 연결할 객체들 생성

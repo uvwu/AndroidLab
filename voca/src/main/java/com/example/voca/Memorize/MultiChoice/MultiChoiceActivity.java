@@ -20,13 +20,15 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Locale;
 
+// TODO: 정답 체크시 자동으로 화면 넘어가도록 -> 토스트가 너무 늦게 떠서 답을 여러번 누르면 오답인지 정답인지 한참 기다려야 알 수 있음
+
 public class MultiChoiceActivity extends AppCompatActivity{
     private static final String TAG = "MultiChoiceActivity";
 
     TextToSpeech tts;
     ViewPager2 viewPager2;
 
-    // TODO: DB에 객관식에 나타날 한글들을 미리 200여개 정도 저장해뒀음
+    // TODO: DB에 객관식에 나타날 한글들을 미리 235개 저장해뒀음
     // multiChoiceRandom 는 DB에 저장해뒀던 한글들을 다 모아둔 Array임
     ArrayList<String> multiChoiceRandom; // 객관식에 나타날 한글 모음
 
@@ -48,12 +50,16 @@ public class MultiChoiceActivity extends AppCompatActivity{
         firebaseDatabase = FirebaseDatabase.getInstance();
         mDatabaseReference = firebaseDatabase.getReference().child("random").child("random_voca");
 
+        multiChoiceRandom = new ArrayList<>();
+
         mDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Log.d(TAG, "addLin~: " + snapshot.getChildrenCount());
                 for(DataSnapshot dataSnapshot : snapshot.getChildren())
                 {
                     String str = dataSnapshot.getValue().toString();
+                    Log.d(TAG, "str: " + str);
                     multiChoiceRandom.add(str);
                     Log.d(TAG, "multiChoiceRandom: " + multiChoiceRandom);
                 }

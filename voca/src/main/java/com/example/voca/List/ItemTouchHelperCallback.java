@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView;
 public class ItemTouchHelperCallback extends ItemTouchHelper.Callback {
     private ItemTouchHelperListener listener;
 
+    boolean mintem = true;
 
     public ItemTouchHelperCallback(ItemTouchHelperListener listener) { this.listener = listener; }
 
@@ -32,6 +33,15 @@ public class ItemTouchHelperCallback extends ItemTouchHelper.Callback {
     @Override
     public boolean isLongPressDragEnabled() {
         return true;
+    }
+
+    @Override
+    public boolean isItemViewSwipeEnabled() {
+        return mintem;
+    }
+
+    public void setMintem(boolean mintem) {
+        this.mintem = mintem;
     }
 }
 

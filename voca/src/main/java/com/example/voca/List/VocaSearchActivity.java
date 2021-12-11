@@ -9,10 +9,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import com.example.voca.R;
-import com.example.voca.VocaList.VocaListActivity;
 
 import java.util.ArrayList;
 

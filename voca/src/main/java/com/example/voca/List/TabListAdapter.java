@@ -2,7 +2,6 @@ package com.example.voca.List;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,20 +9,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.voca.R;
-import com.example.voca.VocaList.VocaListActivity;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
+import com.example.voca.VocaList.VocaRecyclerActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -79,7 +72,7 @@ public class TabListAdapter extends RecyclerView.Adapter<TabListAdapter.ItemView
             //recyclerview의 item 클릭 시에 학습 화면으로 이동
             public void onClick(View v) {
 
-                Intent intent = new Intent(v.getContext(), VocaListActivity.class);
+                Intent intent = new Intent(v.getContext(), VocaRecyclerActivity.class);
                 intent.putExtra("title", title); // 선택된 단어장 이름 액션바에 나타내기
 
                 intent.setFlags(intent.FLAG_ACTIVITY_NEW_TASK);
@@ -121,8 +114,9 @@ public class TabListAdapter extends RecyclerView.Adapter<TabListAdapter.ItemView
             items.remove(position);
             notifyItemRemoved(position);
         }
+        // TODO: 즐겨찾는 단어장은 스와이프가 안되도록 설정
         else{ // '즐겨찾는 단어장'을 삭제하려고 할 때
-            Toast.makeText(context, "로그인 성공", Toast.LENGTH_LONG).show();
+            Toast.makeText(context, "즐겨찾기 단어장은 삭제하실 수 없습니다", Toast.LENGTH_LONG).show();
         }
     }
 

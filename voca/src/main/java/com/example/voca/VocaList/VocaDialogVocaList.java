@@ -1,4 +1,4 @@
-package com.example.voca.List;
+package com.example.voca.VocaList;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -53,14 +53,15 @@ public class VocaDialogVocaList extends AppCompatDialogFragment {
                     @Override
                     public void onClick(DialogInterface dialog, int i) {
                         String eng = editEng.getText().toString();
-//                        for(VocaVO voca: vocaData)
-//                        {
-//                            // 이미 동일한 영단어가 존재하면 생성되지 않음
-//                            if(voca.equals(voca.getVocaEng())){
-//                                Toast.makeText(context, "동일한 이름의 단어 존재합니다", Toast.LENGTH_SHORT).show();
-//                                return;
-//                            }
-//                        }
+
+                        for(VocaVO voca: vocaData)
+                        {
+                            // 이미 동일한 영단어가 존재하면 생성되지 않음
+                            if(eng.equals(voca.getVocaEng())){
+                                Toast.makeText(context, "동일한 단어가 이미 존재합니다", Toast.LENGTH_SHORT).show();
+                                return;
+                            }
+                        }
 
                         String kor = editKor.getText().toString();
 

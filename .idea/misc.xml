@@ -132,14 +132,15 @@
         <entry key="voca/src/main/res/layout/activity_tab.xml" value="0.25" />
         <entry key="voca/src/main/res/layout/activity_test.xml" value="0.346875" />
         <entry key="voca/src/main/res/layout/activity_voca_detail.xml" value="0.234375" />
-        <entry key="voca/src/main/res/layout/activity_voca_list.xml" value="0.234375" />
+        <entry key="voca/src/main/res/layout/activity_voca_detail_provided.xml" value="0.1" />
+        <entry key="voca/src/main/res/layout/activity_voca_list.xml" value="0.1" />
         <entry key="voca/src/main/res/layout/activity_voca_search.xml" value="0.234375" />
         <entry key="voca/src/main/res/layout/item_memorize_viewpager.xml" value="0.346875" />
         <entry key="voca/src/main/res/layout/item_multichoice_viewpager.xml" value="0.346875" />
         <entry key="voca/src/main/res/layout/layout_dialog.xml" value="0.346875" />
         <entry key="voca/src/main/res/layout/layout_dialog_voca_list.xml" value="0.346875" />
         <entry key="voca/src/main/res/layout/tablist_item.xml" value="0.346875" />
-        <entry key="voca/src/main/res/layout/voca_list_item.xml" value="0.234375" />
+        <entry key="voca/src/main/res/layout/voca_list_item.xml" value="0.1" />
         <entry key="voca/src/main/res/layout/vocadetail_item.xml" value="0.234375" />
         <entry key="voca/src/main/res/layout/vocasearch_item.xml" value="0.234375" />
         <entry key="voca/src/main/res/layout/vocasearch_sub_item.xml" value="0.234375" />

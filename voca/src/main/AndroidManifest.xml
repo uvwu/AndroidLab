@@ -17,10 +17,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AndroidLab">
-        <receiver
-            android:name=".BootReceiver"
-            android:enabled="true"
-            android:exported="false"></receiver>
 
         <activity
             android:name=".List.VocaDetailProvidedActivity"
@@ -33,7 +29,7 @@
             android:exported="false" />
         <activity
             android:name=".MainActivity"
-            android:exported="true"></activity>
+            android:exported="true"/>
         <activity
             android:name=".authentication.FirebaseUI"
             android:exported="true">
@@ -47,9 +43,6 @@
             android:name=".Memorize.Basic.MemorizeActivity"
             android:exported="false"
             android:label="Memorize" />
-        <activity
-            android:name=".VocaList.VocaListActivity"
-            android:exported="false" />
         <activity
             android:name=".drawerActivity.PushAlertActivity"
             android:exported="false"
@@ -86,7 +79,9 @@
         <activity
             android:name=".List.VocaSearchSubActivity"
             android:exported="false" />
-
+        <activity
+            android:name=".VocaList.VocaRecyclerActivity"
+            android:exported="false" />
 
 
     </application>

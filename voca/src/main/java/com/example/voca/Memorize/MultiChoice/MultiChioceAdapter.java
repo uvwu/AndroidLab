@@ -58,7 +58,7 @@ public class MultiChioceAdapter extends RecyclerView.Adapter<MultiChoiceViewHold
     public void onBindViewHolder(@NonNull MultiChoiceViewHolderPage holder, int position) {
         if(holder instanceof MultiChoiceViewHolderPage){
             MultiChoiceViewHolderPage viewHolderPage=(MultiChoiceViewHolderPage) holder;
-            viewHolderPage.onBind(listVoca.get(position),getItemCount());
+            viewHolderPage.onBind(listVoca.get(position% listVoca.size()),getItemCount(),listVoca.size());
             viewHolderPage.ttsBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -70,7 +70,7 @@ public class MultiChioceAdapter extends RecyclerView.Adapter<MultiChoiceViewHold
 
     @Override
     public int getItemCount() {
-        return listVoca.size();
+        return 1000;
     }
 
     // 달성률 얻어오기

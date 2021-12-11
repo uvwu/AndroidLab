@@ -92,7 +92,7 @@
 
                         <com.github.mikephil.charting.charts.BarChart
                             android:id="@+id/bar_chart"
-                            android:layout_width="800dp"
+                            android:layout_width="500dp"
                             android:layout_height="400dp" />
                     </LinearLayout>
                 </HorizontalScrollView>

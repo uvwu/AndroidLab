@@ -52,16 +52,16 @@ public class MemorizeViewHolderPage extends RecyclerView.ViewHolder{
         this.mCount = mCount;
         this.title = title;
     }
-    public void onBind(VocaVO vo,int totalNum) {
+    public void onBind(VocaVO vo,int totalNum,int dataSize) {
         this.vo = vo;
 
         //암기버튼 이벤트 처리리
-        memoCheck.setChecked(vo.memoCheck);// memoCheck 값의 여부에 따라 화면에 체크 유무 보여줌
+        memoCheck.setChecked(vo.getMemoCheck());// memoCheck 값의 여부에 따라 화면에 체크 유무 보여줌
         memoCheck.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    vo.memoCheck = true;
+                    vo.setMemoCheck(true);
                     // DB 내 memoCheck
                     mDatabase_count = FirebaseDatabase.getInstance()
                             .getReference("users")
@@ -84,7 +84,7 @@ public class MemorizeViewHolderPage extends RecyclerView.ViewHolder{
 
                 }
                 else {
-                    vo.memoCheck = false;
+                    vo.setMemoCheck(false);
                     // DB 내 memoCheck
                     mDatabase_count = FirebaseDatabase.getInstance()
                             .getReference("users")
@@ -108,12 +108,12 @@ public class MemorizeViewHolderPage extends RecyclerView.ViewHolder{
             }
         });
         //즐겨찾기 버튼 이벤트 처리
-        starCheck.setChecked(vo.starCheck);// starCheck 값의 여부에 따라 화면에 체크 유무 보여줌
+        starCheck.setChecked(vo.getStarCheck());// starCheck 값의 여부에 따라 화면에 체크 유무 보여줌
         starCheck.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    vo.starCheck = true;
+                    vo.setStarCheck(true);
                     // DB 내 starCheck
                     mDatabase_star = FirebaseDatabase.getInstance()
                             .getReference("users")
@@ -132,7 +132,7 @@ public class MemorizeViewHolderPage extends RecyclerView.ViewHolder{
                             .child("star");
                     mDatabase_star.updateChildren(vo.toMap());
                 } else {
-                    vo.starCheck = false;
+                    vo.setStarCheck(false);
                     // DB 내 starCheck
                     mDatabase_star = FirebaseDatabase.getInstance()
                             .getReference("users")
@@ -156,11 +156,11 @@ public class MemorizeViewHolderPage extends RecyclerView.ViewHolder{
         });
 
         // 현재단어/전체단어 ex) 3/20
-        count.setText(getAdapterPosition() + 1 + "/" + totalNum);
+        count.setText((getAdapterPosition()%dataSize + 1) + "/" +(dataSize));
         //영어단어
-        vocaEng.setText(vo.vocaEng);
+        vocaEng.setText(vo.getVocaEng());
         //한글 뜻
-        vocaKor.setText(vo.vocaKor);
+        vocaKor.setText(vo.getVocaKor());
 
     }
 

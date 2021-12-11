@@ -59,7 +59,7 @@ public class MemorizeAdapter extends RecyclerView.Adapter<MemorizeViewHolderPage
     public void onBindViewHolder(@NonNull MemorizeViewHolderPage holder, int position){
         if(holder instanceof MemorizeViewHolderPage){
             MemorizeViewHolderPage viewHolderPage=(MemorizeViewHolderPage) holder;
-            viewHolderPage.onBind(listVoca.get(position),getItemCount());
+            viewHolderPage.onBind(listVoca.get(position),getItemCount(), listVoca.size());
             viewHolderPage.ttsBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -71,7 +71,7 @@ public class MemorizeAdapter extends RecyclerView.Adapter<MemorizeViewHolderPage
 
     @Override
     public int getItemCount() {
-        return listVoca.size();
+        return 1000;
     }
 
     // 달성률 얻어오기

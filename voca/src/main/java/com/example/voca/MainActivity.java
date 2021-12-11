@@ -53,6 +53,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -125,14 +126,62 @@ public class MainActivity extends AppCompatActivity {
         TextView mainText=findViewById(R.id.text_main);
         mainText.setText((TextUtils.isEmpty(user.getDisplayName()) ? "No display name" : user.getDisplayName())+"님의 목표 달성률");
 
+        /*Button testBtn=findViewById(R.id.btn_test);
+        testBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, VocaListActivity.class));
+            }
+        });*/
+
         goalData = new ArrayList<>();
         GoalData data = new GoalData();
 
         // 리스너 설정 및 연결 -> DB/users/uid/goals
-        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+        mDatabase.addValueEventListener(new ValueEventListener() {
             // 이벤트 발생 시점에 특정 경로에 있던 콘텐츠의 정적 스냅샷을 읽음
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                // 오늘 날짜
+                today = getToday();
+
+                boolean isExist = false;
+
+                Log.d(TAG, "addValueEventListener: getChildren() " + dataSnapshot.getChildrenCount());
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    if (today.equals(snapshot.getKey())) {
+                        isExist = true;
+                        break;
+                    }
+                }
+
+                Log.d(TAG, "TF: " + isExist);
+
+                if (!isExist) {
+                    int goal = -1;
+                    String yesterday = String.valueOf(Integer.parseInt(dataSnapshot.getKey()) - 1);
+                    Log.d(TAG, "yesterday: " + yesterday);
+
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        if (yesterday.equals(snapshot.getKey())) {
+                            goal = dataSnapshot.child(yesterday).getValue(Integer.class); // 따로 설정하지 않으면 오늘의 목표는 어제와 같음
+                            Log.d(TAG, "goal: " + goal);
+                        }
+
+                    }
+
+                    mapKey = new HashMap<>();
+                    innerMap = new HashMap<>();
+
+                    mapKey.put(today, innerMap);
+
+                    innerMap.put("count", 0);
+                    innerMap.put("goal", goal);
+
+                    Log.d(TAG, "innerMap: " + innerMap);
+
+                    mDatabase.child(today).updateChildren(innerMap);
+                }
 
                 for (DataSnapshot snapshot_data : dataSnapshot.getChildren()) { // date
                     int i = 0;
@@ -450,5 +499,4 @@ public class MainActivity extends AppCompatActivity {
         dailyChart.setProgress((int)((float)achievement/goal*100));
         dayRecord.setText(achievement+"/"+goal);
     }
-
 }

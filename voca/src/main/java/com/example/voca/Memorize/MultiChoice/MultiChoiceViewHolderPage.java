@@ -64,16 +64,16 @@ public class MultiChoiceViewHolderPage extends RecyclerView.ViewHolder implement
         this.mCount = mCount;
         this.title = title;
     }
-    public void onBind(VocaVO vo,int totalNum) {
+    public void onBind(VocaVO vo,int totalNum,int dataSize) {
         this.vo = vo;
 
         //암기버튼 이벤트 처리리
-        memoCheck.setChecked(vo.memoCheck);// memoCheck 값의 여부에 따라 화면에 체크 유무 보여줌
+        memoCheck.setChecked(vo.getMemoCheck());// memoCheck 값의 여부에 따라 화면에 체크 유무 보여줌
         memoCheck.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    vo.memoCheck = true;
+                    vo.setMemoCheck(true);
                     // DB 내 memoCheck
                     mDatabase_count = FirebaseDatabase.getInstance()
                             .getReference("users")
@@ -96,7 +96,7 @@ public class MultiChoiceViewHolderPage extends RecyclerView.ViewHolder implement
 
                 }
                 else {
-                    vo.memoCheck = false;
+                    vo.setMemoCheck(false);
                     // DB 내 memoCheck
                     mDatabase_count = FirebaseDatabase.getInstance()
                             .getReference("users")
@@ -120,12 +120,12 @@ public class MultiChoiceViewHolderPage extends RecyclerView.ViewHolder implement
             }
         });
         //즐겨찾기 버튼 이벤트 처리
-        starCheck.setChecked(vo.starCheck);// starCheck 값의 여부에 따라 화면에 체크 유무 보여줌
+        starCheck.setChecked(vo.getStarCheck());// starCheck 값의 여부에 따라 화면에 체크 유무 보여줌
         starCheck.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    vo.starCheck = true;
+                    vo.setStarCheck(true);
                     // DB 내 starCheck
                     mDatabase_star = FirebaseDatabase.getInstance()
                             .getReference("users")
@@ -144,7 +144,7 @@ public class MultiChoiceViewHolderPage extends RecyclerView.ViewHolder implement
                             .child("star");
                     mDatabase_star.updateChildren(vo.toMap());
                 } else {
-                    vo.starCheck = false;
+                    vo.setStarCheck(false);
                     // DB 내 starCheck
                     mDatabase_star = FirebaseDatabase.getInstance()
                             .getReference("users")
@@ -168,12 +168,12 @@ public class MultiChoiceViewHolderPage extends RecyclerView.ViewHolder implement
         });
 
         // 현재단어/전체단어 ex) 3/20
-        count.setText(getAdapterPosition() + 1 + "/" + totalNum);
-        vocaEng.setText(vo.vocaEng);
+        count.setText((getAdapterPosition()%dataSize + 1) + "/" +(dataSize) );
+        vocaEng.setText(vo.getVocaEng());
 
         //객관식 버튼(1~4) 값 넣는곳
         // TODO: MutiChoiceAdapter 내에 있는 multiChoiceRandom 의 값 중 랜덤하게 뽑아 넣으면 될듯
-        realAnswer=vo.vocaKor;//정답인 한글 뜻
+        realAnswer=vo.getVocaKor();//정답인 한글 뜻
 
         chioceBtn1.setText("1");
         chioceBtn1.setOnClickListener(this);

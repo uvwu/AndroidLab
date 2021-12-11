@@ -54,13 +54,13 @@ public class SpellCheckAdapter extends RecyclerView.Adapter<SpellCheckViewHolder
     public void onBindViewHolder(@NonNull SpellCheckViewHolderPage holder, int position) {
         if(holder instanceof SpellCheckViewHolderPage){
             SpellCheckViewHolderPage viewHolderPage=(SpellCheckViewHolderPage) holder;
-            viewHolderPage.onBind(listVoca.get(position),getItemCount());
+            viewHolderPage.onBind(listVoca.get(position),getItemCount(), listVoca.size());
         }
     }
 
     @Override
     public int getItemCount() {
-        return listVoca.size();
+        return 1000;
     }
 
     // 달성률 얻어오기

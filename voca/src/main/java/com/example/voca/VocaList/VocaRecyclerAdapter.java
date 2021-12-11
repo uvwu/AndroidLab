@@ -2,39 +2,26 @@ package com.example.voca.VocaList;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.ItemTouchHelper;
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.voca.List.ItemTouchHelperCallback;
 import com.example.voca.List.ItemTouchHelperListener;
-import com.example.voca.List.TabActivity;
-import com.example.voca.List.TabListAdapter;
-import com.example.voca.List.TabListItem;
-import com.example.voca.List.VocaDetailItem;
-import com.example.voca.List.VocaDetailProvidedAdapter;
-import com.example.voca.List.VocaDetailProvidedItem;
-import com.example.voca.List.VocaListAdapter;
 import com.example.voca.R;
 import com.example.voca.realtimeDB.VocaVO;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -50,6 +37,7 @@ public class VocaRecyclerAdapter extends RecyclerView.Adapter<VocaRecyclerAdapte
     // 실시간 사용자의 정보 받아옴
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     String uid = user.getUid();
+    AlertDialog alertDialog;
 
     Context context;
     int resId;
@@ -311,20 +299,37 @@ public class VocaRecyclerAdapter extends RecyclerView.Adapter<VocaRecyclerAdapte
     // TODO:스와이프시 삭제하겠냐는 다이얼로그 띄운 뒤, 사용자가 오케이하면 해당 단어 삭제
     public void onItemSwipe(int position) {
         // TODO: 이곳에 다이얼로그 코드 작성
-
-
-
+        DialogInterface.OnClickListener dialogListener = new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if(dialog ==alertDialog && which==DialogInterface.BUTTON_POSITIVE){
+                    removeDB(position); // 해당하는 단어 DB에서 삭제
+                    notifyItemRemoved(position);
+                }
+                Intent intent = ((Activity)context).getIntent();
+                ((Activity)context).finish(); //현재 액티비티 종료 실시
+                ((Activity)context).overridePendingTransition(0, 0); //효과 없애기
+                ((Activity)context).startActivity(intent); //현재 액티비티 재실행 실시
+                ((Activity)context).overridePendingTransition(0, 0); //효과 없애기
+            }
+        };
+        AlertDialog.Builder builder = new AlertDialog.Builder(this.context);
+        builder.setMessage("정말 삭제하시겠습니까?");
+        builder.setPositiveButton("OK", dialogListener);
+        builder.setNegativeButton("No", dialogListener);
+        alertDialog = builder.create();
+        alertDialog.show();
         // TODO: 즐겨찾는 단어장 내 단어들은 스와이프가 불가능하도록 설정 -> 즐겨찾는 단어장 내에서는 단어 삭제가 불가능하도록
-        removeDB(position); // 해당하는 단어 DB에서 삭제
-        notifyItemRemoved(position);
+        //removeDB(position); // 해당하는 단어 DB에서 삭제
+        //notifyItemRemoved(position);
 
         // TODO: 화면 새로고침없이 바로 바뀐 단어장 상태 화면에 뿌리는 방법은 없을까
         // 현재 화면 새로고침
-        Intent intent = ((Activity)context).getIntent();
-        ((Activity)context).finish(); //현재 액티비티 종료 실시
-        ((Activity)context).overridePendingTransition(0, 0); //효과 없애기
-        ((Activity)context).startActivity(intent); //현재 액티비티 재실행 실시
-        ((Activity)context).overridePendingTransition(0, 0); //효과 없애기
+        //Intent intent = ((Activity)context).getIntent();
+        //((Activity)context).finish(); //현재 액티비티 종료 실시
+        //((Activity)context).overridePendingTransition(0, 0); //효과 없애기
+        //((Activity)context).startActivity(intent); //현재 액티비티 재실행 실시
+        //((Activity)context).overridePendingTransition(0, 0); //효과 없애기
     }
 
     // 아이템 뷰를 저장하는 뷰 홀더 클래스

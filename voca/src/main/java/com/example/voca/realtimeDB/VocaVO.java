@@ -3,8 +3,6 @@ package com.example.voca.realtimeDB;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.example.voca.List.VocaDetailProvidedItem;
-
 import java.util.HashMap;
 import java.util.Map;
 

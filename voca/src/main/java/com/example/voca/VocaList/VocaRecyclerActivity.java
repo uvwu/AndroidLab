@@ -240,7 +240,7 @@ public class VocaRecyclerActivity extends AppCompatActivity implements VocaDialo
         today = getToday();
 
         // mDatabase: DB/users/uid/goals/today/count
-        mDatabase = FirebaseDatabase.getInstance()
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance()
                 .getReference("users")
                 .child(uid)
                 .child("goals")

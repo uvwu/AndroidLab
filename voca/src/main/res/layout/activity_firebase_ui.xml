@@ -6,16 +6,14 @@
     android:layout_height="match_parent"
     tools:context=".authentication.FirebaseUI">
 
-    <!-- 앱 아이콘 설정하기 -->
 
-    <!-- 색상 및 문구 변경 가능 (현재 임시) -->
 
     <ImageView
         android:id="@+id/app_icon"
         android:layout_width="100sp"
         android:layout_height="100sp"
         android:layout_marginTop="180sp"
-        android:src="@mipmap/ic_launcher"
+        android:src="@mipmap/ic_appicon"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

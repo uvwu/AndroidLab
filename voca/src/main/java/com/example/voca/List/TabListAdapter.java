@@ -1,6 +1,8 @@
 package com.example.voca.List;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.voca.R;
@@ -30,7 +33,7 @@ public class TabListAdapter extends RecyclerView.Adapter<TabListAdapter.ItemView
     Context context;
     int resId;
     ArrayList<TabListItem> items;
-
+    AlertDialog alertDialog;
 
     public TabListAdapter() {
     }
@@ -92,7 +95,6 @@ public class TabListAdapter extends RecyclerView.Adapter<TabListAdapter.ItemView
     }
 
     @Override
-    // TODO: 선택된 버튼이 눌렸다는 느낌이 나게 하기 -> 선택된 텍스트가 진해진다든지, 커진다든지 등의 방법 이용
     public boolean onItemMove(int form_position, int to_position) {
         TabListItem item = items.get(form_position);
         items.remove(form_position);
@@ -107,17 +109,37 @@ public class TabListAdapter extends RecyclerView.Adapter<TabListAdapter.ItemView
     public void onItemSwipe(int position) {
         boolean isRemove = true;
         // TODO: 이곳에 다이얼로그 코드 작성
+        DialogInterface.OnClickListener dialogListener = new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if(dialog ==alertDialog && which==DialogInterface.BUTTON_POSITIVE){
+                    removeDB(position); // 해당하는 단어장 DB에서 삭제
+                    notifyItemRemoved(position);
+                }
+                Intent intent = ((Activity)context).getIntent();
+                ((Activity)context).finish(); //현재 액티비티 종료 실시
+                ((Activity)context).overridePendingTransition(0, 0); //효과 없애기
+                ((Activity)context).startActivity(intent); //현재 액티비티 재실행 실시
+                ((Activity)context).overridePendingTransition(0, 0); //효과 없애기
 
+                if(dialog ==alertDialog && which==DialogInterface.BUTTON_NEGATIVE) {
 
-        isRemove = removeDB(position); // 해당하는 단어장 DB에서 삭제
-        if(isRemove) {
-            items.remove(position);
-            notifyItemRemoved(position);
-        }
-        // TODO: 즐겨찾는 단어장은 스와이프가 안되도록 설정
-        else{ // '즐겨찾는 단어장'을 삭제하려고 할 때
-            Toast.makeText(context, "즐겨찾기 단어장은 삭제하실 수 없습니다", Toast.LENGTH_LONG).show();
-        }
+                }
+            }
+        };
+        //isRemove = removeDB(position);
+        //if(isRemove) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this.context);
+            builder.setMessage("단어장을 삭제하시겠습니까?");
+            builder.setPositiveButton("Ok",dialogListener);
+            builder.setNegativeButton("No",dialogListener);
+            alertDialog = builder.create();
+            alertDialog.show();
+
+        //}
+        //else{ // '즐겨찾는 단어장'을 삭제하려고 할 때
+            //Toast.makeText(context, "즐겨찾는 단어장은 삭제할 수 없습니다.", Toast.LENGTH_LONG).show();
+        //}
     }
 
     public class ItemViewHolder extends RecyclerView.ViewHolder {
@@ -138,6 +160,8 @@ public class TabListAdapter extends RecyclerView.Adapter<TabListAdapter.ItemView
     {
         String removeTitle = items.get(position).getName();
         if(removeTitle.equals("즐겨찾는 단어장")){
+            Toast myToast = Toast.makeText(this.context,"즐겨찾는 단어장은 삭제할 수 없습니다.", Toast.LENGTH_SHORT);
+            myToast.show();
             return false; // 즐겨찾는 단어장은 삭제하지 못하도록 함
         }
 

@@ -148,8 +148,11 @@ public class TabActivity extends AppCompatActivity implements VocaDialog.VocaDia
         fabSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent2 = new Intent(getApplicationContext(), VocaSearchActivity.class);
-                startActivity(intent2);
+                {
+                    Intent intent2 = new Intent(getApplicationContext(), VocaSearchActivity.class);
+                    startActivity(intent2);
+                }
+
             }
         });
 

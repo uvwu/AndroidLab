@@ -24,7 +24,7 @@ import java.util.Locale;
 
 public class SpellCheckViewHolderPage extends RecyclerView.ViewHolder {
 
-    private final TextView vocaKor;
+    private TextView vocaKor;
     private CheckBox memoCheck;
     private CheckBox starCheck;
     private EditText editAnswerText;
@@ -44,7 +44,7 @@ public class SpellCheckViewHolderPage extends RecyclerView.ViewHolder {
     private DatabaseReference mDatabase_count;
     private DatabaseReference mDatabase_star;
 
-    SpellCheckViewHolderPage(View v, int mCount, String title){
+    public SpellCheckViewHolderPage(View v, int mCount, String title){
         super(v);
 
         vocaKor=v.findViewById(R.id.voca_korean2);
@@ -62,7 +62,7 @@ public class SpellCheckViewHolderPage extends RecyclerView.ViewHolder {
 
         //암기버튼 이벤트 처리리
        memoCheck.setChecked(vo.getMemoCheck());// memoCheck 값의 여부에 따라 화면에 체크 유무 보여줌
-        memoCheck.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+       memoCheck.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {

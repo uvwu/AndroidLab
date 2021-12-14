@@ -73,7 +73,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingTop="10dp"
-                    android:text="이전 결과"
+                    android:text="최대 7일 기록"
                     android:textColor="@color/theme"
                     android:textSize="20dp"
                     android:textStyle="bold" />
@@ -92,7 +92,7 @@
 
                         <com.github.mikephil.charting.charts.BarChart
                             android:id="@+id/bar_chart"
-                            android:layout_width="500dp"
+                            android:layout_width="600dp"
                             android:layout_height="400dp" />
                     </LinearLayout>
                 </HorizontalScrollView>
@@ -109,7 +109,7 @@
             android:id="@+id/learning_btn"
             android:layout_width="160dp"
             android:layout_height="60dp"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="0dp"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:drawableLeft="@drawable/ic_baseline_menu_book_24"

@@ -428,15 +428,15 @@ public class MainActivity extends AppCompatActivity {
         date=new ArrayList<>(); // 날짜
 
         //성취 데이터
-        for(int i=0;i<goalData.size();i++){
-            achivements.add(new BarEntry(i,Integer.parseInt(goalData.get(i).getCount())));
+        for(int i=0;i<Math.min(goalData.size(),7);i++){
+            achivements.add(new BarEntry(i,Integer.parseInt(goalData.get(goalData.size()-1-i).getCount())));
             Log.d(TAG, "achivement: " + achivements);
         }
         dataSet1=new BarDataSet(achivements,"외운 단어수");
 
         //목표 데이터
-        for(int i=0;i<goalData.size();i++){
-            goals.add(new BarEntry(i,Integer.parseInt(goalData.get(i).getGoal())));
+        for(int i=0;i<Math.min(goalData.size(),7);i++){
+            goals.add(new BarEntry(i,Integer.parseInt(goalData.get(goalData.size()-1-i).getGoal())));
             Log.d(TAG, "goals: " + goals);
         }
         dataSet=new BarDataSet(goals,"목표");
@@ -445,8 +445,8 @@ public class MainActivity extends AppCompatActivity {
 
         bardata=new BarData(dataSet,dataSet1);
 
-        for(int i=0;i<goalData.size();i++){
-            date.add(goalData.get(i).getDate());
+        for(int i=0;i<Math.min(goalData.size(),7);i++){
+            date.add(goalData.get(goalData.size()-i-1).getDate());
             Log.d(TAG, "date: " + date);
         }
 

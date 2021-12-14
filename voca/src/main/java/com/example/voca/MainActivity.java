@@ -68,10 +68,6 @@ public class MainActivity extends AppCompatActivity {
 
     ArrayList<GoalData> goalData; // 날짜,목표,목표달성률 넣을 데이터
 
-    String todayDate;
-    String todayGoal;
-    String todayCount;
-
     BarDataSet dataSet1;
     BarDataSet dataSet;
 
@@ -80,6 +76,8 @@ public class MainActivity extends AppCompatActivity {
 
     Map<String, Object> mapKey;
     Map<String, Object> innerMap;
+
+    int j=0;
 
     String today;
 
@@ -90,9 +88,6 @@ public class MainActivity extends AppCompatActivity {
     private ActionBarDrawerToggle toggle;//메뉴 화면을 여는 버튼
 
     private SwitchCompat darkModeSwitch;//다크모드 스위치 버튼
-    private SwitchCompat pushAlertSwitch;//푸쉬알림 스위치 버튼
-
-    AlertDialog alertDialog;//로그아웃시 띄울 다이얼로그
 
     String themeColor;
 
@@ -105,7 +100,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         mIdpResponse = IdpResponse.fromResultIntent(getIntent());
-
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
         String uid = user.getUid();
@@ -134,10 +128,9 @@ public class MainActivity extends AppCompatActivity {
         });*/
 
         goalData = new ArrayList<>();
-        GoalData data = new GoalData();
 
         // 리스너 설정 및 연결 -> DB/users/uid/goals
-        mDatabase.addValueEventListener(new ValueEventListener() {
+        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             // 이벤트 발생 시점에 특정 경로에 있던 콘텐츠의 정적 스냅샷을 읽음
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -157,7 +150,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.d(TAG, "TF: " + isExist);
 
                 if (!isExist) {
-                    int goal = -1;
+                    int goal = 20;
                     String yesterday = String.valueOf(Integer.parseInt(dataSnapshot.getKey()) - 1);
                     Log.d(TAG, "yesterday: " + yesterday);
 
@@ -184,6 +177,8 @@ public class MainActivity extends AppCompatActivity {
 
                 for (DataSnapshot snapshot_data : dataSnapshot.getChildren()) { // date
                     int i = 0;
+                    GoalData data = new GoalData();
+
                     data.setDate(snapshot_data.getKey());
                     // Log.d(TAG, "onDataChange: data " + );
 
@@ -198,14 +193,16 @@ public class MainActivity extends AppCompatActivity {
                                 break;
                         }
                         i++;
+
                     }
-
                     goalData.add(data);
-                    Log.d(TAG, "onDataChange: goalData " + goalData.get(0).getGoal());
-                    Log.d(TAG, "onDataChange: goalData " + goalData.get(0).getCount());
-                    Log.d(TAG, "onDataChange: goalData " + goalData.get(0).getDate());
+                    Log.d(TAG, "onDataChange: goalData  "+j+"번째 " + goalData.get(j).getGoal());
+                    Log.d(TAG, "onDataChange: goalData  " +j+"번째 " + goalData.get(j).getCount());
+                    Log.d(TAG, "onDataChange: goalData  " +j+"번째 " + goalData.get(j).getDate());
+                    j++;
                 }
-
+                goal=Integer.parseInt(goalData.get(goalData.size()-1).getGoal());
+                achievement=Integer.parseInt(goalData.get(goalData.size()-1).getCount());
                 initData();
                 edit_goal();
             }
@@ -267,18 +264,8 @@ public class MainActivity extends AppCompatActivity {
         /* to tie together the functionality of DrawerLayout and the framework ActionBar
         * 상단 왼쪽 네비게이션뷰 버튼 눌렀을때 이벤트 처리하는 코드
         * */
-        toggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.drawer_open, R.string.drawer_close) /*{
-            @Override
-            public void onDrawerOpened(View drawerView) {
-                super.onDrawerOpened(drawerView);
-            }
-            @Override
-            public void onDrawerClosed(View drawerView) {
-                super.onDrawerClosed(drawerView);
-            }
-         }*/;
+        toggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.drawer_open, R.string.drawer_close);
 
-        // Set the drawer toggle as the DrawerListener.
         drawerLayout.addDrawerListener(toggle); // If omitted, the toggle icon is not changed.
 
         //로그아웃 클릭시 보여줄 dialog + 이벤트처리/
@@ -350,16 +337,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-        //푸쉬알림 이벤트처리
-        /*pushAlertSwitch=(SwitchCompat) navigationView.getMenu().findItem(R.id.menu_drawer_pushAlert).getActionView().findViewById(R.id.switch_push_alert);
-        pushAlertSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(!isChecked)
-                    showToast("푸쉬알림 off");
-                else showToast("푸쉬알림 on");
-            }
-        });*/
     }
 
 
@@ -390,6 +367,7 @@ public class MainActivity extends AppCompatActivity {
         toast.show();
     }
 
+
     // 오늘 날짜 계산
     private String getToday() {
         Date date = new Date();
@@ -402,22 +380,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        CircleProgressBar dailyChart=findViewById(R.id.circle_bar);
-        goal=RecordUtil.loadGoal(getApplicationContext());
-        achievement=16;
-        dailyChart.setProgress((int)((float)achievement/goal*100));
-        TextView dayRecord=findViewById(R.id.day_record);
-        dayRecord.setText(achievement+"/"+goal);
-
-    }
 
     // 차트 가공에 쓰일 코드들을 함수로 모은 것
     private void initData()
     {
         Log.d(TAG, "goalData.size(): " + goalData.size());
+        for(int i=0;i<goalData.size();i++) {
+            Log.d(TAG, "goalData " + goalData.get(i).getGoal());
+            Log.d(TAG, "goalData " + goalData.get(i).getCount());
+            Log.d(TAG, "goalData " + goalData.get(i).getDate());
+        }
 
         List<BarEntry> achivements;
         List<BarEntry> goals;
@@ -428,15 +400,15 @@ public class MainActivity extends AppCompatActivity {
         date=new ArrayList<>(); // 날짜
 
         //성취 데이터
-        for(int i=0;i<Math.min(goalData.size(),7);i++){
-            achivements.add(new BarEntry(i,Integer.parseInt(goalData.get(goalData.size()-1-i).getCount())));
+        for(int i=0;i<goalData.size();i++){
+            achivements.add(new BarEntry(i,Integer.parseInt(goalData.get(i).getCount())));
             Log.d(TAG, "achivement: " + achivements);
         }
         dataSet1=new BarDataSet(achivements,"외운 단어수");
 
         //목표 데이터
-        for(int i=0;i<Math.min(goalData.size(),7);i++){
-            goals.add(new BarEntry(i,Integer.parseInt(goalData.get(goalData.size()-1-i).getGoal())));
+        for(int i=0;i<goalData.size();i++){
+            goals.add(new BarEntry(i,Integer.parseInt(goalData.get(i).getGoal())));
             Log.d(TAG, "goals: " + goals);
         }
         dataSet=new BarDataSet(goals,"목표");
@@ -445,8 +417,8 @@ public class MainActivity extends AppCompatActivity {
 
         bardata=new BarData(dataSet,dataSet1);
 
-        for(int i=0;i<Math.min(goalData.size(),7);i++){
-            date.add(goalData.get(goalData.size()-i-1).getDate());
+        for(int i=0;i<goalData.size();i++){
+            date.add(goalData.get(i).getDate());
             Log.d(TAG, "date: " + date);
         }
 
@@ -459,10 +431,11 @@ public class MainActivity extends AppCompatActivity {
         dataSet.setColor(R.color.theme1);
         dataSet.setFormLineWidth(10f);
 
-        bardata.setBarWidth(0.7f);//차트 폭폭
+        bardata.setBarWidth(0.4f);//차트 폭폭
         bardata.setValueTextSize(15);
 
         //차트 그래프 가공(격자선 없애기 등등)
+        xAxis.setLabelCount(goalData.size());
         xAxis.setValueFormatter(new IndexAxisValueFormatter(date));
         weekChart.getLegend().setHorizontalAlignment(Legend.LegendHorizontalAlignment.RIGHT);
         weekChart.getDescription().setEnabled(false);
@@ -490,8 +463,19 @@ public class MainActivity extends AppCompatActivity {
     // 화면에 보일 현재 목표 및 목표 수정 화면
     private void edit_goal()
     {
-        goal=RecordUtil.loadGoal(getApplicationContext());
-        dailyChart.setProgress((int)((float)achievement/goal*100));
+        if(goal!=0)
+            dailyChart.setProgress((int)((float)achievement/goal*100));
+        else dailyChart.setProgress(0);
         dayRecord.setText(achievement+"/"+goal);
+    }
+
+    @Override
+    public void onRestart()
+    {
+        super.onRestart();
+
+        Intent intent = getIntent();
+        finish();
+        startActivity(intent);
     }
 }

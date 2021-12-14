@@ -102,6 +102,7 @@
         <entry key="..\:/Users/wjdtj/AndroidStudioProjects/AndroidLab/voca/src/main/res/layout/activity_tab.xml" value="0.1" />
         <entry key="..\:/Users/wjdtj/AndroidStudioProjects/AndroidLab/voca/src/main/res/layout/activity_test.xml" value="0.1" />
         <entry key="..\:/Users/wjdtj/AndroidStudioProjects/AndroidLab/voca/src/main/res/layout/activity_voca_detail.xml" value="0.1" />
+        <entry key="..\:/Users/wjdtj/AndroidStudioProjects/AndroidLab/voca/src/main/res/layout/activity_voca_detail_provided.xml" value="0.1" />
         <entry key="..\:/Users/wjdtj/AndroidStudioProjects/AndroidLab/voca/src/main/res/layout/activity_voca_list.xml" value="0.12631578947368421" />
         <entry key="..\:/Users/wjdtj/AndroidStudioProjects/AndroidLab/voca/src/main/res/layout/activity_voca_search.xml" value="0.1" />
         <entry key="..\:/Users/wjdtj/AndroidStudioProjects/AndroidLab/voca/src/main/res/layout/fragment_spell_check.xml" value="0.1" />
@@ -111,6 +112,7 @@
         <entry key="..\:/Users/wjdtj/AndroidStudioProjects/AndroidLab/voca/src/main/res/layout/item_spellcheck_viewpager.xml" value="0.1671195652173913" />
         <entry key="..\:/Users/wjdtj/AndroidStudioProjects/AndroidLab/voca/src/main/res/layout/item_viewpager.xml" value="0.1" />
         <entry key="..\:/Users/wjdtj/AndroidStudioProjects/AndroidLab/voca/src/main/res/layout/layout_dialog.xml" value="0.1" />
+        <entry key="..\:/Users/wjdtj/AndroidStudioProjects/AndroidLab/voca/src/main/res/layout/layout_dialog_voca_list.xml" value="0.1" />
         <entry key="..\:/Users/wjdtj/AndroidStudioProjects/AndroidLab/voca/src/main/res/layout/navigation_header.xml" value="0.17916666666666667" />
         <entry key="..\:/Users/wjdtj/AndroidStudioProjects/AndroidLab/voca/src/main/res/layout/spell_view_pager.xml" value="0.1" />
         <entry key="..\:/Users/wjdtj/AndroidStudioProjects/AndroidLab/voca/src/main/res/layout/tablist_item.xml" value="0.1" />
@@ -138,7 +140,6 @@
         <entry key="voca/src/main/res/layout/activity_voca_search.xml" value="0.234375" />
         <entry key="voca/src/main/res/layout/item_memorize_viewpager.xml" value="0.346875" />
         <entry key="voca/src/main/res/layout/item_multichoice_viewpager.xml" value="0.346875" />
-        <entry key="voca/src/main/res/layout/item_spellcheck_viewpager.xml" value="0.19427083333333334" />
         <entry key="voca/src/main/res/layout/layout_dialog.xml" value="0.346875" />
         <entry key="voca/src/main/res/layout/layout_dialog_voca_list.xml" value="0.346875" />
         <entry key="voca/src/main/res/layout/tablist_item.xml" value="0.346875" />

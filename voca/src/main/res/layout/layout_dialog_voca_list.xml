@@ -16,7 +16,9 @@
         android:id="@+id/edit_kor"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="뜻" />
+        android:hint="뜻"
+        android:privateImeOptions="defaultInputmode=korean"
+        />
 
 
 </LinearLayout>

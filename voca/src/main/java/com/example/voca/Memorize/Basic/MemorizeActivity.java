@@ -1,7 +1,10 @@
 package com.example.voca.Memorize.Basic;
 
+<<<<<<< HEAD
 import android.app.Activity;
 import android.content.Context;
+=======
+>>>>>>> a05d52135e222721689dc98f0344e21e4711afcf
 import android.content.Intent;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
@@ -12,8 +15,6 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.voca.R;
 import com.example.voca.realtimeDB.VocaVO;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 

@@ -1,6 +1,7 @@
 package com.example.voca.Memorize.SpellCheck;
 
 import android.util.Log;
+import android.media.MediaPlayer;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -66,7 +67,7 @@ public class SpellCheckViewHolderPage extends RecyclerView.ViewHolder {
         memoCheck.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
+                if(isChecked) {
                     vo.setMemoCheck(true);
                     // DB 내 memoCheck
                     mDatabase_count = FirebaseDatabase.getInstance()
@@ -174,10 +175,14 @@ public class SpellCheckViewHolderPage extends RecyclerView.ViewHolder {
             @Override
             public void onClick(View v) {
                 if(realAnswer.equals(editAnswerText.getText().toString())) {
+                    //MediaPlayer mp=MediaPlayer.create(checkBtn.getContext(), R.raw.o);
+                    //mp.start();
                     Toast.makeText(v.getContext(),"정답",Toast.LENGTH_SHORT).show();
                     editAnswerText.setText(null);
                 }
                 else {
+                    //MediaPlayer mp=MediaPlayer.create(checkBtn.getContext(), R.raw.x);
+                    //mp.start();
                     Toast.makeText(v.getContext(),"오답",Toast.LENGTH_SHORT).show();
                 }
             }

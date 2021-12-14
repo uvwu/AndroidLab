@@ -24,12 +24,6 @@
         app:actionLayout="@layout/action_dark_mode"/>
 
     <item
-        android:id="@+id/menu_drawer_pushAlert"
-        android:icon="@android:drawable/ic_popup_reminder"
-        android:title="푸시알림"
-        app:actionLayout="@layout/action_push_alert"/>
-
-    <item
         android:id="@+id/menu_drawer_logout"
         android:icon="@drawable/ic_baseline_no_accounts_24"
         android:title="로그아웃" />

@@ -12,13 +12,14 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="80dp">
+
             <CheckBox
-                android:buttonTint="#FF6E6E"
                 android:id="@+id/memo_check_spell2"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentLeft="true"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentBottom="true"
+                android:buttonTint="#FF6E6E" />
             <TextView
                 android:id="@+id/count_spell2"
                 android:layout_centerHorizontal="true"
@@ -27,14 +28,15 @@
                 android:layout_height="wrap_content"
                 android:text="1/20"
                 android:textSize="20dp"/>
+
             <CheckBox
-                android:buttonTint="#FFE650"
                 android:id="@+id/star_btn_spell2"
-                android:button="@drawable/imgbtn_states"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentBottom="true"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:button="@drawable/imgbtn_states"
+                android:buttonTint="#FFE650" />
         </RelativeLayout>
 
         <LinearLayout

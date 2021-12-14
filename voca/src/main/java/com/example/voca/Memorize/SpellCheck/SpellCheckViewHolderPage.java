@@ -1,5 +1,6 @@
 package com.example.voca.Memorize.SpellCheck;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -22,6 +23,7 @@ import java.util.Date;
 import java.util.Locale;
 
 public class SpellCheckViewHolderPage extends RecyclerView.ViewHolder {
+    public static final String TAG = "SpellCheckViewHolderPage";
 
     private final TextView vocaKor;
     private CheckBox memoCheck;
@@ -60,7 +62,7 @@ public class SpellCheckViewHolderPage extends RecyclerView.ViewHolder {
         this.vo=vo;
 
         //암기버튼 이벤트 처리리
-       memoCheck.setChecked(vo.getMemoCheck());// memoCheck 값의 여부에 따라 화면에 체크 유무 보여줌
+        memoCheck.setChecked(vo.getMemoCheck());// memoCheck 값의 여부에 따라 화면에 체크 유무 보여줌
         memoCheck.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -70,11 +72,11 @@ public class SpellCheckViewHolderPage extends RecyclerView.ViewHolder {
                     mDatabase_count = FirebaseDatabase.getInstance()
                             .getReference("users")
                             .child(uid)
-                            .child("userVoca")
-                            .child(title)
+                            .child("userVoca").child(title)
                             .child(vo.getVocaEng())
                             .child("memoCheck");
                     mDatabase_count.setValue("true");
+                    Log.d(TAG, "setMemocheck: " +mDatabase_count);
 
                     mCount++;
                     // DB 내 count(목표달성률)
@@ -85,7 +87,7 @@ public class SpellCheckViewHolderPage extends RecyclerView.ViewHolder {
                             .child(today)
                             .child("count");
                     mDatabase_count.setValue(mCount);
-
+                    Log.d(TAG, "setMemocheck: " +mDatabase_count);
                 }
                 else {
                     vo.setMemoCheck(false);
@@ -93,11 +95,12 @@ public class SpellCheckViewHolderPage extends RecyclerView.ViewHolder {
                     mDatabase_count = FirebaseDatabase.getInstance()
                             .getReference("users")
                             .child(uid)
-                            .child("userVoca")
-                            .child(title)
+                            .child("userVoca").child(title)
                             .child(vo.getVocaEng())
                             .child("memoCheck");
                     mDatabase_count.setValue("false");
+
+                    Log.d(TAG, "setMemocheck: " +mDatabase_count);
 
                     if(mCount > 0) {mCount--;}
                     // DB 내 count(목표달성률)
@@ -108,6 +111,7 @@ public class SpellCheckViewHolderPage extends RecyclerView.ViewHolder {
                             .child(today)
                             .child("count");
                     mDatabase_count.setValue(mCount);
+                    Log.d(TAG, "setMemocheck: " +mDatabase_count);
                 }
             }
         });
@@ -122,11 +126,11 @@ public class SpellCheckViewHolderPage extends RecyclerView.ViewHolder {
                     mDatabase_star = FirebaseDatabase.getInstance()
                             .getReference("users")
                             .child(uid)
-                            .child("userVoca")
-                            .child(title)
+                            .child("userVoca").child(title)
                             .child(vo.getVocaEng())
                             .child("starCheck");
                     mDatabase_star.setValue("true");
+                    Log.d(TAG, "setMemocheck: " +mDatabase_count);
 
                     // 해당 단어 즐겨찾기 목록에 추가
                     mDatabase_star = FirebaseDatabase.getInstance()
@@ -135,17 +139,18 @@ public class SpellCheckViewHolderPage extends RecyclerView.ViewHolder {
                             .child("userVoca")
                             .child("star");
                     mDatabase_star.updateChildren(vo.toMap());
+                    Log.d(TAG, "setMemocheck: " +mDatabase_count);
                 } else {
                     vo.setStarCheck(false);
                     // DB 내 starCheck
                     mDatabase_star = FirebaseDatabase.getInstance()
                             .getReference("users")
                             .child(uid)
-                            .child("userVoca")
-                            .child(title)
+                            .child("userVoca").child(title)
                             .child(vo.getVocaEng())
                             .child("starCheck");
                     mDatabase_star.setValue("false");
+                    Log.d(TAG, "setMemocheck: " +mDatabase_count);
 
                     // 해당 단어 즐겨찾기 목록에서 제거
                     mDatabase_star = FirebaseDatabase.getInstance()
@@ -155,6 +160,7 @@ public class SpellCheckViewHolderPage extends RecyclerView.ViewHolder {
                             .child("star")
                             .child(vo.getVocaEng());
                     mDatabase_star.setValue(null);
+                    Log.d(TAG, "setMemocheck: " +mDatabase_count);
                 }
             }
         });

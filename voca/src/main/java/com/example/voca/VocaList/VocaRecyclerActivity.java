@@ -138,12 +138,7 @@ public class VocaRecyclerActivity extends AppCompatActivity implements VocaDialo
 
                     clickButton(vocaData); // 학습버튼 관련 setOnClickListener 모음 -> 리스너가 값을 받아올 때마다 인텐트로 보내는 vocaData가 실시간으로 달라지므로 리스너 내에 존재해야함
 
-//                    // 현재 화면 새로고침
-//                    finish();//인텐트 종료
-//                    overridePendingTransition(0, 0);//인텐트 효과 없애기
-//                    Intent intent = getIntent(); //인텐트
-//                    startActivity(intent); //액티비티 열기
-//                    overridePendingTransition(0, 0);//인텐트 효과 없애기
+
                 }
 
             }
@@ -152,6 +147,7 @@ public class VocaRecyclerActivity extends AppCompatActivity implements VocaDialo
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
+
         });
 
         memorizeBtn=findViewById(R.id.btn_memorize); //암기화면 이동 버튼
@@ -291,16 +287,14 @@ public class VocaRecyclerActivity extends AppCompatActivity implements VocaDialo
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
+    public void onRestart() {
+        super.onRestart();
 
-        finish();//인텐트 종료
-        overridePendingTransition(0, 0);//인텐트 효과 없애기
-        Intent intent = getIntent(); //인텐트
-        startActivity(intent); //액티비티 열기
-        overridePendingTransition(0, 0);//인텐트 효과 없애기
+        // 화면 갱신
+        Intent intent = getIntent();
+        finish();
+        startActivity(intent);
     }
-
 }
 
 

@@ -1,5 +1,6 @@
 package com.example.voca.Memorize.Basic;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -26,6 +27,8 @@ import java.util.Locale;
 public class MemorizeActivity extends AppCompatActivity {
     ViewPager2 viewPager2;
     TextToSpeech tts;
+
+    Context context;
 
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference mDatabase_count; // 데이터베이스의 주소 저장
@@ -54,16 +57,9 @@ public class MemorizeActivity extends AppCompatActivity {
 //        mDatabase_count = firebaseDatabase.getReference("users")
 //                                .child(uid)
 //                                .child("goals")
-//                                .child(today)
-//                                .child("count"); // 저장시킬 노드 참조객체 가져오기 -> DB/users/uid/goals/today/count
-//        mDatabase_voca = firebaseDatabase.getReference("users")
-//                                .child(uid)
-//                                .child("userVoca")
-//                                .child(title); // 저장시킬 노드 참조객체 가져오기 -> DB/users/uid/userVoca/title
-//        mDatabase_voca = firebaseDatabase.getReference("users")
-//                                .child(uid)
-//                                .child("userVoca")
-//                                .child("star"); // 저장시킬 노드 참조객체 가져오기 -> DB/users/uid/userVoca/star
+//                                .child(today);
+//
+//
 
         tts=new TextToSpeech(this, new TextToSpeech.OnInitListener() {
             @Override
@@ -112,4 +108,7 @@ public class MemorizeActivity extends AppCompatActivity {
 
         return today;
     }
+
+
+
 }

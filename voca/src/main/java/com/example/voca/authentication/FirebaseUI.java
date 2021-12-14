@@ -120,7 +120,6 @@ public class FirebaseUI extends AppCompatActivity implements View.OnClickListene
         // 인증을 제공해주는 리스트들
         List<AuthUI.IdpConfig> providers = Arrays.asList(
                 new AuthUI.IdpConfig.GoogleBuilder().build(),
-                new AuthUI.IdpConfig.FacebookBuilder().build(),
                 new AuthUI.IdpConfig.EmailBuilder().build());
 
         // 로그인 인텐트 작성 및 실행
@@ -128,7 +127,7 @@ public class FirebaseUI extends AppCompatActivity implements View.OnClickListene
                 .createSignInIntentBuilder()
                 .setTheme(R.style.theme_firebaseUI) // 로그인 테마 설정
                 // TODO: 앱 아이콘 모양으로 로고 다시 설정
-                .setLogo(R.mipmap.ic_launcher) // 로그인 시 맨 위에 나타나는 로고 설정 (임시로 설정)
+                .setLogo(R.mipmap.ic_appicon) // 로그인 시 맨 위에 나타나는 로고 설정 (임시로 설정)
                 .setAvailableProviders(providers) // provider(인증을 제공해주는 리스트들) 설정
                 // TODO: 서비스 약관(tosUrl) 및 개인정보처리방침(privacyPolicyUrl) 사이트 설정 -> 정현
                 .setTosAndPrivacyPolicyUrls("https://naver.com", "https://google.com") // 개인정보처리방침 및 서비스 약관 설정

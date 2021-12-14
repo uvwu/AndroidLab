@@ -175,14 +175,14 @@ public class SpellCheckViewHolderPage extends RecyclerView.ViewHolder {
             @Override
             public void onClick(View v) {
                 if(realAnswer.equals(editAnswerText.getText().toString())) {
-                    //MediaPlayer mp=MediaPlayer.create(checkBtn.getContext(), R.raw.o);
-                    //mp.start();
+                    MediaPlayer mp=MediaPlayer.create(checkBtn.getContext(), R.raw.o);
+                    mp.start();
                     Toast.makeText(v.getContext(),"정답",Toast.LENGTH_SHORT).show();
                     editAnswerText.setText(null);
                 }
                 else {
-                    //MediaPlayer mp=MediaPlayer.create(checkBtn.getContext(), R.raw.x);
-                    //mp.start();
+                    MediaPlayer mp=MediaPlayer.create(checkBtn.getContext(), R.raw.x);
+                    mp.start();
                     Toast.makeText(v.getContext(),"오답",Toast.LENGTH_SHORT).show();
                 }
             }

@@ -1,11 +1,7 @@
 package com.example.voca.Memorize.Basic;
 
-<<<<<<< HEAD
-import android.app.Activity;
-import android.content.Context;
-=======
->>>>>>> a05d52135e222721689dc98f0344e21e4711afcf
-import android.content.Intent;
+
+import android.content.Context;import android.content.Intent;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.util.Log;

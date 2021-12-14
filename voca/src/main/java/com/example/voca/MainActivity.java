@@ -29,7 +29,6 @@ import com.example.voca.drawerActivity.DarkModeActivity;
 import com.example.voca.drawerActivity.EditAccountActivity;
 import com.example.voca.drawerActivity.GoalSettingActivity;
 import com.example.voca.drawerActivity.NoticeActivity;
-import com.example.voca.drawerActivity.PushAlertActivity;
 import com.example.voca.realtimeDB.GoalData;
 import com.firebase.ui.auth.IdpResponse;
 import com.github.mikephil.charting.charts.BarChart;
@@ -315,10 +314,6 @@ public class MainActivity extends AppCompatActivity {
                         Intent intent4=new Intent(MainActivity.this, DarkModeActivity.class);
                         startActivity(intent4);
                         break;
-                    case R.id.menu_drawer_pushAlert:
-                        Intent intent5=new Intent(MainActivity.this, PushAlertActivity.class);
-                        startActivity(intent5);
-                        break;
                     case R.id.menu_drawer_logout:
                         AlertDialog.Builder builder=new AlertDialog.Builder(MainActivity.this);
                         builder.setIcon(android.R.drawable.ic_dialog_alert);
@@ -356,7 +351,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         //푸쉬알림 이벤트처리
-        pushAlertSwitch=(SwitchCompat) navigationView.getMenu().findItem(R.id.menu_drawer_pushAlert).getActionView().findViewById(R.id.switch_push_alert);
+        /*pushAlertSwitch=(SwitchCompat) navigationView.getMenu().findItem(R.id.menu_drawer_pushAlert).getActionView().findViewById(R.id.switch_push_alert);
         pushAlertSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -364,7 +359,7 @@ public class MainActivity extends AppCompatActivity {
                     showToast("푸쉬알림 off");
                 else showToast("푸쉬알림 on");
             }
-        });
+        });*/
     }
 
 

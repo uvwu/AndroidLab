@@ -1,5 +1,6 @@
 package com.example.voca.Memorize.MultiChoice;
 
+import android.media.MediaPlayer;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -17,6 +18,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
 import java.util.Locale;
 
@@ -44,12 +48,13 @@ public class MultiChoiceViewHolderPage extends RecyclerView.ViewHolder implement
     private DatabaseReference mDatabase_star;
 
 
+    ArrayList<String> multiChoiceRandom=new ArrayList<>();
     private String realAnswer;//정답인 한글 뜻
 
     VocaVO vo;
 
 
-    public MultiChoiceViewHolderPage(View v, int mCount, String title) {
+    public MultiChoiceViewHolderPage(View v, int mCount, String title, ArrayList<String> multiChoiceRandom) {
         super(v);
         vocaEng=v.findViewById(R.id.voca_multi);
         memoCheck=v.findViewById(R.id.memo_check_multi);
@@ -63,6 +68,7 @@ public class MultiChoiceViewHolderPage extends RecyclerView.ViewHolder implement
 
         this.mCount = mCount;
         this.title = title;
+        this.multiChoiceRandom=multiChoiceRandom;
     }
     public void onBind(VocaVO vo,int totalNum,int dataSize) {
         this.vo = vo;
@@ -173,18 +179,34 @@ public class MultiChoiceViewHolderPage extends RecyclerView.ViewHolder implement
 
         //객관식 버튼(1~4) 값 넣는곳
         // TODO: MutiChoiceAdapter 내에 있는 multiChoiceRandom 의 값 중 랜덤하게 뽑아 넣으면 될듯
+        Collections.shuffle(Arrays.asList(multiChoiceRandom));
+
+        ArrayList<String> multi4Random=new ArrayList<>();//객관식 4개
+        int ran1=multiChoiceRandom.size()% (int) ((Math.random()*200));
+        multi4Random.add(vo.getVocaKor());
+        multi4Random.add(multiChoiceRandom.get(ran1));
+        multi4Random.add(multiChoiceRandom.get(( ran1+3)%multiChoiceRandom.size()     ));
+        multi4Random.add(multiChoiceRandom.get( (ran1+5) % multiChoiceRandom.size()  ));
+
+        String temp;
+        int ran2=(int)(Math.random()*4);
+        temp=multi4Random.get(ran2);
+        multi4Random.set(0,temp);
+        multi4Random.set(ran2,vo.getVocaKor());
+
+
         realAnswer=vo.getVocaKor();//정답인 한글 뜻
 
-        chioceBtn1.setText("1");
+        chioceBtn1.setText(multi4Random.get(0));
         chioceBtn1.setOnClickListener(this);
 
-        chioceBtn2.setText("2");
+        chioceBtn2.setText(multi4Random.get(1));
         chioceBtn2.setOnClickListener(this);
 
-        chioceBtn3.setText("3");
+        chioceBtn3.setText(multi4Random.get(2));
         chioceBtn3.setOnClickListener(this);
 
-        chioceBtn4.setText(realAnswer);
+        chioceBtn4.setText(multi4Random.get(3));
         chioceBtn4.setOnClickListener(this);
 
     }
@@ -193,9 +215,15 @@ public class MultiChoiceViewHolderPage extends RecyclerView.ViewHolder implement
     public void onClick(View v) {
         Button btn=(Button) v;
         if(btn.getText().toString().equals(realAnswer)){
+            MediaPlayer mp=MediaPlayer.create(btn.getContext(), R.raw.o);
+            mp.start();
             Toast.makeText(v.getContext(),"정답",Toast.LENGTH_SHORT).show();
         }
-        else Toast.makeText(v.getContext(),"오답",Toast.LENGTH_SHORT).show();
+        else{
+            MediaPlayer mp=MediaPlayer.create(btn.getContext(), R.raw.x);
+            mp.start();
+            Toast.makeText(v.getContext(),"오답",Toast.LENGTH_SHORT).show();
+        }
     }
 
     // 오늘 날짜 계산

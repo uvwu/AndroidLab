@@ -21,6 +21,8 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
 import java.util.Locale;
 
@@ -36,13 +38,14 @@ public class MultiChioceAdapter extends RecyclerView.Adapter<MultiChoiceViewHold
     String title;
 
     private ArrayList<VocaVO> listVoca;
+    ArrayList<String> multiChoiceRandom=new ArrayList<>();
     TextToSpeech tts;
 
-    MultiChioceAdapter(ArrayList<VocaVO> data, TextToSpeech tts, String title){
+    MultiChioceAdapter(ArrayList<VocaVO> data, TextToSpeech tts, String title,ArrayList<String> multiChoiceRandom){
         this.listVoca=data;
         this.tts=tts;
-
         this.title =title;
+        this.multiChoiceRandom=multiChoiceRandom;
     }
 
     @NonNull
@@ -51,7 +54,8 @@ public class MultiChioceAdapter extends RecyclerView.Adapter<MultiChoiceViewHold
         Context context=parent.getContext();
         View view= LayoutInflater.from(context).inflate(R.layout.item_multichoice_viewpager,parent,false);
         getCount();
-        return new MultiChoiceViewHolderPage(view, count, title);
+        Collections.shuffle(Arrays.asList(multiChoiceRandom));
+        return new MultiChoiceViewHolderPage(view, count, title,multiChoiceRandom);
     }
 
     @Override

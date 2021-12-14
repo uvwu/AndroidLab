@@ -151,7 +151,8 @@ public class MainActivity extends AppCompatActivity {
 
                 if (!isExist) {
                     int goal = 20;
-                    String yesterday = String.valueOf(Integer.parseInt(dataSnapshot.getKey()) - 1);
+//                    String yesterday = String.valueOf(Integer.parseInt(dataSnapshot.getChildren().getKey()) - 1);
+                    String yesterday = "20211213";
                     Log.d(TAG, "yesterday: " + yesterday);
 
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
